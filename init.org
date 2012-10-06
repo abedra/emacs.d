@@ -26,56 +26,103 @@
 #+end_src
 *** Define default packages
 #+begin_src emacs-lisp
-  (defvar ab/packages '(clojure-mode
-                        coffee-mode
-                        deft
-                        go-mode
-                        gist
-                        haml-mode
-                        htmlize
-                        magit
-                        markdown-mode
-                        marmalade
-                        org
-                        paredit
-                        smex
-                        yaml-mode)
+  (defvar abedra/packages '(clojure-mode
+                            coffee-mode
+                            deft
+                            go-mode
+                            gist
+                            haml-mode
+                            htmlize
+                            magit
+                            markdown-mode
+                            marmalade
+                            org
+                            paredit
+                            smex
+                            yaml-mode
+                            ac-slime
+                            auto-complete
+                            autopair)
     "Default packages")
 #+end_src
 *** Install default packages
 #+begin_src emacs-lisp
-  (defun ab/packages-installed-p ()
-    (loop for pkg in ab/packages
+  (defun abedra/packages-installed-p ()
+    (loop for pkg in abedra/packages
           when (not (package-installed-p pkg)) do (return nil)
           finally (return t)))
 
-  (unless (ab/packages-installed-p)
+  (unless (abedra/packages-installed-p)
     (message "%s" "Refreshing package database...")
     (package-refresh-contents)
-    (dolist (pkg ab/packages)
+    (dolist (pkg abedra/packages)
       (when (not (package-installed-p pkg))
         (package-install pkg))))
 #+end_src
 ** Set startup options
 #+begin_src emacs-lisp
   (setq inhibit-splash-screen t
+        initial-scratch-message nil
         echo-keystrokes 0.1
         use-dialog-box nil
-        visible-bell t)
-
+        visible-bell t
+        tab-width 2
+        indent-tabs-mode nil
+        x-select-enable-clipboard t
+        make-backup-files nil)
+  
+  (when (locate-library "clojure-mode")
+    (setq initial-major-mode 'clojure-mode))
+  
   (setq-default indicate-empty-lines t)
   (transient-mark-mode t)
   (delete-selection-mode t)
   (show-paren-mode t)
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (delete-selection-mode t)
+  
   (defalias 'yes-or-no-p 'y-or-n-p)
-
+  
   (when (not indicate-empty-lines)
     (toggle-indicate-empty-lines))
-
+  
   (when window-system
     (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+  
+#+end_src
+** org-mode
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (setq org-log-done t)
+  (setq org-todo-keywords
+        '((sequence "TODO" "INPROGRESS" "DONE")))
+  (setq org-todo-keyword-faces
+        '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+  (setq org-agenda-files (list "~/Dropbox/org/groupon.org"))
+#+end_src
+** org-babel
+#+begin_src emacs-lisp
+  (require 'ob)
+  
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((sh . t)))
+  
+  (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
+  
+  (defvar org-babel-default-header-args:clojure
+    '((:results . "silent") (:tangle . "yes")))
+  
+  (defun org-babel-execute:clojure (body params)
+    (lisp-eval-string body)
+    "Done!")
+  
+  (provide 'ob-clojure)
+  
+  (setq org-src-fontify-natively t)
+  (setq org-confirm-babel-evaluate nil)
 #+end_src
 ** Dropbox options
 #+begin_src emacs-lisp
@@ -116,7 +163,7 @@
                      common-lisp-mode
                      scheme-mode
                      clojure-mode))
-
+  
   (defvar lisp-power-map (make-keymap))
   (define-minor-mode lisp-power-mode "Fix keybindings; add power."
     :lighter " (power)"
@@ -124,13 +171,16 @@
     (paredit-mode t))
   (define-key lisp-power-map [delete] 'paredit-forward-delete)
   (define-key lisp-power-map [backspace] 'paredit-backward-delete)
-
-  (defun ab/engage-lisp-power ()
+  
+  (defun abedra/engage-lisp-power ()
     (lisp-power-mode t))
-
+  
   (dolist (mode lisp-modes)
     (add-hook (intern (format "%s-hook" mode))
-              #'ab/engage-lisp-power))
+              #'abedra/engage-lisp-power))
+  
+  (setq inferior-lisp-program "clisp")
+  (setq scheme-program-name "racket")
 #+end_src
 ** Ruby mode
 #+begin_src emacs-lisp
@@ -154,4 +204,69 @@
   (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "M-x") 'smex)
   (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  (global-set-key (kbd "C-+") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
 #+end_src
+** auto-complete
+#+begin_src emacs-lisp
+  (require 'auto-complete-config)
+  (ac-config-default)
+#+end_src
+** Indentation and buffer cleanup
+#+begin_src emacs-lisp
+  (defun untabify-buffer ()
+    (interactive)
+    (untabify (point-min) (point-max)))
+  
+  (defun indent-buffer ()
+    (interactive)
+    (indent-region (point-min) (point-max)))
+  
+  (defun cleanup-buffer ()
+    "Perform a bunch of operations on the whitespace content of a buffer."
+    (interactive)
+    (indent-buffer)
+    (untabify-buffer)
+    (delete-trailing-whitespace))
+  
+  (defun cleanup-region (beg end)
+    "Remove tmux artifacts from region."
+    (interactive "r")
+    (dolist (re '("\\\\│\·*\n" "\W*│\·*"))
+      (replace-regexp re "" nil beg end)))
+  
+  (global-set-key (kbd "C-x M-t") 'cleanup-region)
+  (global-set-key (kbd "C-c n") 'cleanup-buffer)
+#+end_src
+** CoffeeScript Mode
+#+begin_src emacs-lisp
+  (defun coffee-custom ()
+    "coffee-mode-hook"
+    (make-local-variable 'tab-width)
+    (set 'tab-width 2))
+  
+  (add-hook 'coffee-mode-hook 'coffee-custom)
+#+end_src
+** Vendor directory
+#+begin_src emacs-lisp
+  (defvar abedra/vendor-dir (expand-file-name "vendor" user-emacs-directory))
+  (add-to-list 'load-path abedra/vendor-dir)
+  
+  (dolist (project (directory-files abedra/vendor-dir t "\\w+"))
+    (when (file-directory-p project)
+      (add-to-list 'load-path project)))
+#+end_src
+** Markdown mode
+#+begin_src emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
+  (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
+  (setq markdown-command "pandoc --smart -f markdown -t html")
+  (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+#+end_src
+** autopair-mode
+#+begin_src emacs-lisp
+  (require 'autopair)
+#+end_src
+
+
