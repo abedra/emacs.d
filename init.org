@@ -9,6 +9,12 @@
   (setq user-full-name "Aaron Bedra")
   (setq user-mail-address "aaron@aaronbedra.com")
 #+end_src
+** Path
+#+begin_src emacs-lisp
+  (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+  (setenv "JAVA_HOME" "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home")
+  (setenv "CLOJURESCRIPT_HOME" "/Users/abedra/src/opensource/clojure/clojurescript")
+#+end_src
 ** Require a common lisp mode
 #+begin_src emacs-lisp
   (require 'cl)
@@ -42,7 +48,9 @@
                             yaml-mode
                             ac-slime
                             auto-complete
-                            autopair)
+                            autopair
+                            haskell-mode
+                            rvm)
     "Default packages")
 #+end_src
 *** Install default packages
@@ -268,5 +276,7 @@
 #+begin_src emacs-lisp
   (require 'autopair)
 #+end_src
-
-
+** rvm
+#+begin_src emacs-lisp
+  (rvm-use-default)
+#+end_src
