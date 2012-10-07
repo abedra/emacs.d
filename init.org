@@ -25,6 +25,71 @@
      (setenv "JAVA_HOME" "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home")
      (setenv "CLOJURESCRIPT_HOME" "/Users/abedra/src/opensource/clojure/clojurescript")
    #+end_src
+** Common Lisp
+    Emacs lisp is really only a subset of common lisp, and I need to
+    have some of the additional functionality to make this
+    configuration and its dependencies work properly.
+    #+begin_src emacs-lisp
+      (require 'cl)
+    #+end_src
+** Package Management
+   Since Emacs 24, the emacs lisp package archive (elpa) is included
+   by default. This provides a nice way to install the additions
+   needed to make things work properly. Since the default package
+   archive doesn't include everything I need, the marmalade, and melpa
+   repositories are also added.
+   #+begin_src emacs-lisp
+     (load "package")
+     (package-initialize)
+     (add-to-list 'package-archives
+                  '("marmalade" . "http://marmalade-repo.org/packages/"))
+     (add-to-list 'package-archives
+                  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+     (setq package-archive-enable-alist '(("melpa" deft magit)))
+   #+end_src
+*** Define default packages
+    This is the list of packages used in this configuration.
+    #+begin_src emacs-lisp
+      (defvar abedra/packages '(ac-slime
+                                auto-complete
+                                autopair
+                                clojure-mode
+                                coffee-mode
+                                deft
+                                gist
+                                go-mode
+                                haml-mode
+                                haskell-mode
+                                htmlize
+                                magit
+                                markdown-mode
+                                marmalade
+                                org
+                                paredit
+                                rvm
+                                smex
+                                yaml-mode)
+        "Default packages")
+
+    #+end_src
+*** Install default packages
+    When Emacs boots, check to make sure all of the packages defined
+    in =abedra/packages= are installed. If not, have elpa take care of
+    it.
+    #+begin_src emacs-lisp
+      (defun abedra/packages-installed-p ()
+        (loop for pkg in abedra/packages
+              when (not (package-installed-p pkg)) do (return nil)
+              finally (return t)))
+
+      (unless (abedra/packages-installed-p)
+        (message "%s" "Refreshing package database...")
+        (package-refresh-contents)
+        (dolist (pkg abedra/packages)
+          (when (not (package-installed-p pkg))
+            (package-install pkg))))
+    #+end_src
 ** Startup options
 *** Splash Screen
     I want to skip straight to the scratch buffer. This turns off the
@@ -107,71 +172,6 @@
             use-dialog-box nil
             visible-bell t)
       (show-paren-mode t)
-    #+end_src
-*** Common Lisp
-    Emacs lisp is really only a subset of common lisp, and I need to
-    have some of the additional functionality to make this
-    configuration and its dependencies work properly.
-    #+begin_src emacs-lisp
-      (require 'cl)
-    #+end_src
-** Package Management
-   Since Emacs 24, the emacs lisp package archive (elpa) is included
-   by default. This provides a nice way to install the additions
-   needed to make things work properly. Since the default package
-   archive doesn't include everything I need, the marmalade, and melpa
-   repositories are also added.
-   #+begin_src emacs-lisp
-     (load "package")
-     (package-initialize)
-     (add-to-list 'package-archives
-                  '("marmalade" . "http://marmalade-repo.org/packages/"))
-     (add-to-list 'package-archives
-                  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-     (setq package-archive-enable-alist '(("melpa" deft magit)))
-   #+end_src
-*** Define default packages
-    This is the list of packages used in this configuration.
-    #+begin_src emacs-lisp
-      (defvar abedra/packages '(ac-slime
-                                auto-complete
-                                autopair
-                                clojure-mode
-                                coffee-mode
-                                deft
-                                gist
-                                go-mode
-                                haml-mode
-                                haskell-mode
-                                htmlize
-                                magit
-                                markdown-mode
-                                marmalade
-                                org
-                                paredit
-                                rvm
-                                smex
-                                yaml-mode)
-        "Default packages")
-
-    #+end_src
-*** Install default packages
-    When Emacs boots, check to make sure all of the packages defined
-    in =abedra/packages= are installed. If not, have elpa take care of
-    it.
-    #+begin_src emacs-lisp
-      (defun abedra/packages-installed-p ()
-        (loop for pkg in abedra/packages
-              when (not (package-installed-p pkg)) do (return nil)
-              finally (return t)))
-
-      (unless (abedra/packages-installed-p)
-        (message "%s" "Refreshing package database...")
-        (package-refresh-contents)
-        (dolist (pkg abedra/packages)
-          (when (not (package-installed-p pkg))
-            (package-install pkg))))
     #+end_src
 ** Org mode
    #+begin_src emacs-lisp
