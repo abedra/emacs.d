@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-10-07 01:58:40 CDT"/>
+<meta name="generated" content="2012-10-07 14:27:59 CDT"/>
 <meta name="author" content="Aaron Bedra"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -100,36 +100,50 @@
 <ul>
 <li><a href="#sec-1">Configuration</a>
 <ul>
-<li><a href="#sec-1-1">Whoami</a></li>
+<li><a href="#sec-1-1">User details</a></li>
 <li><a href="#sec-1-2">Path</a></li>
-<li><a href="#sec-1-3">Require a common lisp mode</a></li>
-<li><a href="#sec-1-4">Load package management and set package archives</a>
+<li><a href="#sec-1-3">Startup options</a>
+<ul>
+<li><a href="#sec-1-3-1">Splash Screen</a></li>
+<li><a href="#sec-1-3-2">Scroll bar, Tool bar, Menu bar</a></li>
+<li><a href="#sec-1-3-3">Marking text</a></li>
+<li><a href="#sec-1-3-4">Display Settings</a></li>
+<li><a href="#sec-1-3-5">Indentation</a></li>
+<li><a href="#sec-1-3-6">Backup files</a></li>
+<li><a href="#sec-1-3-7">Yes and No</a></li>
+<li><a href="#sec-1-3-8">Misc</a></li>
+<li><a href="#sec-1-3-9">Common Lisp</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">Package Management</a>
 <ul>
 <li><a href="#sec-1-4-1">Define default packages</a></li>
 <li><a href="#sec-1-4-2">Install default packages</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-5">Set startup options</a></li>
-<li><a href="#sec-1-6">org-mode</a></li>
-<li><a href="#sec-1-7">org-babel</a></li>
-<li><a href="#sec-1-8">Dropbox options</a></li>
-<li><a href="#sec-1-9">Smex</a></li>
-<li><a href="#sec-1-10">Ido</a></li>
-<li><a href="#sec-1-11">Ack</a></li>
-<li><a href="#sec-1-12">Column number mode</a></li>
-<li><a href="#sec-1-13">Temporary file management</a></li>
-<li><a href="#sec-1-14">Power lisp</a></li>
-<li><a href="#sec-1-15">Ruby mode</a></li>
-<li><a href="#sec-1-16">Yaml mode</a></li>
-<li><a href="#sec-1-17">Key bindings</a></li>
-<li><a href="#sec-1-18">auto-complete</a></li>
-<li><a href="#sec-1-19">Indentation and buffer cleanup</a></li>
-<li><a href="#sec-1-20">CoffeeScript Mode</a></li>
-<li><a href="#sec-1-21">Vendor directory</a></li>
-<li><a href="#sec-1-22">Markdown mode</a></li>
-<li><a href="#sec-1-23">autopair-mode</a></li>
-<li><a href="#sec-1-24">rvm</a></li>
-<li><a href="#sec-1-25">flyspell</a></li>
+<li><a href="#sec-1-5">Org mode</a>
+<ul>
+<li><a href="#sec-1-5-1">org-babel</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-6">deft</a></li>
+<li><a href="#sec-1-7">Smex</a></li>
+<li><a href="#sec-1-8">Ido</a></li>
+<li><a href="#sec-1-9">Ack</a></li>
+<li><a href="#sec-1-10">Column number mode</a></li>
+<li><a href="#sec-1-11">Temporary file management</a></li>
+<li><a href="#sec-1-12">Power lisp</a></li>
+<li><a href="#sec-1-13">Ruby mode</a></li>
+<li><a href="#sec-1-14">Yaml mode</a></li>
+<li><a href="#sec-1-15">Key bindings</a></li>
+<li><a href="#sec-1-16">auto-complete</a></li>
+<li><a href="#sec-1-17">Indentation and buffer cleanup</a></li>
+<li><a href="#sec-1-18">CoffeeScript Mode</a></li>
+<li><a href="#sec-1-19">Vendor directory</a></li>
+<li><a href="#sec-1-20">Markdown mode</a></li>
+<li><a href="#sec-1-21">autopair-mode</a></li>
+<li><a href="#sec-1-22">rvm</a></li>
+<li><a href="#sec-1-23">flyspell</a></li>
 </ul>
 </li>
 </ul>
@@ -148,7 +162,7 @@
 </div>
 
 <div id="outline-container-1-1" class="outline-3">
-<h3 id="sec-1-1">Whoami</h3>
+<h3 id="sec-1-1">User details</h3>
 <div class="outline-text-3" id="text-1-1">
 
 <p>   Emacs will normally pick this up automatically, but this way I can
@@ -185,12 +199,181 @@
 </div>
 
 <div id="outline-container-1-3" class="outline-3">
-<h3 id="sec-1-3">Require a common lisp mode</h3>
+<h3 id="sec-1-3">Startup options</h3>
 <div class="outline-text-3" id="text-1-3">
 
-<p>   Emacs lisp is really only a subset of common lisp, and I need to
-   have some of the additional functionality to make this
-   configuration and its dependencies work properly.
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Splash Screen</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+<p>    I want to skip straight to the scratch buffer. This turns off the
+    splash screen and puts me straight into the scratch buffer. I
+    don't really care to have anything in there either, so turn off
+    the message while we're at it. Since I end up using <code>clojure-mode</code>
+    most of the time, set the default mode accordingly.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq inhibit-splash-screen t
+      initial-scratch-message nil)
+
+(<span style="color: #a020f0;">when</span> (locate-library <span style="color: #8b2252;">"clojure-mode"</span>)
+  (setq initial-major-mode 'clojure-mode))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Scroll bar, Tool bar, Menu bar</h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+<p>    Emacs starts up with way to many things. Turn off the scroll bar,
+    menu bar, and tool bar. There isn't really a reason to have them
+    on.
+</p>
+
+
+<pre class="src src-emacs-lisp">(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3">Marking text</h4>
+<div class="outline-text-4" id="text-1-3-3">
+
+<p>    There are some behaviors in Emacs that aren't very
+    intuitive. Since I pair with others that don't know how Emacs
+    handles highlighting, treat regions like other text editors. This
+    means typing when the mark is active will write over the marked
+    region. Also, make the common highlighting keystrokes work the way
+    most people expect them to. This saves a lot of time explaining
+    how to highlight areas of text. Emacs also has it's own clipboard
+    and doesn't respond to the system clipboard by default, so tell
+    Emacs that we're all friends and can get along.
+</p>
+
+
+<pre class="src src-emacs-lisp">(delete-selection-mode t)
+(transient-mark-mode t)
+(setq x-select-enable-clipboard t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4">Display Settings</h4>
+<div class="outline-text-4" id="text-1-3-4">
+
+<p>    I like a few slight modifications to the default display. First, a
+    minor tweak to the frame title. It's also nice to be able to see
+    when a file actually ends. This will put empty line markers into
+    the left hand side.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">when</span> window-system
+  (setq frame-title-format '(buffer-file-name <span style="color: #8b2252;">"%f"</span> (<span style="color: #8b2252;">"%b"</span>))))
+
+(setq-default indicate-empty-lines t)
+(<span style="color: #a020f0;">when</span> (not indicate-empty-lines)
+  (toggle-indicate-empty-lines))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5">Indentation</h4>
+<div class="outline-text-4" id="text-1-3-5">
+
+<p>    There's nothing I dislike more than tabs in my files. Make sure I
+    don't share that discomfort with others.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq tab-width 2
+      indent-tabs-mode nil)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6">Backup files</h4>
+<div class="outline-text-4" id="text-1-3-6">
+
+<p>    Some people like to have them. I don't. Rather than pushing them
+    to a folder, never to be used, just turn the whole thing off.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq make-backup-files nil)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-7" class="outline-4">
+<h4 id="sec-1-3-7">Yes and No</h4>
+<div class="outline-text-4" id="text-1-3-7">
+
+<p>    Nobody likes to have to type out the full yes or no when Emacs
+    asks. Which it does quite often. Make it one character.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defalias</span> '<span style="color: #0000ff;">yes-or-no-p</span> 'y-or-n-p)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-8" class="outline-4">
+<h4 id="sec-1-3-8">Misc</h4>
+<div class="outline-text-4" id="text-1-3-8">
+
+<p>    Turn down the time to echo keystrokes so I don't have to wait
+    around for things to happen. Dialog boxes are also a bit annoying,
+    so just have Emacs use the echo area for everything. Beeping is
+    for robots, and I am not a robot. Use a visual indicator instead
+    of making horrible noises. Oh, and always highlight parentheses. A
+    person could go insane without that.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell t)
+(show-paren-mode t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-9" class="outline-4">
+<h4 id="sec-1-3-9">Common Lisp</h4>
+<div class="outline-text-4" id="text-1-3-9">
+
+<p>    Emacs lisp is really only a subset of common lisp, and I need to
+    have some of the additional functionality to make this
+    configuration and its dependencies work properly.
 </p>
 
 
@@ -198,11 +381,12 @@
 </pre>
 
 </div>
+</div>
 
 </div>
 
 <div id="outline-container-1-4" class="outline-3">
-<h3 id="sec-1-4">Load package management and set package archives</h3>
+<h3 id="sec-1-4">Package Management</h3>
 <div class="outline-text-3" id="text-1-4">
 
 <p>   Since Emacs 24, the emacs lisp package archive (elpa) is included
@@ -290,51 +474,8 @@
 </div>
 
 <div id="outline-container-1-5" class="outline-3">
-<h3 id="sec-1-5">Set startup options</h3>
+<h3 id="sec-1-5">Org mode</h3>
 <div class="outline-text-3" id="text-1-5">
-
-
-
-
-<pre class="src src-emacs-lisp">(setq inhibit-splash-screen t
-      initial-scratch-message nil
-      echo-keystrokes 0.1
-      use-dialog-box nil
-      visible-bell t
-      tab-width 2
-      indent-tabs-mode nil
-      x-select-enable-clipboard t
-      make-backup-files nil)
-
-(<span style="color: #a020f0;">when</span> (locate-library <span style="color: #8b2252;">"clojure-mode"</span>)
-  (setq initial-major-mode 'clojure-mode))
-
-(setq-default indicate-empty-lines t)
-(transient-mark-mode t)
-(delete-selection-mode t)
-(show-paren-mode t)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(delete-selection-mode t)
-
-(<span style="color: #a020f0;">defalias</span> '<span style="color: #0000ff;">yes-or-no-p</span> 'y-or-n-p)
-
-(<span style="color: #a020f0;">when</span> (not indicate-empty-lines)
-  (toggle-indicate-empty-lines))
-
-(<span style="color: #a020f0;">when</span> window-system
-  (setq frame-title-format '(buffer-file-name <span style="color: #8b2252;">"%f"</span> (<span style="color: #8b2252;">"%b"</span>))))
-
-</pre>
-
-</div>
-
-</div>
-
-<div id="outline-container-1-6" class="outline-3">
-<h3 id="sec-1-6">org-mode</h3>
-<div class="outline-text-3" id="text-1-6">
 
 
 
@@ -348,13 +489,12 @@
 (setq org-agenda-files (list <span style="color: #8b2252;">"~/Dropbox/org/groupon.org"</span>))
 </pre>
 
-</div>
 
 </div>
 
-<div id="outline-container-1-7" class="outline-3">
-<h3 id="sec-1-7">org-babel</h3>
-<div class="outline-text-3" id="text-1-7">
+<div id="outline-container-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1">org-babel</h4>
+<div class="outline-text-4" id="text-1-5-1">
 
 
 
@@ -381,12 +521,13 @@
 </pre>
 
 </div>
+</div>
 
 </div>
 
-<div id="outline-container-1-8" class="outline-3">
-<h3 id="sec-1-8">Dropbox options</h3>
-<div class="outline-text-3" id="text-1-8">
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">deft</h3>
+<div class="outline-text-3" id="text-1-6">
 
 
 
@@ -401,9 +542,9 @@
 
 </div>
 
-<div id="outline-container-1-9" class="outline-3">
-<h3 id="sec-1-9">Smex</h3>
-<div class="outline-text-3" id="text-1-9">
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">Smex</h3>
+<div class="outline-text-3" id="text-1-7">
 
 
 
@@ -416,9 +557,9 @@
 
 </div>
 
-<div id="outline-container-1-10" class="outline-3">
-<h3 id="sec-1-10">Ido</h3>
-<div class="outline-text-3" id="text-1-10">
+<div id="outline-container-1-8" class="outline-3">
+<h3 id="sec-1-8">Ido</h3>
+<div class="outline-text-3" id="text-1-8">
 
 
 
@@ -432,14 +573,14 @@
 
 </div>
 
-<div id="outline-container-1-11" class="outline-3">
-<h3 id="sec-1-11">Ack</h3>
-<div class="outline-text-3" id="text-1-11">
+<div id="outline-container-1-9" class="outline-3">
+<h3 id="sec-1-9">Ack</h3>
+<div class="outline-text-3" id="text-1-9">
 
 
 
 
-<pre class="src src-emacs-lisp">(setq ack-promp't-for-directory t)
+<pre class="src src-emacs-lisp">(setq ack-prompt-for-directory t)
 (setq ack-executable (executable-find <span style="color: #8b2252;">"ack-grep"</span>))
 </pre>
 
@@ -447,9 +588,9 @@
 
 </div>
 
-<div id="outline-container-1-12" class="outline-3">
-<h3 id="sec-1-12">Column number mode</h3>
-<div class="outline-text-3" id="text-1-12">
+<div id="outline-container-1-10" class="outline-3">
+<h3 id="sec-1-10">Column number mode</h3>
+<div class="outline-text-3" id="text-1-10">
 
 
 
@@ -461,9 +602,9 @@
 
 </div>
 
-<div id="outline-container-1-13" class="outline-3">
-<h3 id="sec-1-13">Temporary file management</h3>
-<div class="outline-text-3" id="text-1-13">
+<div id="outline-container-1-11" class="outline-3">
+<h3 id="sec-1-11">Temporary file management</h3>
+<div class="outline-text-3" id="text-1-11">
 
 
 
@@ -476,9 +617,9 @@
 
 </div>
 
-<div id="outline-container-1-14" class="outline-3">
-<h3 id="sec-1-14">Power lisp</h3>
-<div class="outline-text-3" id="text-1-14">
+<div id="outline-container-1-12" class="outline-3">
+<h3 id="sec-1-12">Power lisp</h3>
+<div class="outline-text-3" id="text-1-12">
 
 
 
@@ -512,9 +653,9 @@
 
 </div>
 
-<div id="outline-container-1-15" class="outline-3">
-<h3 id="sec-1-15">Ruby mode</h3>
-<div class="outline-text-3" id="text-1-15">
+<div id="outline-container-1-13" class="outline-3">
+<h3 id="sec-1-13">Ruby mode</h3>
+<div class="outline-text-3" id="text-1-13">
 
 
 
@@ -532,9 +673,9 @@
 
 </div>
 
-<div id="outline-container-1-16" class="outline-3">
-<h3 id="sec-1-16">Yaml mode</h3>
-<div class="outline-text-3" id="text-1-16">
+<div id="outline-container-1-14" class="outline-3">
+<h3 id="sec-1-14">Yaml mode</h3>
+<div class="outline-text-3" id="text-1-14">
 
 
 
@@ -547,9 +688,9 @@
 
 </div>
 
-<div id="outline-container-1-17" class="outline-3">
-<h3 id="sec-1-17">Key bindings</h3>
-<div class="outline-text-3" id="text-1-17">
+<div id="outline-container-1-15" class="outline-3">
+<h3 id="sec-1-15">Key bindings</h3>
+<div class="outline-text-3" id="text-1-15">
 
 
 
@@ -567,9 +708,9 @@
 
 </div>
 
-<div id="outline-container-1-18" class="outline-3">
-<h3 id="sec-1-18">auto-complete</h3>
-<div class="outline-text-3" id="text-1-18">
+<div id="outline-container-1-16" class="outline-3">
+<h3 id="sec-1-16">auto-complete</h3>
+<div class="outline-text-3" id="text-1-16">
 
 
 
@@ -582,9 +723,9 @@
 
 </div>
 
-<div id="outline-container-1-19" class="outline-3">
-<h3 id="sec-1-19">Indentation and buffer cleanup</h3>
-<div class="outline-text-3" id="text-1-19">
+<div id="outline-container-1-17" class="outline-3">
+<h3 id="sec-1-17">Indentation and buffer cleanup</h3>
+<div class="outline-text-3" id="text-1-17">
 
 
 
@@ -618,9 +759,9 @@
 
 </div>
 
-<div id="outline-container-1-20" class="outline-3">
-<h3 id="sec-1-20">CoffeeScript Mode</h3>
-<div class="outline-text-3" id="text-1-20">
+<div id="outline-container-1-18" class="outline-3">
+<h3 id="sec-1-18">CoffeeScript Mode</h3>
+<div class="outline-text-3" id="text-1-18">
 
 
 
@@ -637,9 +778,9 @@
 
 </div>
 
-<div id="outline-container-1-21" class="outline-3">
-<h3 id="sec-1-21">Vendor directory</h3>
-<div class="outline-text-3" id="text-1-21">
+<div id="outline-container-1-19" class="outline-3">
+<h3 id="sec-1-19">Vendor directory</h3>
+<div class="outline-text-3" id="text-1-19">
 
 
 
@@ -656,9 +797,9 @@
 
 </div>
 
-<div id="outline-container-1-22" class="outline-3">
-<h3 id="sec-1-22">Markdown mode</h3>
-<div class="outline-text-3" id="text-1-22">
+<div id="outline-container-1-20" class="outline-3">
+<h3 id="sec-1-20">Markdown mode</h3>
+<div class="outline-text-3" id="text-1-20">
 
 
 
@@ -674,9 +815,9 @@
 
 </div>
 
-<div id="outline-container-1-23" class="outline-3">
-<h3 id="sec-1-23">autopair-mode</h3>
-<div class="outline-text-3" id="text-1-23">
+<div id="outline-container-1-21" class="outline-3">
+<h3 id="sec-1-21">autopair-mode</h3>
+<div class="outline-text-3" id="text-1-21">
 
 
 
@@ -688,9 +829,9 @@
 
 </div>
 
-<div id="outline-container-1-24" class="outline-3">
-<h3 id="sec-1-24">rvm</h3>
-<div class="outline-text-3" id="text-1-24">
+<div id="outline-container-1-22" class="outline-3">
+<h3 id="sec-1-22">rvm</h3>
+<div class="outline-text-3" id="text-1-22">
 
 
 
@@ -702,9 +843,9 @@
 
 </div>
 
-<div id="outline-container-1-25" class="outline-3">
-<h3 id="sec-1-25">flyspell</h3>
-<div class="outline-text-3" id="text-1-25">
+<div id="outline-container-1-23" class="outline-3">
+<h3 id="sec-1-23">flyspell</h3>
+<div class="outline-text-3" id="text-1-23">
 
 
 
@@ -720,7 +861,7 @@
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-10-07 01:58:40 CDT</p>
+<p class="date">Date: 2012-10-07 14:27:59 CDT</p>
 <p class="author">Author: Aaron Bedra</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
