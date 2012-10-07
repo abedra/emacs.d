@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Aaron Bedra's Emacs 24 Configuration</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-10-07 01:58:40 CDT"/>
+<meta name="author" content="Aaron Bedra"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Aaron Bedra's Emacs 24 Configuration</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Configuration</a>
+<ul>
+<li><a href="#sec-1-1">Whoami</a></li>
+<li><a href="#sec-1-2">Path</a></li>
+<li><a href="#sec-1-3">Require a common lisp mode</a></li>
+<li><a href="#sec-1-4">Load package management and set package archives</a>
+<ul>
+<li><a href="#sec-1-4-1">Define default packages</a></li>
+<li><a href="#sec-1-4-2">Install default packages</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">Set startup options</a></li>
+<li><a href="#sec-1-6">org-mode</a></li>
+<li><a href="#sec-1-7">org-babel</a></li>
+<li><a href="#sec-1-8">Dropbox options</a></li>
+<li><a href="#sec-1-9">Smex</a></li>
+<li><a href="#sec-1-10">Ido</a></li>
+<li><a href="#sec-1-11">Ack</a></li>
+<li><a href="#sec-1-12">Column number mode</a></li>
+<li><a href="#sec-1-13">Temporary file management</a></li>
+<li><a href="#sec-1-14">Power lisp</a></li>
+<li><a href="#sec-1-15">Ruby mode</a></li>
+<li><a href="#sec-1-16">Yaml mode</a></li>
+<li><a href="#sec-1-17">Key bindings</a></li>
+<li><a href="#sec-1-18">auto-complete</a></li>
+<li><a href="#sec-1-19">Indentation and buffer cleanup</a></li>
+<li><a href="#sec-1-20">CoffeeScript Mode</a></li>
+<li><a href="#sec-1-21">Vendor directory</a></li>
+<li><a href="#sec-1-22">Markdown mode</a></li>
+<li><a href="#sec-1-23">autopair-mode</a></li>
+<li><a href="#sec-1-24">rvm</a></li>
+<li><a href="#sec-1-25">flyspell</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Configuration</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  Emacs is a special beast. Taming it takes a lot of care. In an
+  attempt to document/explain/share with the rest of the world, this
+  is my attempt at configuration as a literate program. It also shows
+  off the awesome power of org-mode, which makes all of this possible.
+</p>
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Whoami</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>   Emacs will normally pick this up automatically, but this way I can
+   be sure things are set properly.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq user-full-name <span style="color: #8b2252;">"Aaron Bedra"</span>)
+(setq user-mail-address <span style="color: #8b2252;">"aaron@aaronbedra.com"</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Path</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<p>   There are plenty of things installed outside of the default
+   PATH. In particular, homebrew puts things in <code>/usr/local/bin</code>. I
+   need <code>JAVA_HOME</code> and <code>CLOJURESCRIPT_HOME</code> from time to time on the
+   command line, so add those as well.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setenv <span style="color: #8b2252;">"PATH"</span> (concat <span style="color: #8b2252;">"/usr/local/bin:"</span> (getenv <span style="color: #8b2252;">"PATH"</span>)))
+(setenv <span style="color: #8b2252;">"JAVA_HOME"</span> <span style="color: #8b2252;">"/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"</span>)
+(setenv <span style="color: #8b2252;">"CLOJURESCRIPT_HOME"</span> <span style="color: #8b2252;">"/Users/abedra/src/opensource/clojure/clojurescript"</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Require a common lisp mode</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<p>   Emacs lisp is really only a subset of common lisp, and I need to
+   have some of the additional functionality to make this
+   configuration and its dependencies work properly.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">cl</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Load package management and set package archives</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<p>   Since Emacs 24, the emacs lisp package archive (elpa) is included
+   by default. This provides a nice way to install the additions
+   needed to make things work properly. Since the default package
+   archive doesn't include everything I need, the marmalade, and melpa
+   repositories are also added.
+</p>
+
+
+<pre class="src src-emacs-lisp">(load <span style="color: #8b2252;">"package"</span>)
+(package-initialize)
+(add-to-list 'package-archives
+             '(<span style="color: #8b2252;">"marmalade"</span> . <span style="color: #8b2252;">"http://marmalade-repo.org/packages/"</span>))
+(add-to-list 'package-archives
+             '(<span style="color: #8b2252;">"melpa"</span> . <span style="color: #8b2252;">"http://melpa.milkbox.net/packages/"</span>) t)
+
+(setq package-archive-enable-alist '((<span style="color: #8b2252;">"melpa"</span> deft magit)))
+</pre>
+
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1">Define default packages</h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+<p>    This is the list of packages used in this configuration.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defvar</span> <span style="color: #a0522d;">abedra/packages</span> '(ac-slime
+                          auto-complete
+                          autopair
+                          clojure-mode
+                          coffee-mode
+                          deft
+                          gist
+                          go-mode
+                          haml-mode
+                          haskell-mode
+                          htmlize
+                          magit
+                          markdown-mode
+                          marmalade
+                          org
+                          paredit
+                          rvm
+                          smex
+                          yaml-mode)
+  <span style="color: #8b2252;">"Default packages"</span>)
+
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2">Install default packages</h4>
+<div class="outline-text-4" id="text-1-4-2">
+
+<p>    When Emacs boots, check to make sure all of the packages defined
+    in <code>abedra/packages</code> are installed. If not, have elpa take care of
+    it.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">abedra/packages-installed-p</span> ()
+  (<span style="color: #a020f0;">loop</span> for pkg in abedra/packages
+        when (not (package-installed-p pkg)) do (<span style="color: #a020f0;">return</span> nil)
+        finally (<span style="color: #a020f0;">return</span> t)))
+
+(<span style="color: #a020f0;">unless</span> (abedra/packages-installed-p)
+  (message <span style="color: #8b2252;">"%s"</span> <span style="color: #8b2252;">"Refreshing package database..."</span>)
+  (package-refresh-contents)
+  (<span style="color: #a020f0;">dolist</span> (pkg abedra/packages)
+    (<span style="color: #a020f0;">when</span> (not (package-installed-p pkg))
+      (package-install pkg))))
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Set startup options</h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq inhibit-splash-screen t
+      initial-scratch-message nil
+      echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell t
+      tab-width 2
+      indent-tabs-mode nil
+      x-select-enable-clipboard t
+      make-backup-files nil)
+
+(<span style="color: #a020f0;">when</span> (locate-library <span style="color: #8b2252;">"clojure-mode"</span>)
+  (setq initial-major-mode 'clojure-mode))
+
+(setq-default indicate-empty-lines t)
+(transient-mark-mode t)
+(delete-selection-mode t)
+(show-paren-mode t)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(delete-selection-mode t)
+
+(<span style="color: #a020f0;">defalias</span> '<span style="color: #0000ff;">yes-or-no-p</span> 'y-or-n-p)
+
+(<span style="color: #a020f0;">when</span> (not indicate-empty-lines)
+  (toggle-indicate-empty-lines))
+
+(<span style="color: #a020f0;">when</span> window-system
+  (setq frame-title-format '(buffer-file-name <span style="color: #8b2252;">"%f"</span> (<span style="color: #8b2252;">"%b"</span>))))
+
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">org-mode</h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+
+
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #8b2252;">"C-c a"</span>) 'org-agenda)
+(setq org-log-done t)
+(setq org-todo-keywords
+      '((sequence <span style="color: #8b2252;">"TODO"</span> <span style="color: #8b2252;">"INPROGRESS"</span> <span style="color: #8b2252;">"DONE"</span>)))
+(setq org-todo-keyword-faces
+      '((<span style="color: #8b2252;">"INPROGRESS"</span> . (<span style="color: #483d8b;">:foreground</span> <span style="color: #8b2252;">"blue"</span> <span style="color: #483d8b;">:weight</span> bold))))
+(setq org-agenda-files (list <span style="color: #8b2252;">"~/Dropbox/org/groupon.org"</span>))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">org-babel</h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob</span>)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh . t)))
+
+(add-to-list 'org-babel-tangle-lang-exts '(<span style="color: #8b2252;">"clojure"</span> . <span style="color: #8b2252;">"clj"</span>))
+
+(<span style="color: #a020f0;">defvar</span> <span style="color: #a0522d;">org-babel-default-header-args:clojure</span>
+  '((<span style="color: #483d8b;">:results</span> . <span style="color: #8b2252;">"silent"</span>) (<span style="color: #483d8b;">:tangle</span> . <span style="color: #8b2252;">"yes"</span>)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">org-babel-execute:clojure</span> (body params)
+  (lisp-eval-string body)
+  <span style="color: #8b2252;">"Done!"</span>)
+
+(<span style="color: #a020f0;">provide</span> '<span style="color: #008b8b;">ob-clojure</span>)
+
+(setq org-src-fontify-natively t)
+(setq org-confirm-babel-evaluate nil)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-8" class="outline-3">
+<h3 id="sec-1-8">Dropbox options</h3>
+<div class="outline-text-3" id="text-1-8">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq deft-directory <span style="color: #8b2252;">"~/Dropbox/deft"</span>)
+(setq deft-use-filename-as-title t)
+(setq deft-extension <span style="color: #8b2252;">"org"</span>)
+(setq deft-text-mode 'org-mode)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-9" class="outline-3">
+<h3 id="sec-1-9">Smex</h3>
+<div class="outline-text-3" id="text-1-9">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq smex-save-file (expand-file-name <span style="color: #8b2252;">".smex-items"</span> user-emacs-directory))
+(smex-initialize)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-10" class="outline-3">
+<h3 id="sec-1-10">Ido</h3>
+<div class="outline-text-3" id="text-1-10">
+
+
+
+
+<pre class="src src-emacs-lisp">(ido-mode t)
+(setq ido-enable-flex-matching t
+      ido-use-virtual-buffers t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-11" class="outline-3">
+<h3 id="sec-1-11">Ack</h3>
+<div class="outline-text-3" id="text-1-11">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq ack-promp't-for-directory t)
+(setq ack-executable (executable-find <span style="color: #8b2252;">"ack-grep"</span>))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-12" class="outline-3">
+<h3 id="sec-1-12">Column number mode</h3>
+<div class="outline-text-3" id="text-1-12">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq column-number-mode t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-13" class="outline-3">
+<h3 id="sec-1-13">Temporary file management</h3>
+<div class="outline-text-3" id="text-1-13">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq backup-directory-alist `((<span style="color: #8b2252;">".*"</span> . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((<span style="color: #8b2252;">".*"</span> ,temporary-file-directory t)))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-14" class="outline-3">
+<h3 id="sec-1-14">Power lisp</h3>
+<div class="outline-text-3" id="text-1-14">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq lisp-modes '(lisp-mode
+                   emacs-lisp-mode
+                   common-lisp-mode
+                   scheme-mode
+                   clojure-mode))
+
+(<span style="color: #a020f0;">defvar</span> <span style="color: #a0522d;">lisp-power-map</span> (make-keymap))
+(<span style="color: #a020f0;">define-minor-mode</span> <span style="color: #0000ff;">lisp-power-mode</span> <span style="color: #8b2252;">"Fix keybindings; add power."</span>
+  <span style="color: #483d8b;">:lighter</span> <span style="color: #8b2252;">" (power)"</span>
+  <span style="color: #483d8b;">:keymap</span> lisp-power-map
+  (paredit-mode t))
+(define-key lisp-power-map [delete] 'paredit-forward-delete)
+(define-key lisp-power-map [backspace] 'paredit-backward-delete)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">abedra/engage-lisp-power</span> ()
+  (lisp-power-mode t))
+
+(<span style="color: #a020f0;">dolist</span> (mode lisp-modes)
+  (add-hook (intern (format <span style="color: #8b2252;">"%s-hook"</span> mode))
+            #'abedra/engage-lisp-power))
+
+(setq inferior-lisp-program <span style="color: #8b2252;">"clisp"</span>)
+(setq scheme-program-name <span style="color: #8b2252;">"racket"</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-15" class="outline-3">
+<h3 id="sec-1-15">Ruby mode</h3>
+<div class="outline-text-3" id="text-1-15">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.rake$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.gemspec$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.ru$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Rakefile$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Gemfile$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Capfile$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Vagrantfile$"</span> . ruby-mode))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-16" class="outline-3">
+<h3 id="sec-1-16">Yaml mode</h3>
+<div class="outline-text-3" id="text-1-16">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.yml$"</span> . yaml-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.yaml$"</span> . yaml-mode))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-17" class="outline-3">
+<h3 id="sec-1-17">Key bindings</h3>
+<div class="outline-text-3" id="text-1-17">
+
+
+
+
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #8b2252;">"RET"</span>) 'newline-and-indent)
+(global-set-key (kbd <span style="color: #8b2252;">"C-;"</span>) 'comment-or-uncomment-region)
+(global-set-key (kbd <span style="color: #8b2252;">"M-/"</span>) 'hippie-expand)
+(global-set-key (kbd <span style="color: #8b2252;">"M-x"</span>) 'smex)
+(global-set-key (kbd <span style="color: #8b2252;">"M-X"</span>) 'smex-major-mode-commands)
+(global-set-key (kbd <span style="color: #8b2252;">"C-+"</span>) 'text-scale-increase)
+(global-set-key (kbd <span style="color: #8b2252;">"C--"</span>) 'text-scale-decrease)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-18" class="outline-3">
+<h3 id="sec-1-18">auto-complete</h3>
+<div class="outline-text-3" id="text-1-18">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">auto-complete-config</span>)
+(ac-config-default)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-19" class="outline-3">
+<h3 id="sec-1-19">Indentation and buffer cleanup</h3>
+<div class="outline-text-3" id="text-1-19">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">untabify-buffer</span> ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">indent-buffer</span> ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">cleanup-buffer</span> ()
+  <span style="color: #8b2252;">"Perform a bunch of operations on the whitespace content of a buffer."</span>
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">cleanup-region</span> (beg end)
+  <span style="color: #8b2252;">"Remove tmux artifacts from region."</span>
+  (interactive <span style="color: #8b2252;">"r"</span>)
+  (<span style="color: #a020f0;">dolist</span> (re '(<span style="color: #8b2252;">"\\\\&#9474;\&#183;*\n"</span> <span style="color: #8b2252;">"\W*&#9474;\&#183;*"</span>))
+    (replace-regexp re <span style="color: #8b2252;">""</span> nil beg end)))
+
+(global-set-key (kbd <span style="color: #8b2252;">"C-x M-t"</span>) 'cleanup-region)
+(global-set-key (kbd <span style="color: #8b2252;">"C-c n"</span>) 'cleanup-buffer)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-20" class="outline-3">
+<h3 id="sec-1-20">CoffeeScript Mode</h3>
+<div class="outline-text-3" id="text-1-20">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">coffee-custom</span> ()
+  <span style="color: #8b2252;">"coffee-mode-hook"</span>
+  (make-local-variable 'tab-width)
+  (set 'tab-width 2))
+
+(add-hook 'coffee-mode-hook 'coffee-custom)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-21" class="outline-3">
+<h3 id="sec-1-21">Vendor directory</h3>
+<div class="outline-text-3" id="text-1-21">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defvar</span> <span style="color: #a0522d;">abedra/vendor-dir</span> (expand-file-name <span style="color: #8b2252;">"vendor"</span> user-emacs-directory))
+(add-to-list 'load-path abedra/vendor-dir)
+
+(<span style="color: #a020f0;">dolist</span> (project (directory-files abedra/vendor-dir t <span style="color: #8b2252;">"\\w+"</span>))
+  (<span style="color: #a020f0;">when</span> (file-directory-p project)
+    (add-to-list 'load-path project)))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-22" class="outline-3">
+<h3 id="sec-1-22">Markdown mode</h3>
+<div class="outline-text-3" id="text-1-22">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.md$"</span> . markdown-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.mdown$"</span> . markdown-mode))
+(add-hook 'markdown-mode-hook (<span style="color: #a020f0;">lambda</span> () (visual-line-mode t)))
+(setq markdown-command <span style="color: #8b2252;">"pandoc --smart -f markdown -t html"</span>)
+(setq markdown-css-path (expand-file-name <span style="color: #8b2252;">"markdown.css"</span> abedra/vendor-dir))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-23" class="outline-3">
+<h3 id="sec-1-23">autopair-mode</h3>
+<div class="outline-text-3" id="text-1-23">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">autopair</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-24" class="outline-3">
+<h3 id="sec-1-24">rvm</h3>
+<div class="outline-text-3" id="text-1-24">
+
+
+
+
+<pre class="src src-emacs-lisp">(rvm-use-default)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-25" class="outline-3">
+<h3 id="sec-1-25">flyspell</h3>
+<div class="outline-text-3" id="text-1-25">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq flyspell-issue-welcome-flag nil)
+(setq-default ispell-program-name <span style="color: #8b2252;">"/usr/local/bin/aspell"</span>)
+(setq-default ispell-list-command <span style="color: #8b2252;">"list"</span>)
+</pre>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-10-07 01:58:40 CDT</p>
+<p class="author">Author: Aaron Bedra</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
