@@ -175,7 +175,7 @@
    #+end_src
 ** Ack
    #+begin_src emacs-lisp
-     (setq ack-promp't-for-directory t)
+     (setq ack-prompt-for-directory t)
      (setq ack-executable (executable-find "ack-grep"))
    #+end_src
 ** Column number mode
