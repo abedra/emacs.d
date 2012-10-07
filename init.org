@@ -1,4 +1,4 @@
-#+TITLE: Emacs 24 configuration for Aaron Bedra
+#+TITLE: Aaron Bedra's Emacs 24 Configuration
 #+AUTHOR: Aaron Bedra
 #+EMAIL: aaron@aaronbedra.com
 #+OPTIONS: toc:3 num:nil
@@ -279,4 +279,10 @@
 ** rvm
 #+begin_src emacs-lisp
   (rvm-use-default)
+#+end_src
+** flyspell
+#+begin_src emacs-lisp
+  (setq flyspell-issue-welcome-flag nil)
+  (setq-default ispell-program-name "/usr/local/bin/aspell")
+  (setq-default ispell-list-command "list")
 #+end_src
