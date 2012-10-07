@@ -194,11 +194,11 @@
       (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
 
       (defvar org-babel-default-header-args:clojure
-       	'((:results . "silent") (:tangle . "yes")))
+        '((:results . "silent") (:tangle . "yes")))
 
       (defun org-babel-execute:clojure (body params)
-       	(lisp-eval-string body)
-       	"Done!")
+        (lisp-eval-string body)
+        "Done!")
 
       (provide 'ob-clojure)
 
@@ -237,6 +237,10 @@
      (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
      (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
    #+end_src
+** autopair-mode
+   #+begin_src emacs-lisp
+     (require 'autopair)
+   #+end_src
 ** Power lisp
    #+begin_src emacs-lisp
      (setq lisp-modes '(lisp-mode
@@ -263,8 +267,17 @@
      (setq inferior-lisp-program "clisp")
      (setq scheme-program-name "racket")
    #+end_src
-** Ruby mode
-   #+begin_src emacs-lisp
+** Ruby
+*** Hooks
+    Enable auto pair mode.
+    #+begin_src emacs-lisp
+      (add-hook 'ruby-mode-hook
+                (lambda ()
+                  (autopair-mode)))
+    #+end_src
+*** File Extensions
+    Activate =ruby-mode= for all of the following file extensions.
+    #+begin_src emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
@@ -272,7 +285,7 @@
      (add-to-list 'auto-mode-alist '("\\.Gemfile$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.Capfile$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.Vagrantfile$" . ruby-mode))
-   #+end_src
+    #+end_src
 ** Yaml mode
    #+begin_src emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
@@ -344,10 +357,6 @@
      (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
      (setq markdown-command "pandoc --smart -f markdown -t html")
      (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
-   #+end_src
-** autopair-mode
-   #+begin_src emacs-lisp
-     (require 'autopair)
    #+end_src
 ** rvm
    #+begin_src emacs-lisp
