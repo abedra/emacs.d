@@ -65,13 +65,15 @@
                                 magit
                                 markdown-mode
                                 marmalade
+                                o-blog
                                 org
                                 paredit
+                                restclient
                                 rvm
                                 smex
                                 yaml-mode)
         "Default packages")
-
+      
     #+end_src
 *** Install default packages
     When Emacs boots, check to make sure all of the packages defined
@@ -282,7 +284,7 @@
      (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.Rakefile$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.Gemfile$" . ruby-mode))
+     (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.Capfile$" . ruby-mode))
      (add-to-list 'auto-mode-alist '("\\.Vagrantfile$" . ruby-mode))
     #+end_src
