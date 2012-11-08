@@ -4,3 +4,4 @@ ac-comphist.dat
 init.el.base
 eshell
 auto-save-list
+tramp
