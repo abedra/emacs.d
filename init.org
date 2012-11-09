@@ -55,6 +55,7 @@
                                 auto-complete
                                 autopair
                                 clojure-mode
+                                clojure-test-mode
                                 coffee-mode
                                 deft
                                 gist
