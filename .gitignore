@@ -5,3 +5,4 @@ init.el.base
 eshell
 auto-save-list
 tramp
+swank

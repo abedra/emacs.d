@@ -66,6 +66,7 @@
                                 magit
                                 markdown-mode
                                 marmalade
+                                nrepl
                                 o-blog
                                 org
                                 paredit
