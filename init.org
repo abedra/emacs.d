@@ -21,7 +21,8 @@
    need =JAVA_HOME= and =CLOJURESCRIPT_HOME= from time to time on the
    command line, so add those as well.
    #+begin_src emacs-lisp
-     (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+     (setenv "PATH" (concat "/usr/local/bin:/usr/local/Cellar/smlnj/110.75/libexec/bin:" (getenv "PATH")))
+     (setq exec-path (cons "/usr/local/Cellar/smlnj/110.75/libexec/bin" exec-path))
      (setenv "JAVA_HOME" "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home")
      (setenv "CLOJURESCRIPT_HOME" "/Users/abedra/src/opensource/clojure/clojurescript")
    #+end_src
@@ -73,6 +74,7 @@
                                 restclient
                                 rvm
                                 smex
+                                sml-mode
                                 yaml-mode)
         "Default packages")
       
