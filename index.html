@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2013-07-13T15:33-0500"/>
+<meta name="generated" content="2013-07-13T15:45-0500"/>
 <meta name="author" content="Aaron Bedra"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -143,6 +143,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-4-7">Yes and No</a></li>
 <li><a href="#sec-1-4-8">Key bindings</a></li>
 <li><a href="#sec-1-4-9">Misc</a></li>
+<li><a href="#sec-1-4-10">Vendor directory</a></li>
+<li><a href="#sec-1-4-11">Themes</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-5">Org mode</a>
@@ -173,8 +175,6 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-7-5">Markdown mode</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-8">Vendor directory</a></li>
-<li><a href="#sec-1-9">Themes</a></li>
 </ul>
 </li>
 </ul>
@@ -506,6 +506,43 @@ for the JavaScript code in this tag.
       use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-10" class="outline-4">
+<h4 id="sec-1-4-10">Vendor directory</h4>
+<div class="outline-text-4" id="text-1-4-10">
+
+<p>    I have a couple of things that don't come from package
+    managers. This sets up the directory and makes sure everything is
+    loaded.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defvar</span> <span style="color: #a0522d;">abedra/vendor-dir</span> (expand-file-name <span style="color: #8b2252;">"vendor"</span> user-emacs-directory))
+(add-to-list 'load-path abedra/vendor-dir)
+
+(<span style="color: #a020f0;">dolist</span> (project (directory-files abedra/vendor-dir t <span style="color: #8b2252;">"\\w+"</span>))
+  (<span style="color: #a020f0;">when</span> (file-directory-p project)
+    (add-to-list 'load-path project)))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-11" class="outline-4">
+<h4 id="sec-1-4-11">Themes</h4>
+<div class="outline-text-4" id="text-1-4-11">
+
+<p>    Load the wombat theme on start-up.
+</p>
+
+
+<pre class="src src-emacs-lisp">(load-theme 'wombat t)
 </pre>
 
 </div>
@@ -911,49 +948,12 @@ for the JavaScript code in this tag.
 
 </div>
 </div>
-
-</div>
-
-<div id="outline-container-1-8" class="outline-3">
-<h3 id="sec-1-8">Vendor directory</h3>
-<div class="outline-text-3" id="text-1-8">
-
-<p>   I have a couple of things that don't come from package
-   managers. This sets up the directory and makes sure everything is
-   loaded.
-</p>
-
-
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defvar</span> <span style="color: #a0522d;">abedra/vendor-dir</span> (expand-file-name <span style="color: #8b2252;">"vendor"</span> user-emacs-directory))
-(add-to-list 'load-path abedra/vendor-dir)
-
-(<span style="color: #a020f0;">dolist</span> (project (directory-files abedra/vendor-dir t <span style="color: #8b2252;">"\\w+"</span>))
-  (<span style="color: #a020f0;">when</span> (file-directory-p project)
-    (add-to-list 'load-path project)))
-</pre>
-
-</div>
-
-</div>
-
-<div id="outline-container-1-9" class="outline-3">
-<h3 id="sec-1-9">Themes</h3>
-<div class="outline-text-3" id="text-1-9">
-
-<p>   Load the wombat theme on start-up.
-</p>
-
-
-<pre class="src src-emacs-lisp">(load-theme 'wombat t)
-</pre>
-
-</div>
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2013-07-13T15:33-0500</p>
+<p class="date">Date: 2013-07-13T15:45-0500</p>
 <p class="author">Author: Aaron Bedra</p>
 <p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
