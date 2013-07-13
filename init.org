@@ -182,6 +182,23 @@
             visible-bell t)
       (show-paren-mode t)
     #+end_src
+*** Vendor directory
+    I have a couple of things that don't come from package
+    managers. This sets up the directory and makes sure everything is
+    loaded.
+    #+begin_src emacs-lisp
+      (defvar abedra/vendor-dir (expand-file-name "vendor" user-emacs-directory))
+      (add-to-list 'load-path abedra/vendor-dir)
+
+      (dolist (project (directory-files abedra/vendor-dir t "\\w+"))
+        (when (file-directory-p project)
+          (add-to-list 'load-path project)))
+    #+end_src
+*** Themes
+    Load the wombat theme on start-up.
+    #+begin_src emacs-lisp
+      (load-theme 'wombat t)
+    #+end_src
 ** Org mode
    =org-mode= is one of the most powerful and amazing features of
    Emacs. I mostly use it for task/day organization and generating
@@ -399,20 +416,3 @@
       (setq markdown-command "pandoc --smart -f markdown -t html")
       (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
     #+end_src
-** Vendor directory
-   I have a couple of things that don't come from package
-   managers. This sets up the directory and makes sure everything is
-   loaded.
-   #+begin_src emacs-lisp
-     (defvar abedra/vendor-dir (expand-file-name "vendor" user-emacs-directory))
-     (add-to-list 'load-path abedra/vendor-dir)
-
-     (dolist (project (directory-files abedra/vendor-dir t "\\w+"))
-       (when (file-directory-p project)
-         (add-to-list 'load-path project)))
-   #+end_src
-** Themes
-   Load the wombat theme on start-up.
-   #+begin_src emacs-lisp
-     (load-theme 'wombat t)
-   #+end_src
