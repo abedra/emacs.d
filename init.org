@@ -15,24 +15,17 @@
      (setq user-full-name "Aaron Bedra")
      (setq user-mail-address "aaron@aaronbedra.com")
    #+end_src
-** Path
+** Environment
    There are plenty of things installed outside of the default
-   PATH. In particular, homebrew puts things in =/usr/local/bin=. I
-   need =JAVA_HOME= and =CLOJURESCRIPT_HOME= from time to time on the
-   command line, so add those as well.
+   PATH. This allows me to establish additional PATH information so
+   that everything functions as it should. Require common lisp
+   mode. Emacs lisp is really only a subset of common lisp, and I need
+   to have some of the additional functionality to make this
+   configuration and its dependencies work properly.
    #+begin_src emacs-lisp
-     (setenv "PATH" (concat "/usr/local/bin:/usr/local/Cellar/smlnj/110.75/libexec/bin:" (getenv "PATH")))
-     (setq exec-path (cons "/usr/local/Cellar/smlnj/110.75/libexec/bin" exec-path))
-     (setenv "JAVA_HOME" "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home")
-     (setenv "CLOJURESCRIPT_HOME" "/Users/abedra/src/opensource/clojure/clojurescript")
+     (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+     (require 'cl)
    #+end_src
-** Common Lisp
-    Emacs lisp is really only a subset of common lisp, and I need to
-    have some of the additional functionality to make this
-    configuration and its dependencies work properly.
-    #+begin_src emacs-lisp
-      (require 'cl)
-    #+end_src
 ** Package Management
    Since Emacs 24, the emacs lisp package archive (elpa) is included
    by default. This provides a nice way to install the additions
@@ -71,13 +64,14 @@
                                 o-blog
                                 org
                                 paredit
+                                puppet-mode
                                 restclient
                                 rvm
                                 smex
                                 sml-mode
                                 yaml-mode)
         "Default packages")
-      
+
     #+end_src
 *** Install default packages
     When Emacs boots, check to make sure all of the packages defined
@@ -96,7 +90,7 @@
           (when (not (package-installed-p pkg))
             (package-install pkg))))
     #+end_src
-** Startup options
+** Start-up options
 *** Splash Screen
     I want to skip straight to the scratch buffer. This turns off the
     splash screen and puts me straight into the scratch buffer. I
@@ -166,6 +160,15 @@
     #+begin_src emacs-lisp
       (defalias 'yes-or-no-p 'y-or-n-p)
     #+end_src
+*** Key bindings
+    Miscellaneous key binding stuff that doesn't fit anywhere else.
+    #+begin_src emacs-lisp
+      (global-set-key (kbd "RET") 'newline-and-indent)
+      (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+      (global-set-key (kbd "M-/") 'hippie-expand)
+      (global-set-key (kbd "C-+") 'text-scale-increase)
+      (global-set-key (kbd "C--") 'text-scale-decrease)
+    #+end_src
 *** Misc
     Turn down the time to echo keystrokes so I don't have to wait
     around for things to happen. Dialog boxes are also a bit annoying,
@@ -180,6 +183,14 @@
       (show-paren-mode t)
     #+end_src
 ** Org mode
+   =org-mode= is one of the most powerful and amazing features of
+   Emacs. I mostly use it for task/day organization and generating
+   code snippets in HTML. Just a few tweaks here to make the
+   experience better. Enable logging when tasks are complete. This
+   puts a time-stamp on the completed task and lets =org-agenda= mark
+   it. Since I usually am doing quite a few things at once, I added
+   the =INPROGRESS= keyword and made the color blue. Setup a default
+   agenda file for org-agenda called =personal.org=.
    #+begin_src emacs-lisp
      (global-set-key (kbd "C-c a") 'org-agenda)
      (setq org-log-done t)
@@ -187,9 +198,14 @@
            '((sequence "TODO" "INPROGRESS" "DONE")))
      (setq org-todo-keyword-faces
            '(("INPROGRESS" . (:foreground "blue" :weight bold))))
-     (setq org-agenda-files (list "~/Dropbox/org/groupon.org"))
+     (setq org-agenda-files (list "~/Dropbox/org/personal.org"))
    #+end_src
 *** org-babel
+    =org-babel= is a feature inside of =org-mode= that makes this
+    document possible. It allows for embedding languages inside of an
+    =org-mode= document with all the proper font-locking. It also
+    allows you to extract and execute code. It isn't aware of
+    =Clojure= by default, so the following sets that up.
     #+begin_src emacs-lisp
       (require 'ob)
 
@@ -211,143 +227,182 @@
       (setq org-src-fontify-natively t)
       (setq org-confirm-babel-evaluate nil)
     #+end_src
-** deft
-   #+begin_src emacs-lisp
-     (setq deft-directory "~/Dropbox/deft")
-     (setq deft-use-filename-as-title t)
-     (setq deft-extension "org")
-     (setq deft-text-mode 'org-mode)
-   #+end_src
-** Smex
-   #+begin_src emacs-lisp
-     (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
-     (smex-initialize)
-   #+end_src
-** Ido
-   #+begin_src emacs-lisp
-     (ido-mode t)
-     (setq ido-enable-flex-matching t
-           ido-use-virtual-buffers t)
-   #+end_src
-** Ack
-   #+begin_src emacs-lisp
-     (setq ack-prompt-for-directory t)
-     (setq ack-executable (executable-find "ack-grep"))
-   #+end_src
-** Column number mode
-   #+begin_src emacs-lisp
-     (setq column-number-mode t)
-   #+end_src
-** Temporary file management
-   #+begin_src emacs-lisp
-     (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-     (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-   #+end_src
-** autopair-mode
-   #+begin_src emacs-lisp
-     (require 'autopair)
-   #+end_src
-** Power lisp
-   #+begin_src emacs-lisp
-     (setq lisp-modes '(lisp-mode
-                        emacs-lisp-mode
-                        common-lisp-mode
-                        scheme-mode
-                        clojure-mode))
+** Utilities
+*** deft
+    =deft= provides random note taking with history and
+    searching. Since I use =org-mode= for everything else, I turn that
+    on as the default mode for =deft= and put the files in Dropbox.
+    #+begin_src emacs-lisp
+      (setq deft-directory "~/Dropbox/deft")
+      (setq deft-use-filename-as-title t)
+      (setq deft-extension "org")
+      (setq deft-text-mode 'org-mode)
+    #+end_src
+*** Smex
+    =smex= is a necessity. It provides history and searching on top of =M-x=.
+    #+begin_src emacs-lisp
+      (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
+      (smex-initialize)
+      (global-set-key (kbd "M-x") 'smex)
+      (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+    #+end_src
+*** Ido
+    =Ido= mode provides a nice way to navigate the filesystem. This is
+    mostly just turning it on.
+    #+begin_src emacs-lisp
+      (ido-mode t)
+      (setq ido-enable-flex-matching t
+            ido-use-virtual-buffers t)
+    #+end_src
+*** Column number mode
+    Turn on column numbers.
+    #+begin_src emacs-lisp
+      (setq column-number-mode t)
+    #+end_src
+*** Temporary file management
+    Deal with temporary files. I don't care about them and this makes
+    them go away.
+    #+begin_src emacs-lisp
+      (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+      (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+    #+end_src
+*** autopair-mode
+    This makes sure that brace structures =(), [], {}=, etc. are closed
+    as soon as the opening character is typed.
+    #+begin_src emacs-lisp
+      (require 'autopair)
+    #+end_src
+*** Power lisp
+    A bunch of tweaks for programming in LISP dialects. It defines the
+    modes that I want to apply these hooks to. To add more just add
+    them to =lisp-modes=. This also creates its own minor mode to
+    properly capture the behavior. It remaps some keys to make paredit
+    work a little easier as well. It also sets =clisp= as the default
+    lisp program and =racket= as the default scheme program.
+    #+begin_src emacs-lisp
+      (setq lisp-modes '(lisp-mode
+                         emacs-lisp-mode
+                         common-lisp-mode
+                         scheme-mode
+                         clojure-mode))
 
-     (defvar lisp-power-map (make-keymap))
-     (define-minor-mode lisp-power-mode "Fix keybindings; add power."
-       :lighter " (power)"
-       :keymap lisp-power-map
-       (paredit-mode t))
-     (define-key lisp-power-map [delete] 'paredit-forward-delete)
-     (define-key lisp-power-map [backspace] 'paredit-backward-delete)
+      (defvar lisp-power-map (make-keymap))
+      (define-minor-mode lisp-power-mode "Fix keybindings; add power."
+        :lighter " (power)"
+        :keymap lisp-power-map
+        (paredit-mode t))
+      (define-key lisp-power-map [delete] 'paredit-forward-delete)
+      (define-key lisp-power-map [backspace] 'paredit-backward-delete)
 
-     (defun abedra/engage-lisp-power ()
-       (lisp-power-mode t))
+      (defun abedra/engage-lisp-power ()
+        (lisp-power-mode t))
 
-     (dolist (mode lisp-modes)
-       (add-hook (intern (format "%s-hook" mode))
-                 #'abedra/engage-lisp-power))
+      (dolist (mode lisp-modes)
+        (add-hook (intern (format "%s-hook" mode))
+                  #'abedra/engage-lisp-power))
 
-     (setq inferior-lisp-program "clisp")
-     (setq scheme-program-name "racket")
-   #+end_src
-** Ruby
-*** Hooks
-    Enable auto pair mode.
+      (setq inferior-lisp-program "clisp")
+      (setq scheme-program-name "racket")
+    #+end_src
+*** auto-complete
+    Turn on auto complete.
+    #+begin_src emacs-lisp
+      (require 'auto-complete-config)
+      (ac-config-default)
+    #+end_src
+*** Indentation and buffer cleanup
+    This re-indents, untabifies, and cleans up whitespace. It is stolen
+    directly from the emacs-starter-kit.
+    #+begin_src emacs-lisp
+      (defun untabify-buffer ()
+        (interactive)
+        (untabify (point-min) (point-max)))
+
+      (defun indent-buffer ()
+        (interactive)
+        (indent-region (point-min) (point-max)))
+
+      (defun cleanup-buffer ()
+        "Perform a bunch of operations on the whitespace content of a buffer."
+        (interactive)
+        (indent-buffer)
+        (untabify-buffer)
+        (delete-trailing-whitespace))
+
+      (defun cleanup-region (beg end)
+        "Remove tmux artifacts from region."
+        (interactive "r")
+        (dolist (re '("\\\\│\·*\n" "\W*│\·*"))
+          (replace-regexp re "" nil beg end)))
+
+      (global-set-key (kbd "C-x M-t") 'cleanup-region)
+      (global-set-key (kbd "C-c n") 'cleanup-buffer)
+    #+end_src
+*** flyspell
+    The built-in Emacs spell checker. Turn off the welcome flag because
+    it is annoying and breaks on quite a few systems. Specify the
+    location of the spell check program so it loads properly.
+    #+begin_src emacs-lisp
+      (setq flyspell-issue-welcome-flag nil)
+      (setq-default ispell-program-name "/usr/local/bin/aspell")
+      (setq-default ispell-list-command "list")
+    #+end_src
+** Language Hooks
+*** Ruby
+    Turn on =autopair= for Ruby. Identify additional file
+    names/extensions that will trigger =ruby-mode= when loaded.
     #+begin_src emacs-lisp
       (add-hook 'ruby-mode-hook
                 (lambda ()
                   (autopair-mode)))
+
+      (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+      (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+      (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+      (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+      (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+      (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
+      (add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
     #+end_src
-*** File Extensions
-    Activate =ruby-mode= for all of the following file extensions.
+*** RVM
+    Enable Ruby Version Manager mode and tell it to use the default Ruby.
     #+begin_src emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
+      (rvm-use-default)
     #+end_src
-** Yaml mode
-   #+begin_src emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-     (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-   #+end_src
-** Key bindings
-   #+begin_src emacs-lisp
-     (global-set-key (kbd "RET") 'newline-and-indent)
-     (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-     (global-set-key (kbd "M-/") 'hippie-expand)
-     (global-set-key (kbd "M-x") 'smex)
-     (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-     (global-set-key (kbd "C-+") 'text-scale-increase)
-     (global-set-key (kbd "C--") 'text-scale-decrease)
-   #+end_src
-** auto-complete
-   #+begin_src emacs-lisp
-     (require 'auto-complete-config)
-     (ac-config-default)
-   #+end_src
-** Indentation and buffer cleanup
-   #+begin_src emacs-lisp
-     (defun untabify-buffer ()
-       (interactive)
-       (untabify (point-min) (point-max)))
+*** YAML
+    Add additional file extensions that trigger =yaml-mode=.
+    #+begin_src emacs-lisp
+      (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+      (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+    #+end_src
+*** CoffeeScript Mode
+    The default CoffeeScript mode makes terrible choices. This turns
+    everything into 2 space indentations and makes it so the mode
+    functions rather than causing you indentation errors every time you
+    modify a file.
+    #+begin_src emacs-lisp
+      (defun coffee-custom ()
+        "coffee-mode-hook"
+        (make-local-variable 'tab-width)
+        (set 'tab-width 2))
 
-     (defun indent-buffer ()
-       (interactive)
-       (indent-region (point-min) (point-max)))
-
-     (defun cleanup-buffer ()
-       "Perform a bunch of operations on the whitespace content of a buffer."
-       (interactive)
-       (indent-buffer)
-       (untabify-buffer)
-       (delete-trailing-whitespace))
-
-     (defun cleanup-region (beg end)
-       "Remove tmux artifacts from region."
-       (interactive "r")
-       (dolist (re '("\\\\│\·*\n" "\W*│\·*"))
-         (replace-regexp re "" nil beg end)))
-
-     (global-set-key (kbd "C-x M-t") 'cleanup-region)
-     (global-set-key (kbd "C-c n") 'cleanup-buffer)
-   #+end_src
-** CoffeeScript Mode
-   #+begin_src emacs-lisp
-     (defun coffee-custom ()
-       "coffee-mode-hook"
-       (make-local-variable 'tab-width)
-       (set 'tab-width 2))
-
-     (add-hook 'coffee-mode-hook 'coffee-custom)
-   #+end_src
+      (add-hook 'coffee-mode-hook 'coffee-custom)
+    #+end_src
+*** Markdown mode
+    Enable Markdown mode and setup additional file extensions. Use
+    pandoc to generate HTML previews from within the mode, and use a
+    custom css file to make it a little prettier.
+    #+begin_src emacs-lisp
+      (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+      (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
+      (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
+      (setq markdown-command "pandoc --smart -f markdown -t html")
+      (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+    #+end_src
 ** Vendor directory
+   I have a couple of things that don't come from package
+   managers. This sets up the directory and makes sure everything is
+   loaded.
    #+begin_src emacs-lisp
      (defvar abedra/vendor-dir (expand-file-name "vendor" user-emacs-directory))
      (add-to-list 'load-path abedra/vendor-dir)
@@ -356,21 +411,8 @@
        (when (file-directory-p project)
          (add-to-list 'load-path project)))
    #+end_src
-** Markdown mode
+** Themes
+   Load the wombat theme on start-up.
    #+begin_src emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-     (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
-     (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
-     (setq markdown-command "pandoc --smart -f markdown -t html")
-     (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
-   #+end_src
-** rvm
-   #+begin_src emacs-lisp
-     (rvm-use-default)
-   #+end_src
-** flyspell
-   #+begin_src emacs-lisp
-     (setq flyspell-issue-welcome-flag nil)
-     (setq-default ispell-program-name "/usr/local/bin/aspell")
-     (setq-default ispell-list-command "list")
+     (load-theme 'wombat t)
    #+end_src
