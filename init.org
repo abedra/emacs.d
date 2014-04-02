@@ -23,7 +23,7 @@
    to have some of the additional functionality to make this
    configuration and its dependencies work properly.
    #+begin_src emacs-lisp
-     (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+     (setenv "PATH" (concat "/usr/local/bin:/Users/abedra/.cabal/bin:" (getenv "PATH")))
      (require 'cl)
    #+end_src
 ** Package Management
@@ -405,7 +405,7 @@
 
       (add-hook 'coffee-mode-hook 'coffee-custom)
     #+end_src
-*** Markdown mode
+*** Markdown Mode
     Enable Markdown mode and setup additional file extensions. Use
     pandoc to generate HTML previews from within the mode, and use a
     custom css file to make it a little prettier.
@@ -415,4 +415,25 @@
       (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
       (setq markdown-command "pandoc --smart -f markdown -t html")
       (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+    #+end_src
+*** CPSA Mode
+    Enable support for Cryptographic Protocol Shapes Analyzer. This is
+    a scheme-ish dialect, so it's a derived from =scheme-mode=.
+    #+begin_src emacs-lisp
+      (define-derived-mode cpsa-mode scheme-mode
+        (setq mode-name "CPSA")
+        (setq cpsa-keywords '("defmacro" "defprotocol" "defrole" "defskeleton" "defstrand"))
+        (setq cpsa-functions '("cat" "hash" "enc" "string" "ltk" "privk" "pubk" "invk" "send" "recv"  "non-orig" "uniq-orig" "trace" "vars"))
+        (setq cpsa-types '("skey" "akey" "name" "text"))
+        (setq cpsa-keywords-regexp (regexp-opt cpsa-keywords 'words))
+        (setq cpsa-functions-regexp (regexp-opt cpsa-functions 'words))
+        (setq cpsa-types-regexp (regexp-opt cpsa-types 'words))
+        (setq cpsa-font-lock-keywords
+              `(
+                (,cpsa-keywords-regexp . font-lock-keyword-face)
+                (,cpsa-functions-regexp . font-lock-function-name-face)
+                (,cpsa-types-regexp . font-lock-type-face)))
+        (setq font-lock-defaults '((cpsa-font-lock-keywords))))
+
+      (add-to-list 'auto-mode-alist '("\\.cpsa$" . cpsa-mode))
     #+end_src
