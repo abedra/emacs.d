@@ -51,7 +51,10 @@
                                 clojure-mode
                                 clojure-test-mode
                                 coffee-mode
+                                csharp-mode
                                 deft
+                                erlang
+                                feature-mode
                                 gist
                                 go-mode
                                 haml-mode
@@ -60,18 +63,21 @@
                                 magit
                                 markdown-mode
                                 marmalade
+                                nodejs-repl
                                 nrepl
                                 o-blog
                                 org
                                 paredit
+                                php-mode
                                 puppet-mode
                                 restclient
                                 rvm
+                                scala-mode
                                 smex
                                 sml-mode
+                                web-mode
                                 yaml-mode)
         "Default packages")
-
     #+end_src
 *** Install default packages
     When Emacs boots, check to make sure all of the packages defined
@@ -168,6 +174,7 @@
       (global-set-key (kbd "M-/") 'hippie-expand)
       (global-set-key (kbd "C-+") 'text-scale-increase)
       (global-set-key (kbd "C--") 'text-scale-decrease)
+      (global-set-key (kbd "C-c C-k") 'compile)
     #+end_src
 *** Misc
     Turn down the time to echo keystrokes so I don't have to wait
@@ -197,7 +204,7 @@
 *** Themes
     Load the wombat theme on start-up.
     #+begin_src emacs-lisp
-      (load-theme 'wombat t)
+      (load-theme 'solarized-light t)
     #+end_src
 ** Org mode
    =org-mode= is one of the most powerful and amazing features of
@@ -354,6 +361,8 @@
 
       (global-set-key (kbd "C-x M-t") 'cleanup-region)
       (global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+      (setq-default show-trailing-whitespace t)
     #+end_src
 *** flyspell
     The built-in Emacs spell checker. Turn off the welcome flag because
