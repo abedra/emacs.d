@@ -42,7 +42,7 @@
 
      (setq package-archive-enable-alist '(("melpa" deft magit)))
    #+end_src
-*** Define default packages
+*** COMMENT Define default packages
     This is the list of packages used in this configuration.
     #+begin_src emacs-lisp
       (defvar abedra/packages '(ac-slime
@@ -55,6 +55,7 @@
                                 deft
                                 erlang
                                 feature-mode
+                                flycheck
                                 gist
                                 go-mode
                                 haml-mode
@@ -75,6 +76,7 @@
                                 scala-mode
                                 smex
                                 sml-mode
+                                solarized-theme
                                 web-mode
                                 yaml-mode)
         "Default packages")
