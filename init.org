@@ -203,11 +203,6 @@
         (when (file-directory-p project)
           (add-to-list 'load-path project)))
     #+end_src
-*** Themes
-    Load the wombat theme on start-up.
-    #+begin_src emacs-lisp
-      (load-theme 'solarized-light t)
-    #+end_src
 ** Org mode
    =org-mode= is one of the most powerful and amazing features of
    Emacs. I mostly use it for task/day organization and generating
@@ -447,4 +442,12 @@
         (setq font-lock-defaults '((cpsa-font-lock-keywords))))
 
       (add-to-list 'auto-mode-alist '("\\.cpsa$" . cpsa-mode))
+    #+end_src
+*** Themes
+    Load solarized-light if in a graphical environment. Load the
+    wombat theme if in a terminal.
+    #+begin_src emacs-lisp
+      (if window-system
+          (load-theme 'solarized-light t)
+        (load-theme 'wombat t))
     #+end_src
