@@ -411,6 +411,15 @@
 
       (add-hook 'coffee-mode-hook 'coffee-custom)
     #+end_src
+*** JavaScript Mode
+    =js-mode= defaults to using 4 spaces for indentation. Change it to 2
+    #+begin_src emacs-lisp
+      (defun js-custom
+        "js-mode-hook"
+        (setq js-indent-level 2))
+
+      (add-hook 'js-mode-hook 'js-custom)
+    #+end_src
 *** Markdown Mode
     Enable Markdown mode and setup additional file extensions. Use
     pandoc to generate HTML previews from within the mode, and use a
