@@ -414,7 +414,7 @@
 *** JavaScript Mode
     =js-mode= defaults to using 4 spaces for indentation. Change it to 2
     #+begin_src emacs-lisp
-      (defun js-custom
+      (defun js-custom ()
         "js-mode-hook"
         (setq js-indent-level 2))
 
