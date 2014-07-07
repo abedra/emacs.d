@@ -109,19 +109,21 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
-(require 'org)
-(require 'org-install)
-(require 'org-habit)
-(add-to-list 'org-modules "org-habit")
-(global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-log-done t
-      org-agenda-show-log t)
+(setq org-log-done t)
 (setq org-todo-keywords
       '((sequence "TODO" "INPROGRESS" "DONE")))
 (setq org-todo-keyword-faces
       '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-show-log t)
 (setq org-agenda-files (list "~/Dropbox/org/personal.org"
                              "~/Dropbox/org/groupon.org"))
+
+(require 'org)
+(require 'org-install)
+(require 'org-habit)
+(add-to-list 'org-modules "org-habit")
 (setq org-habit-preceding-days 7
       org-habit-following-days 1
       org-habit-graph-column 80
