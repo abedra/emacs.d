@@ -210,16 +210,34 @@
    experience better. Enable logging when tasks are complete. This
    puts a time-stamp on the completed task and lets =org-agenda= mark
    it. Since I usually am doing quite a few things at once, I added
-   the =INPROGRESS= keyword and made the color blue. Setup a default
-   agenda file for org-agenda called =personal.org=.
+   the =INPROGRESS= keyword and made the color blue.
+
+   The agenda view requires that org files be added to it. The
+   =personal.org= and =groupon.org= files are my daily items for
+   review. I have several habits that I also track. In order to take
+   full advantage of this feature =org-habit= has to be required and
+   added to =org-modules=. A few settings are also tweaked for habit
+   mode to make the tracking a little more palatable. The most
+   significant of these is =org-habit-graph-column=. This specifies
+   where the graph should start. The default is too low and cuts off a
+   lot, so I start it at 80 characters.
    #+begin_src emacs-lisp
+     (require 'org)
+     (require 'org-install)
+     (require 'org-habit)
+     (add-to-list 'org-modules "org-habit")
      (global-set-key (kbd "C-c a") 'org-agenda)
      (setq org-log-done t)
      (setq org-todo-keywords
            '((sequence "TODO" "INPROGRESS" "DONE")))
      (setq org-todo-keyword-faces
            '(("INPROGRESS" . (:foreground "blue" :weight bold))))
-     (setq org-agenda-files (list "~/Dropbox/org/personal.org"))
+     (setq org-agenda-files (list "~/Dropbox/org/personal.org"
+                                  "~/Dropbox/org/groupon.org"))
+     (setq org-habit-preceding-days 7
+           org-habit-following-days 1
+           org-habit-graph-column 80
+           org-habit-show-habits-only-for-today t)
    #+end_src
 *** org-babel
     =org-babel= is a feature inside of =org-mode= that makes this
