@@ -2,6 +2,7 @@
 #+AUTHOR: Aaron Bedra
 #+EMAIL: aaron@aaronbedra.com
 #+OPTIONS: toc:3 num:nil
+#+STYLE: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
 
 * Configuration
   Emacs is a special beast. Taming it takes a lot of care. In an
@@ -227,7 +228,8 @@
      (require 'org-habit)
      (add-to-list 'org-modules "org-habit")
      (global-set-key (kbd "C-c a") 'org-agenda)
-     (setq org-log-done t)
+     (setq org-log-done t
+           org-agenda-show-log t)
      (setq org-todo-keywords
            '((sequence "TODO" "INPROGRESS" "DONE")))
      (setq org-todo-keyword-faces

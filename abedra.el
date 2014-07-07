@@ -114,7 +114,8 @@
 (require 'org-habit)
 (add-to-list 'org-modules "org-habit")
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-log-done t)
+(setq org-log-done t
+      org-agenda-show-log t)
 (setq org-todo-keywords
       '((sequence "TODO" "INPROGRESS" "DONE")))
 (setq org-todo-keyword-faces
