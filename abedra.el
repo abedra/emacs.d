@@ -47,6 +47,7 @@
                           sml-mode
                           solarized-theme
                           web-mode
+                          writegood-mode
                           yaml-mode)
   "Default packages")
 
@@ -114,6 +115,12 @@
       '((sequence "TODO" "INPROGRESS" "DONE")))
 (setq org-todo-keyword-faces
       '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (flyspell-mode)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (writegood-mode)))
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-show-log t)

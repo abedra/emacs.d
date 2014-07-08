@@ -43,7 +43,7 @@
 
      (setq package-archive-enable-alist '(("melpa" deft magit)))
    #+end_src
-*** COMMENT Define default packages
+*** Define default packages
     This is the list of packages used in this configuration.
     #+begin_src emacs-lisp
       (defvar abedra/packages '(ac-slime
@@ -79,6 +79,7 @@
                                 sml-mode
                                 solarized-theme
                                 web-mode
+                                writegood-mode
                                 yaml-mode)
         "Default packages")
     #+end_src
@@ -218,13 +219,21 @@
    :END:
    Enable logging when tasks are complete. This puts a time-stamp on
    the completed task. Since I usually am doing quite a few things at
-   once, I added the =INPROGRESS= keyword and made the color blue.
+   once, I added the =INPROGRESS= keyword and made the color
+   blue. Finally, enable =flyspell-mode= and =writegood-mode= when
+   =org-mode= is active.
    #+begin_src emacs-lisp
      (setq org-log-done t)
      (setq org-todo-keywords
            '((sequence "TODO" "INPROGRESS" "DONE")))
      (setq org-todo-keyword-faces
            '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+     (add-hook 'org-mode-hook
+               (lambda ()
+                 (flyspell-mode)))
+     (add-hook 'org-mode-hook
+               (lambda ()
+                 (writegood-mode)))
    #+end_src
 *** org-agenda
    :PROPERTIES:
