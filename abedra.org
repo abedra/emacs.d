@@ -283,7 +283,8 @@
 
       (org-babel-do-load-languages
        'org-babel-load-languages
-       '((sh . t)))
+       '((sh . t)
+         (ditaa . t)))
 
       (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
 
@@ -296,10 +297,27 @@
 
       (provide 'ob-clojure)
 
-      (setq org-src-fontify-natively t)
-      (setq org-confirm-babel-evaluate nil)
+      (setq org-src-fontify-natively t
+            org-confirm-babel-evaluate nil)
+
+      (add-hook 'org-babel-after-execute-hook (lambda ()
+                                                (condition-case nil
+                                                    (org-display-inline-images)
+                                                  (error nil)))
+                'append)
     #+end_src
 ** Utilities
+*** ditaa
+    :PROPERTIES:
+    :CUSTOM_ID: ditta
+    :END:
+    There's no substitute for real drawings, but it's nice to be able
+    to sketch things out and produce a picture right from
+    =org-mode=. This sets up =ditaa= for execution from inside a babel
+    block.
+    #+begin_src emacs-lisp
+      (setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
+    #+end_src
 *** deft
     =deft= provides random note taking with history and
     searching. Since I use =org-mode= for everything else, I turn that
