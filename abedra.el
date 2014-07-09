@@ -110,11 +110,9 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
-(setq org-log-done t)
-(setq org-todo-keywords
-      '((sequence "TODO" "INPROGRESS" "DONE")))
-(setq org-todo-keyword-faces
-      '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+(setq org-log-done t
+      org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE"))
+      org-todo-keyword-faces '(("INPROGRESS" . (:foreground "blue" :weight bold))))
 (add-hook 'org-mode-hook
           (lambda ()
             (flyspell-mode)))
@@ -134,13 +132,15 @@
 (setq org-habit-preceding-days 7
       org-habit-following-days 1
       org-habit-graph-column 80
-      org-habit-show-habits-only-for-today t)
+      org-habit-show-habits-only-for-today t
+      org-habit-show-all-today t)
 
 (require 'ob)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((sh . t)))
+ '((sh . t)
+   (ditaa . t)))
 
 (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
 
@@ -153,8 +153,16 @@
 
 (provide 'ob-clojure)
 
-(setq org-src-fontify-natively t)
-(setq org-confirm-babel-evaluate nil)
+(setq org-src-fontify-natively t
+      org-confirm-babel-evaluate nil)
+
+(add-hook 'org-babel-after-execute-hook (lambda ()
+                                          (condition-case nil
+                                              (org-display-inline-images)
+                                            (error nil)))
+          'append)
+
+(setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
 
 (setq deft-directory "~/Dropbox/deft")
 (setq deft-use-filename-as-title t)
