@@ -223,11 +223,9 @@
    blue. Finally, enable =flyspell-mode= and =writegood-mode= when
    =org-mode= is active.
    #+begin_src emacs-lisp
-     (setq org-log-done t)
-     (setq org-todo-keywords
-           '((sequence "TODO" "INPROGRESS" "DONE")))
-     (setq org-todo-keyword-faces
-           '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+     (setq org-log-done t
+           org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE"))
+           org-todo-keyword-faces '(("INPROGRESS" . (:foreground "blue" :weight bold))))
      (add-hook 'org-mode-hook
                (lambda ()
                  (flyspell-mode)))
