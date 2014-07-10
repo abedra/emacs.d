@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2014-07-07T13:16-0500"/>
+<meta name="generated" content="2014-07-09T23:04-0500"/>
 <meta name="author" content="Aaron Bedra"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -129,7 +129,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-2">Environment</a></li>
 <li><a href="#sec-1-3">Package Management</a>
 <ul>
-<li><a href="#sec-1-3-1">Install default packages</a></li>
+<li><a href="#sec-1-3-1">Define default packages</a></li>
+<li><a href="#sec-1-3-2">Install default packages</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-4">Start-up options</a>
@@ -156,16 +157,17 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-1-6">Utilities</a>
 <ul>
-<li><a href="#sec-1-6-1">deft</a></li>
-<li><a href="#sec-1-6-2">Smex</a></li>
-<li><a href="#sec-1-6-3">Ido</a></li>
-<li><a href="#sec-1-6-4">Column number mode</a></li>
-<li><a href="#sec-1-6-5">Temporary file management</a></li>
-<li><a href="#sec-1-6-6">autopair-mode</a></li>
-<li><a href="#sec-1-6-7">Power lisp</a></li>
-<li><a href="#sec-1-6-8">auto-complete</a></li>
-<li><a href="#sec-1-6-9">Indentation and buffer cleanup</a></li>
-<li><a href="#sec-1-6-10">flyspell</a></li>
+<li><a href="#ditta">ditaa</a></li>
+<li><a href="#sec-1-6-2">deft</a></li>
+<li><a href="#sec-1-6-3">Smex</a></li>
+<li><a href="#sec-1-6-4">Ido</a></li>
+<li><a href="#sec-1-6-5">Column number mode</a></li>
+<li><a href="#sec-1-6-6">Temporary file management</a></li>
+<li><a href="#sec-1-6-7">autopair-mode</a></li>
+<li><a href="#sec-1-6-8">Power lisp</a></li>
+<li><a href="#sec-1-6-9">auto-complete</a></li>
+<li><a href="#sec-1-6-10">Indentation and buffer cleanup</a></li>
+<li><a href="#sec-1-6-11">flyspell</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-7">Language Hooks</a>
@@ -258,12 +260,62 @@ for the JavaScript code in this tag.
 </pre>
 
 
-
 </div>
 
 <div id="outline-container-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1">Install default packages</h4>
+<h4 id="sec-1-3-1">Define default packages</h4>
 <div class="outline-text-4" id="text-1-3-1">
+
+<p>    This is the list of packages used in this configuration.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">abedra/packages</span> '(ac-slime
+                          auto-complete
+                          autopair
+                          clojure-mode
+                          clojure-test-mode
+                          coffee-mode
+                          csharp-mode
+                          deft
+                          erlang
+                          feature-mode
+                          flycheck
+                          gist
+                          go-mode
+                          graphviz-dot-mode
+                          haml-mode
+                          haskell-mode
+                          htmlize
+                          magit
+                          markdown-mode
+                          marmalade
+                          nodejs-repl
+                          nrepl
+                          o-blog
+                          org
+                          paredit
+                          php-mode
+                          puppet-mode
+                          restclient
+                          rvm
+                          scala-mode
+                          smex
+                          sml-mode
+                          solarized-theme
+                          web-mode
+                          writegood-mode
+                          yaml-mode)
+  <span style="color: #2aa198;">"Default packages"</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Install default packages</h4>
+<div class="outline-text-4" id="text-1-3-2">
 
 <p>    When Emacs boots, check to make sure all of the packages defined
     in <code>abedra/packages</code> are installed. If not, have elpa take care of
@@ -518,15 +570,21 @@ for the JavaScript code in this tag.
 
 <p>   Enable logging when tasks are complete. This puts a time-stamp on
    the completed task. Since I usually am doing quite a few things at
-   once, I added the <code>INPROGRESS</code> keyword and made the color blue.
+   once, I added the <code>INPROGRESS</code> keyword and made the color
+   blue. Finally, enable <code>flyspell-mode</code> and <code>writegood-mode</code> when
+   <code>org-mode</code> is active.
 </p>
 
 
-<pre class="src src-emacs-lisp">(setq org-log-done t)
-(setq org-todo-keywords
-      '((sequence <span style="color: #2aa198;">"TODO"</span> <span style="color: #2aa198;">"INPROGRESS"</span> <span style="color: #2aa198;">"DONE"</span>)))
-(setq org-todo-keyword-faces
-      '((<span style="color: #2aa198;">"INPROGRESS"</span> . (<span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"blue"</span> <span style="color: #657b83; font-weight: bold;">:weight</span> bold))))
+<pre class="src src-emacs-lisp">(setq org-log-done t
+      org-todo-keywords '((sequence <span style="color: #2aa198;">"TODO"</span> <span style="color: #2aa198;">"INPROGRESS"</span> <span style="color: #2aa198;">"DONE"</span>))
+      org-todo-keyword-faces '((<span style="color: #2aa198;">"INPROGRESS"</span> . (<span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"blue"</span> <span style="color: #657b83; font-weight: bold;">:weight</span> bold))))
+(add-hook 'org-mode-hook
+          (<span style="color: #859900; font-weight: bold;">lambda</span> ()
+            (flyspell-mode)))
+(add-hook 'org-mode-hook
+          (<span style="color: #859900; font-weight: bold;">lambda</span> ()
+            (writegood-mode)))
 </pre>
 
 </div>
@@ -575,7 +633,8 @@ for the JavaScript code in this tag.
 (setq org-habit-preceding-days 7
       org-habit-following-days 1
       org-habit-graph-column 80
-      org-habit-show-habits-only-for-today t)
+      org-habit-show-habits-only-for-today t
+      org-habit-show-all-today t)
 </pre>
 
 </div>
@@ -598,8 +657,12 @@ for the JavaScript code in this tag.
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((sh . t)))
+ '((sh . t)
+   (ditaa . t)
+   (dot . t)
+   (ruby . t)))
 
+(add-to-list 'org-src-lang-modes (quote (<span style="color: #2aa198;">"dot"</span>. graphviz-dot)))
 (add-to-list 'org-babel-tangle-lang-exts '(<span style="color: #2aa198;">"clojure"</span> . <span style="color: #2aa198;">"clj"</span>))
 
 (<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">org-babel-default-header-args:clojure</span>
@@ -611,8 +674,14 @@ for the JavaScript code in this tag.
 
 (<span style="color: #859900; font-weight: bold;">provide</span> '<span style="color: #268bd2; font-weight: bold;">ob-clojure</span>)
 
-(setq org-src-fontify-natively t)
-(setq org-confirm-babel-evaluate nil)
+(setq org-src-fontify-natively t
+      org-confirm-babel-evaluate nil)
+
+(add-hook 'org-babel-after-execute-hook (<span style="color: #859900; font-weight: bold;">lambda</span> ()
+                                          (<span style="color: #859900; font-weight: bold;">condition-case</span> nil
+                                              (org-display-inline-images)
+                                            (<span style="color: #cb4b16; font-weight: bold; text-decoration: underline;">error</span> nil)))
+          'append)
 </pre>
 
 </div>
@@ -627,9 +696,27 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-1" class="outline-4">
-<h4 id="sec-1-6-1">deft</h4>
-<div class="outline-text-4" id="text-1-6-1">
+<div id="outline-container-ditta" class="outline-4">
+<h4 id="ditta"><a name="sec-1-6-1" id="sec-1-6-1"></a>ditaa</h4>
+<div class="outline-text-4" id="text-ditta">
+
+<p>    There's no substitute for real drawings, but it's nice to be able
+    to sketch things out and produce a picture right from
+    <code>org-mode</code>. This sets up <code>ditaa</code> for execution from inside a babel
+    block.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq org-ditaa-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/ditaa0_9.jar"</span>)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">deft</h4>
+<div class="outline-text-4" id="text-1-6-2">
 
 <p>    <code>deft</code> provides random note taking with history and
     searching. Since I use <code>org-mode</code> for everything else, I turn that
@@ -647,9 +734,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-2" class="outline-4">
-<h4 id="sec-1-6-2">Smex</h4>
-<div class="outline-text-4" id="text-1-6-2">
+<div id="outline-container-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3">Smex</h4>
+<div class="outline-text-4" id="text-1-6-3">
 
 <p>    <code>smex</code> is a necessity. It provides history and searching on top of <code>M-x</code>.
 </p>
@@ -665,9 +752,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-3" class="outline-4">
-<h4 id="sec-1-6-3">Ido</h4>
-<div class="outline-text-4" id="text-1-6-3">
+<div id="outline-container-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4">Ido</h4>
+<div class="outline-text-4" id="text-1-6-4">
 
 <p>    <code>Ido</code> mode provides a nice way to navigate the filesystem. This is
     mostly just turning it on.
@@ -683,9 +770,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-4" class="outline-4">
-<h4 id="sec-1-6-4">Column number mode</h4>
-<div class="outline-text-4" id="text-1-6-4">
+<div id="outline-container-1-6-5" class="outline-4">
+<h4 id="sec-1-6-5">Column number mode</h4>
+<div class="outline-text-4" id="text-1-6-5">
 
 <p>    Turn on column numbers.
 </p>
@@ -698,9 +785,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-5" class="outline-4">
-<h4 id="sec-1-6-5">Temporary file management</h4>
-<div class="outline-text-4" id="text-1-6-5">
+<div id="outline-container-1-6-6" class="outline-4">
+<h4 id="sec-1-6-6">Temporary file management</h4>
+<div class="outline-text-4" id="text-1-6-6">
 
 <p>    Deal with temporary files. I don't care about them and this makes
     them go away.
@@ -715,9 +802,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-6" class="outline-4">
-<h4 id="sec-1-6-6">autopair-mode</h4>
-<div class="outline-text-4" id="text-1-6-6">
+<div id="outline-container-1-6-7" class="outline-4">
+<h4 id="sec-1-6-7">autopair-mode</h4>
+<div class="outline-text-4" id="text-1-6-7">
 
 <p>    This makes sure that brace structures <code>(), [], {}</code>, etc. are closed
     as soon as the opening character is typed.
@@ -731,9 +818,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-7" class="outline-4">
-<h4 id="sec-1-6-7">Power lisp</h4>
-<div class="outline-text-4" id="text-1-6-7">
+<div id="outline-container-1-6-8" class="outline-4">
+<h4 id="sec-1-6-8">Power lisp</h4>
+<div class="outline-text-4" id="text-1-6-8">
 
 <p>    A bunch of tweaks for programming in LISP dialects. It defines the
     modes that I want to apply these hooks to. To add more just add
@@ -773,9 +860,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-8" class="outline-4">
-<h4 id="sec-1-6-8">auto-complete</h4>
-<div class="outline-text-4" id="text-1-6-8">
+<div id="outline-container-1-6-9" class="outline-4">
+<h4 id="sec-1-6-9">auto-complete</h4>
+<div class="outline-text-4" id="text-1-6-9">
 
 <p>    Turn on auto complete.
 </p>
@@ -789,9 +876,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-9" class="outline-4">
-<h4 id="sec-1-6-9">Indentation and buffer cleanup</h4>
-<div class="outline-text-4" id="text-1-6-9">
+<div id="outline-container-1-6-10" class="outline-4">
+<h4 id="sec-1-6-10">Indentation and buffer cleanup</h4>
+<div class="outline-text-4" id="text-1-6-10">
 
 <p>    This re-indents, untabifies, and cleans up whitespace. It is stolen
     directly from the emacs-starter-kit.
@@ -829,9 +916,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-6-10" class="outline-4">
-<h4 id="sec-1-6-10">flyspell</h4>
-<div class="outline-text-4" id="text-1-6-10">
+<div id="outline-container-1-6-11" class="outline-4">
+<h4 id="sec-1-6-11">flyspell</h4>
+<div class="outline-text-4" id="text-1-6-11">
 
 <p>    The built-in Emacs spell checker. Turn off the welcome flag because
     it is annoying and breaks on quite a few systems. Specify the
@@ -1028,7 +1115,7 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2014-07-07T13:16-0500</p>
+<p class="date">Date: 2014-07-09T23:04-0500</p>
 <p class="author">Author: Aaron Bedra</p>
 <p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
