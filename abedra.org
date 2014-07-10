@@ -59,6 +59,7 @@
                                 flycheck
                                 gist
                                 go-mode
+                                graphviz-dot-mode
                                 haml-mode
                                 haskell-mode
                                 htmlize
@@ -284,8 +285,11 @@
       (org-babel-do-load-languages
        'org-babel-load-languages
        '((sh . t)
-         (ditaa . t)))
+         (ditaa . t)
+         (dot . t)
+         (ruby . t)))
 
+      (add-to-list 'org-src-lang-modes (quote ("dot". graphviz-dot)))
       (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
 
       (defvar org-babel-default-header-args:clojure
