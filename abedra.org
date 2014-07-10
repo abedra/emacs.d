@@ -310,6 +310,33 @@
                                                   (error nil)))
                 'append)
     #+end_src
+*** org-abbrev
+    :PROPERTIES:
+    :CUSTOM_ID: org-abbrev
+    :END:
+    #+begin_src emacs-lisp
+      (add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
+
+      (define-skeleton skel-org-block-elisp
+        "Insert an emacs-lisp block"
+        ""
+        "#+begin_src emacs-lisp\n"
+        _ - \n
+        "#+end_src\n")
+
+      (define-abbrev org-mode-abbrev-table "selisp" "" 'skel-org-block-elisp)
+
+      (define-skeleton skel-header-block
+        "Creates my default header"
+        ""
+        "#+TITLE: " str "\n"
+        "#+AUTHOR: Aaron Bedra\n"
+        "#+EMAIL: aaron@aaronbedra.com\n"
+        "#+OPTIONS: toc:3 num:nil\n"
+        "#+STYLE: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" />\n")
+
+      (define-abbrev org-mode-abbrev-table "sheader" "" 'skel-header-block)
+    #+end_src
 ** Utilities
 *** ditaa
     :PROPERTIES:
