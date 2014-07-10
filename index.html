@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2014-07-10T15:53-0500"/>
+<meta name="generated" content="2014-07-10T16:21-0500"/>
 <meta name="author" content="Aaron Bedra"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -158,7 +158,7 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-1-6">Utilities</a>
 <ul>
-<li><a href="#ditta">ditaa</a></li>
+<li><a href="#ditaa">ditaa</a></li>
 <li><a href="#sec-1-6-2">deft</a></li>
 <li><a href="#sec-1-6-3">Smex</a></li>
 <li><a href="#sec-1-6-4">Ido</a></li>
@@ -599,12 +599,17 @@ for the JavaScript code in this tag.
 <p>   First, create the global binding for <code>org-agenda</code>. This allows it
    to be quickly accessed. The agenda view requires that org files be
    added to it. The <code>personal.org</code> and <code>groupon.org</code> files are my
-   daily files for review.
+   daily files for review. I have a habit to plan the next day. I do
+   this by assessing my calendar and my list of todo items. If a todo
+   item is already scheduled or has a deadline, don't show it in the
+   global todo list.
 </p>
 
 
 <pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #2aa198;">"C-c a"</span>) 'org-agenda)
-(setq org-agenda-show-log t)
+(setq org-agenda-show-log t
+      org-agenda-todo-ignore-scheduled t
+      org-agenda-todo-ignore-deadlines t)
 (setq org-agenda-files (list <span style="color: #2aa198;">"~/Dropbox/org/personal.org"</span>
                              <span style="color: #2aa198;">"~/Dropbox/org/groupon.org"</span>))
 </pre>
@@ -731,9 +736,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-ditta" class="outline-4">
-<h4 id="ditta"><a name="sec-1-6-1" id="sec-1-6-1"></a>ditaa</h4>
-<div class="outline-text-4" id="text-ditta">
+<div id="outline-container-ditaa" class="outline-4">
+<h4 id="ditaa"><a name="sec-1-6-1" id="sec-1-6-1"></a>ditaa</h4>
+<div class="outline-text-4" id="text-ditaa">
 
 <p>    There's no substitute for real drawings, but it's nice to be able
     to sketch things out and produce a picture right from
@@ -1150,7 +1155,7 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2014-07-10T15:53-0500</p>
+<p class="date">Date: 2014-07-10T16:21-0500</p>
 <p class="author">Author: Aaron Bedra</p>
 <p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
