@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2014-07-09T23:04-0500"/>
+<meta name="generated" content="2014-07-10T15:53-0500"/>
 <meta name="author" content="Aaron Bedra"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -153,6 +153,7 @@ for the JavaScript code in this tag.
 <li><a href="#org-agenda">org-agenda</a></li>
 <li><a href="#org-habit">org-habit</a></li>
 <li><a href="#org-babel">org-babel</a></li>
+<li><a href="#org-abbrev">org-abbrev</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-6">Utilities</a>
@@ -685,6 +686,40 @@ for the JavaScript code in this tag.
 </pre>
 
 </div>
+
+</div>
+
+<div id="outline-container-org-abbrev" class="outline-4">
+<h4 id="org-abbrev"><a name="sec-1-5-5" id="sec-1-5-5"></a>org-abbrev</h4>
+<div class="outline-text-4" id="text-org-abbrev">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #859900; font-weight: bold;">lambda</span> () (abbrev-mode 1)))
+
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-org-block-elisp</span>
+  <span style="color: #2aa198;">"Insert an emacs-lisp block"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#+begin_src emacs-lisp\n"</span>
+  _ - \n
+  <span style="color: #2aa198;">"#+end_src\n"</span>)
+
+(define-abbrev org-mode-abbrev-table <span style="color: #2aa198;">"selisp"</span> <span style="color: #2aa198;">""</span> 'skel-org-block-elisp)
+
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-header-block</span>
+  <span style="color: #2aa198;">"Creates my default header"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#+TITLE: "</span> str <span style="color: #2aa198;">"\n"</span>
+  <span style="color: #2aa198;">"#+AUTHOR: Aaron Bedra\n"</span>
+  <span style="color: #2aa198;">"#+EMAIL: aaron@aaronbedra.com\n"</span>
+  <span style="color: #2aa198;">"#+OPTIONS: toc:3 num:nil\n"</span>
+  <span style="color: #2aa198;">"#+STYLE: &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" /&gt;\n"</span>)
+
+(define-abbrev org-mode-abbrev-table <span style="color: #2aa198;">"sheader"</span> <span style="color: #2aa198;">""</span> 'skel-header-block)
+</pre>
+
+</div>
 </div>
 
 </div>
@@ -1115,7 +1150,7 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2014-07-09T23:04-0500</p>
+<p class="date">Date: 2014-07-10T15:53-0500</p>
 <p class="author">Author: Aaron Bedra</p>
 <p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
