@@ -122,7 +122,9 @@
             (writegood-mode)))
 
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-show-log t)
+(setq org-agenda-show-log t
+      org-agenda-todo-ignore-scheduled t
+      org-agenda-todo-ignore-deadlines t)
 (setq org-agenda-files (list "~/Dropbox/org/personal.org"
                              "~/Dropbox/org/groupon.org"))
 
