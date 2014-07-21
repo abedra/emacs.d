@@ -270,6 +270,8 @@
 (setq-default ispell-program-name "/usr/local/bin/aspell")
 (setq-default ispell-list-command "list")
 
+(add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (autopair-mode)))

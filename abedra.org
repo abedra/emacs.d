@@ -476,6 +476,17 @@
       (setq-default ispell-list-command "list")
     #+end_src
 ** Language Hooks
+   :PROPERTIES:
+   :CUSTOM_ID: languages
+   :END:
+*** Web Mode
+    :PROPERTIES:
+    :CUSTOM_ID: web-mode
+    :END:
+
+    #+begin_src emacs-lisp
+      (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+    #+end_src
 *** Ruby
     Turn on =autopair= for Ruby. Identify additional file
     names/extensions that will trigger =ruby-mode= when loaded.
