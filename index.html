@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Aaron Bedra's Emacs 24 Configuration"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2014-07-10T16:21-0500"/>
+<meta name="generated" content="2014-07-24T08:44-0500"/>
 <meta name="author" content="Aaron Bedra"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -171,16 +171,17 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-6-11">flyspell</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-7">Language Hooks</a>
+<li><a href="#languages">Language Hooks</a>
 <ul>
-<li><a href="#sec-1-7-1">Ruby</a></li>
-<li><a href="#sec-1-7-2">RVM</a></li>
-<li><a href="#sec-1-7-3">YAML</a></li>
-<li><a href="#sec-1-7-4">CoffeeScript Mode</a></li>
-<li><a href="#sec-1-7-5">JavaScript Mode</a></li>
-<li><a href="#sec-1-7-6">Markdown Mode</a></li>
-<li><a href="#sec-1-7-7">CPSA Mode</a></li>
-<li><a href="#sec-1-7-8">Themes</a></li>
+<li><a href="#web-mode">Web Mode</a></li>
+<li><a href="#sec-1-7-2">Ruby</a></li>
+<li><a href="#sec-1-7-3">RVM</a></li>
+<li><a href="#sec-1-7-4">YAML</a></li>
+<li><a href="#sec-1-7-5">CoffeeScript Mode</a></li>
+<li><a href="#sec-1-7-6">JavaScript Mode</a></li>
+<li><a href="#sec-1-7-7">Markdown Mode</a></li>
+<li><a href="#sec-1-7-8">CPSA Mode</a></li>
+<li><a href="#sec-1-7-9">Themes</a></li>
 </ul>
 </li>
 </ul>
@@ -205,7 +206,7 @@ for the JavaScript code in this tag.
 <div class="outline-text-3" id="text-1-1">
 
 <p>   Emacs will normally pick this up automatically, but this way I can
-   be sure things are set properly.
+   be sure the right information is always present.
 </p>
 
 
@@ -222,11 +223,15 @@ for the JavaScript code in this tag.
 <div class="outline-text-3" id="text-1-2">
 
 <p>   There are plenty of things installed outside of the default
-   PATH. This allows me to establish additional PATH information so
-   that everything functions as it should. Require common lisp
-   mode. Emacs lisp is really only a subset of common lisp, and I need
-   to have some of the additional functionality to make this
-   configuration and its dependencies work properly.
+   <code>PATH</code>. This allows me to establish additional <code>PATH</code> information. At
+   the moment, the only things that added are <code>/usr/local/bin</code> for
+   homebrew on OS X and <code>.cabal/bin</code> for <a href="http://www.haskell.org/cabal/">Haskell package binaries</a>.
+</p>
+<p>
+   Emacs lisp is really only a subset of common lisp, and I need to
+   have some of the additional functionality to make the configuration
+   and its dependencies work properly, which we get by requiring
+   <a href="http://www.emacswiki.org/emacs/CommonLispForEmacs">Common Lisp for Emacs</a>.
 </p>
 
 
@@ -242,11 +247,11 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-3">Package Management</h3>
 <div class="outline-text-3" id="text-1-3">
 
-<p>   Since Emacs 24, the emacs lisp package archive (elpa) is included
-   by default. This provides a nice way to install the additions
-   needed to make things work properly. Since the default package
-   archive doesn't include everything I need, the marmalade, and melpa
-   repositories are also added.
+<p>   Since Emacs 24, Emacs includes the Emacs Lisp Package Archive
+   (<a href="http://www.emacswiki.org/emacs/ELPA">ELPA</a>) by default. This provides a nice way to install additional
+   packages. Since the default package archive doesn't include
+   everything necessary, the <a href="http://marmalade-repo.org/">marmalade</a>, and <a href="#melpa">melpa</a> repositories are also
+   added.
 </p>
 
 
@@ -319,7 +324,7 @@ for the JavaScript code in this tag.
 <div class="outline-text-4" id="text-1-3-2">
 
 <p>    When Emacs boots, check to make sure all of the packages defined
-    in <code>abedra/packages</code> are installed. If not, have elpa take care of
+    in <code>abedra/packages</code> are installed. If not, have ELPA take care of
     it.
 </p>
 
@@ -356,16 +361,14 @@ for the JavaScript code in this tag.
 <p>    I want to skip straight to the scratch buffer. This turns off the
     splash screen and puts me straight into the scratch buffer. I
     don't really care to have anything in there either, so turn off
-    the message while we're at it. Since I end up using <code>clojure-mode</code>
+    the message while we're at it. Since I end up using <code>org-mode</code>
     most of the time, set the default mode accordingly.
 </p>
 
 
 <pre class="src src-emacs-lisp">(setq inhibit-splash-screen t
-      initial-scratch-message nil)
-
-(<span style="color: #859900; font-weight: bold;">when</span> (locate-library <span style="color: #2aa198;">"clojure-mode"</span>)
-  (setq initial-major-mode 'clojure-mode))
+      initial-scratch-message nil
+      initial-major-mode 'org-mode)
 </pre>
 
 </div>
@@ -376,7 +379,7 @@ for the JavaScript code in this tag.
 <h4 id="sec-1-4-2">Scroll bar, Tool bar, Menu bar</h4>
 <div class="outline-text-4" id="text-1-4-2">
 
-<p>    Emacs starts up with way to many things. Turn off the scroll bar,
+<p>    Emacs starts up with way too much enabled. Turn off the scroll bar,
     menu bar, and tool bar. There isn't really a reason to have them
     on.
 </p>
@@ -395,15 +398,15 @@ for the JavaScript code in this tag.
 <h4 id="sec-1-4-3">Marking text</h4>
 <div class="outline-text-4" id="text-1-4-3">
 
-<p>    There are some behaviors in Emacs that aren't very
-    intuitive. Since I pair with others that don't know how Emacs
-    handles highlighting, treat regions like other text editors. This
-    means typing when the mark is active will write over the marked
-    region. Also, make the common highlighting keystrokes work the way
-    most people expect them to. This saves a lot of time explaining
-    how to highlight areas of text. Emacs also has it's own clipboard
-    and doesn't respond to the system clipboard by default, so tell
-    Emacs that we're all friends and can get along.
+<p>    There are some behaviors in Emacs that aren't intuitive. Since I
+    pair with others that don't know how Emacs handles highlighting,
+    treat regions like other text editors. This means typing when the
+    mark is active will write over the marked region. Also, make the
+    common highlighting keystrokes work the way most people expect
+    them to. This saves a lot of time explaining how to highlight
+    areas of text. Emacs also has it's own clipboard and doesn't
+    respond to the system clipboard by default, so tell Emacs that
+    we're all friends and can get along.
 </p>
 
 
@@ -967,7 +970,9 @@ for the JavaScript code in this tag.
 
 
 <pre class="src src-emacs-lisp">(setq flyspell-issue-welcome-flag nil)
-(setq-default ispell-program-name <span style="color: #2aa198;">"/usr/local/bin/aspell"</span>)
+(<span style="color: #859900; font-weight: bold;">if</span> (eq system-type 'darwin)
+    (setq-default ispell-program-name <span style="color: #2aa198;">"/usr/local/bin/aspell"</span>)
+  (setq-default ispell-program-name <span style="color: #2aa198;">"/usr/bin/aspell"</span>))
 (setq-default ispell-list-command <span style="color: #2aa198;">"list"</span>)
 </pre>
 
@@ -976,16 +981,31 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7" class="outline-3">
-<h3 id="sec-1-7">Language Hooks</h3>
-<div class="outline-text-3" id="text-1-7">
+<div id="outline-container-languages" class="outline-3">
+<h3 id="languages"><a name="sec-1-7" id="sec-1-7"></a>Language Hooks</h3>
+<div class="outline-text-3" id="text-languages">
 
 
 </div>
 
-<div id="outline-container-1-7-1" class="outline-4">
-<h4 id="sec-1-7-1">Ruby</h4>
-<div class="outline-text-4" id="text-1-7-1">
+<div id="outline-container-web-mode" class="outline-4">
+<h4 id="web-mode"><a name="sec-1-7-1" id="sec-1-7-1"></a>Web Mode</h4>
+<div class="outline-text-4" id="text-web-mode">
+
+
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.hbs$"</span> . web-mode))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7-2" class="outline-4">
+<h4 id="sec-1-7-2">Ruby</h4>
+<div class="outline-text-4" id="text-1-7-2">
 
 <p>    Turn on <code>autopair</code> for Ruby. Identify additional file
     names/extensions that will trigger <code>ruby-mode</code> when loaded.
@@ -1009,9 +1029,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-2" class="outline-4">
-<h4 id="sec-1-7-2">RVM</h4>
-<div class="outline-text-4" id="text-1-7-2">
+<div id="outline-container-1-7-3" class="outline-4">
+<h4 id="sec-1-7-3">RVM</h4>
+<div class="outline-text-4" id="text-1-7-3">
 
 <p>    Enable Ruby Version Manager mode and tell it to use the default Ruby.
 </p>
@@ -1024,9 +1044,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-3" class="outline-4">
-<h4 id="sec-1-7-3">YAML</h4>
-<div class="outline-text-4" id="text-1-7-3">
+<div id="outline-container-1-7-4" class="outline-4">
+<h4 id="sec-1-7-4">YAML</h4>
+<div class="outline-text-4" id="text-1-7-4">
 
 <p>    Add additional file extensions that trigger <code>yaml-mode</code>.
 </p>
@@ -1040,9 +1060,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-4" class="outline-4">
-<h4 id="sec-1-7-4">CoffeeScript Mode</h4>
-<div class="outline-text-4" id="text-1-7-4">
+<div id="outline-container-1-7-5" class="outline-4">
+<h4 id="sec-1-7-5">CoffeeScript Mode</h4>
+<div class="outline-text-4" id="text-1-7-5">
 
 <p>    The default CoffeeScript mode makes terrible choices. This turns
     everything into 2 space indentations and makes it so the mode
@@ -1063,9 +1083,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-5" class="outline-4">
-<h4 id="sec-1-7-5">JavaScript Mode</h4>
-<div class="outline-text-4" id="text-1-7-5">
+<div id="outline-container-1-7-6" class="outline-4">
+<h4 id="sec-1-7-6">JavaScript Mode</h4>
+<div class="outline-text-4" id="text-1-7-6">
 
 <p>    <code>js-mode</code> defaults to using 4 spaces for indentation. Change it to 2
 </p>
@@ -1082,9 +1102,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-6" class="outline-4">
-<h4 id="sec-1-7-6">Markdown Mode</h4>
-<div class="outline-text-4" id="text-1-7-6">
+<div id="outline-container-1-7-7" class="outline-4">
+<h4 id="sec-1-7-7">Markdown Mode</h4>
+<div class="outline-text-4" id="text-1-7-7">
 
 <p>    Enable Markdown mode and setup additional file extensions. Use
     pandoc to generate HTML previews from within the mode, and use a
@@ -1103,9 +1123,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-7" class="outline-4">
-<h4 id="sec-1-7-7">CPSA Mode</h4>
-<div class="outline-text-4" id="text-1-7-7">
+<div id="outline-container-1-7-8" class="outline-4">
+<h4 id="sec-1-7-8">CPSA Mode</h4>
+<div class="outline-text-4" id="text-1-7-8">
 
 <p>    Enable support for Cryptographic Protocol Shapes Analyzer. This is
     a scheme-ish dialect, so it's a derived from <code>scheme-mode</code>.
@@ -1134,9 +1154,9 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-1-7-8" class="outline-4">
-<h4 id="sec-1-7-8">Themes</h4>
-<div class="outline-text-4" id="text-1-7-8">
+<div id="outline-container-1-7-9" class="outline-4">
+<h4 id="sec-1-7-9">Themes</h4>
+<div class="outline-text-4" id="text-1-7-9">
 
 <p>    Load solarized-light if in a graphical environment. Load the
     wombat theme if in a terminal.
@@ -1155,7 +1175,7 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2014-07-10T16:21-0500</p>
+<p class="date">Date: 2014-07-24T08:44-0500</p>
 <p class="author">Author: Aaron Bedra</p>
 <p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
