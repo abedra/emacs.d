@@ -65,10 +65,8 @@
       (package-install pkg))))
 
 (setq inhibit-splash-screen t
-      initial-scratch-message nil)
-
-(when (locate-library "clojure-mode")
-  (setq initial-major-mode 'clojure-mode))
+      initial-scratch-message nil
+      initial-major-mode 'org-mode)
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
