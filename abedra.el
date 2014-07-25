@@ -143,10 +143,12 @@
  'org-babel-load-languages
  '((sh . t)
    (ditaa . t)
+   (plantuml . t)
    (dot . t)
    (ruby . t)))
 
 (add-to-list 'org-src-lang-modes (quote ("dot". graphviz-dot)))
+(add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
 
 (defvar org-babel-default-header-args:clojure
@@ -190,6 +192,8 @@
 (define-abbrev org-mode-abbrev-table "sheader" "" 'skel-header-block)
 
 (setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
+
+(setq org-plantuml-jar-path "~/.emacs.d/vendor/plantuml.jar")
 
 (setq deft-directory "~/Dropbox/deft")
 (setq deft-use-filename-as-title t)

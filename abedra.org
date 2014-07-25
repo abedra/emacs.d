@@ -356,10 +356,12 @@
        'org-babel-load-languages
        '((sh . t)
          (ditaa . t)
+         (plantuml . t)
          (dot . t)
          (ruby . t)))
 
       (add-to-list 'org-src-lang-modes (quote ("dot". graphviz-dot)))
+      (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
       (add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
 
       (defvar org-babel-default-header-args:clojure
@@ -419,6 +421,14 @@
     #+begin_src emacs-lisp
       (setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
     #+end_src
+*** plantuml
+    :PROPERTIES:
+    :CUSTOM_ID: plantuml
+    :END:
+    #+begin_src emacs-lisp
+      (setq org-plantuml-jar-path "~/.emacs.d/vendor/plantuml.jar")
+    #+end_src
+
 *** deft
     =deft= provides random note taking with history and
     searching. Since I use =org-mode= for everything else, I turn that
