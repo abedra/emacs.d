@@ -10,6 +10,10 @@
   is my attempt at configuration as a literate program. It also shows
   off the awesome power of org-mode, which makes all of this possible.
 ** User details
+   :PROPERTIES:
+   :CUSTOM_ID: user-info
+   :END:
+
    Emacs will normally pick this up automatically, but this way I can
    be sure the right information is always present.
    #+begin_src emacs-lisp
@@ -17,6 +21,10 @@
      (setq user-mail-address "aaron@aaronbedra.com")
    #+end_src
 ** Environment
+   :PROPERTIES:
+   :CUSTOM_ID: environment
+   :END:
+
    There are plenty of things installed outside of the default
    =PATH=. This allows me to establish additional =PATH= information. At
    the moment, the only things that added are =/usr/local/bin= for
@@ -31,10 +39,14 @@
      (require 'cl)
    #+end_src
 ** Package Management
+   :PROPERTIES:
+   :CUSTOM_ID: package-management
+   :END:
+
    Since Emacs 24, Emacs includes the Emacs Lisp Package Archive
    ([[http://www.emacswiki.org/emacs/ELPA][ELPA]]) by default. This provides a nice way to install additional
    packages. Since the default package archive doesn't include
-   everything necessary, the [[http://marmalade-repo.org/][marmalade]], and [[melpa]] repositories are also
+   everything necessary, the [[http://marmalade-repo.org/][marmalade]], and [[http://melpa.milkbox.net/#][melpa]] repositories are also
    added.
    #+begin_src emacs-lisp
      (load "package")
@@ -47,6 +59,10 @@
      (setq package-archive-enable-alist '(("melpa" deft magit)))
    #+end_src
 *** Define default packages
+    :PROPERTIES:
+    :CUSTOM_ID: default-packages
+    :END:
+
     This is the list of packages used in this configuration.
     #+begin_src emacs-lisp
       (defvar abedra/packages '(ac-slime
@@ -88,6 +104,10 @@
         "Default packages")
     #+end_src
 *** Install default packages
+    :PROPERTIES:
+    :CUSTOM_ID: package-install
+    :END:
+
     When Emacs boots, check to make sure all of the packages defined
     in =abedra/packages= are installed. If not, have ELPA take care of
     it.
@@ -105,7 +125,15 @@
             (package-install pkg))))
     #+end_src
 ** Start-up options
+   :PROPERTIES:
+   :CUSTOM_ID: start-up-options
+   :END:
+
 *** Splash Screen
+    :PROPERTIES:
+    :CUSTOM_ID: splash-screen
+    :END:
+
     I want to skip straight to the scratch buffer. This turns off the
     splash screen and puts me straight into the scratch buffer. I
     don't really care to have anything in there either, so turn off
@@ -117,6 +145,10 @@
             initial-major-mode 'org-mode)
     #+end_src
 *** Scroll bar, Tool bar, Menu bar
+    :PROPERTIES:
+    :CUSTOM_ID: menu-bars
+    :END:
+
     Emacs starts up with way too much enabled. Turn off the scroll bar,
     menu bar, and tool bar. There isn't really a reason to have them
     on.
@@ -126,6 +158,10 @@
       (menu-bar-mode -1)
     #+end_src
 *** Marking text
+    :PROPERTIES:
+    :CUSTOM_ID: regions
+    :END:
+
     There are some behaviors in Emacs that aren't intuitive. Since I
     pair with others that don't know how Emacs handles highlighting,
     treat regions like other text editors. This means typing when the
@@ -141,7 +177,11 @@
       (setq x-select-enable-clipboard t)
     #+end_src
 *** Display Settings
-    I like a few slight modifications to the default display. First, a
+    :PROPERTIES:
+    :CUSTOM_ID: buffers
+    :END:
+
+    I have some modifications to the default display. First, a
     minor tweak to the frame title. It's also nice to be able to see
     when a file actually ends. This will put empty line markers into
     the left hand side.
@@ -154,6 +194,10 @@
         (toggle-indicate-empty-lines))
     #+end_src
 *** Indentation
+    :PROPERTIES:
+    :CUSTOM_ID: indentation
+    :END:
+
     There's nothing I dislike more than tabs in my files. Make sure I
     don't share that discomfort with others.
     #+begin_src emacs-lisp
@@ -161,18 +205,30 @@
             indent-tabs-mode nil)
     #+end_src
 *** Backup files
+    :PROPERTIES:
+    :CUSTOM_ID: backup-files
+    :END:
+
     Some people like to have them. I don't. Rather than pushing them
     to a folder, never to be used, just turn the whole thing off.
     #+begin_src emacs-lisp
       (setq make-backup-files nil)
     #+end_src
 *** Yes and No
+    :PROPERTIES:
+    :CUSTOM_ID: yes-and-no
+    :END:
+
     Nobody likes to have to type out the full yes or no when Emacs
-    asks. Which it does quite often. Make it one character.
+    asks. Which it does often. Make it one character.
     #+begin_src emacs-lisp
       (defalias 'yes-or-no-p 'y-or-n-p)
     #+end_src
 *** Key bindings
+    :PROPERTIES:
+    :CUSTOM_ID: key-bindings
+    :END:
+
     Miscellaneous key binding stuff that doesn't fit anywhere else.
     #+begin_src emacs-lisp
       (global-set-key (kbd "RET") 'newline-and-indent)
@@ -184,6 +240,10 @@
       (global-set-key (kbd "C-x g") 'magit-status)
     #+end_src
 *** Misc
+    :PROPERTIES:
+    :CUSTOM_ID: misc
+    :END:
+
     Turn down the time to echo keystrokes so I don't have to wait
     around for things to happen. Dialog boxes are also a bit annoying,
     so just have Emacs use the echo area for everything. Beeping is
@@ -197,9 +257,12 @@
       (show-paren-mode t)
     #+end_src
 *** Vendor directory
+    :PROPERTIES:
+    :CUSTOM_ID: vendor-directory
+    :END:
+
     I have a couple of things that don't come from package
-    managers. This sets up the directory and makes sure everything is
-    loaded.
+    managers. This includes the directory for use.
     #+begin_src emacs-lisp
       (defvar abedra/vendor-dir (expand-file-name "vendor" user-emacs-directory))
       (add-to-list 'load-path abedra/vendor-dir)
