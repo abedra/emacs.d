@@ -276,6 +276,7 @@
 (setq-default ispell-list-command "list")
 
 (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
 (add-hook 'ruby-mode-hook
           (lambda ()
