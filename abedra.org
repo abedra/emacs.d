@@ -556,6 +556,14 @@
    :PROPERTIES:
    :CUSTOM_ID: languages
    :END:
+*** shell-script-mode
+    :PROPERTIES:
+    :CUSTOM_ID: shell-script-mode
+    :END:
+    Use =shell-script-mode= for =.zsh= files.
+    #+begin_src emacs-lisp
+      (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+    #+end_src
 *** Web Mode
     :PROPERTIES:
     :CUSTOM_ID: web-mode

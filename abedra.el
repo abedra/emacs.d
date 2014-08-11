@@ -275,6 +275,8 @@
   (setq-default ispell-program-name "/usr/bin/aspell"))
 (setq-default ispell-list-command "list")
 
+(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+
 (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
