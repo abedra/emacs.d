@@ -162,8 +162,7 @@
 (provide 'ob-clojure)
 
 (setq org-src-fontify-natively t
-      org-confirm-babel-evaluate nil
-      org-babel-js-cmd "mozrepl")
+      org-confirm-babel-evaluate nil)
 
 (add-hook 'org-babel-after-execute-hook (lambda ()
                                           (condition-case nil
@@ -306,12 +305,9 @@
 
 (add-hook 'coffee-mode-hook 'coffee-custom)
 
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-
 (defun js-custom ()
   "js-mode-hook"
-  (setq js-indent-level 2)
-  (moz-minor-mode 1))
+  (setq js-indent-level 2))
 
 (add-hook 'js-mode-hook 'js-custom)
 
