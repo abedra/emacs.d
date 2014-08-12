@@ -418,6 +418,13 @@
         "#+STYLE: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" />\n")
 
       (define-abbrev org-mode-abbrev-table "sheader" "" 'skel-header-block)
+
+      (define-skeleton skel-org-html-file-name
+        "Insert an HTML snippet to reference the file by name"
+        ""
+        "#+HTML: <strong><i>"str"</i></strong>")
+
+      (define-abbrev org-mode-abbrev-table "fname" "" 'skel-org-html-file-name)
     #+end_src
 ** Utilities
 *** ditaa

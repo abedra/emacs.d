@@ -201,6 +201,13 @@
 
 (define-abbrev org-mode-abbrev-table "sheader" "" 'skel-header-block)
 
+(define-skeleton skel-org-html-file-name
+  "Insert an HTML snippet to reference the file by name"
+  ""
+  "#+HTML: <strong><i>"str"</i></strong>")
+
+(define-abbrev org-mode-abbrev-table "fname" "" 'skel-org-html-file-name)
+
 (setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
 
 (setq org-plantuml-jar-path "~/.emacs.d/vendor/plantuml.jar")
