@@ -397,7 +397,16 @@
         _ - \n
         "#+end_src\n")
 
-      (define-abbrev org-mode-abbrev-table "selisp" "" 'skel-org-block-elisp)
+      (define-abbrev org-mode-abbrev-table "elsrc" "" 'skel-org-block-elisp)
+
+      (define-skeleton skel-org-block-js
+        "Insert a JavaScript block"
+        ""
+        "#+begin_src js\n"
+        _ - \n
+        "#+end_src\n")
+
+      (define-abbrev org-mode-abbrev-table "jssrc" "" 'skel-org-block-js)
 
       (define-skeleton skel-header-block
         "Creates my default header"
