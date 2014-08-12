@@ -145,7 +145,8 @@
    (ditaa . t)
    (plantuml . t)
    (dot . t)
-   (ruby . t)))
+   (ruby . t)
+   (js . t)))
 
 (add-to-list 'org-src-lang-modes (quote ("dot". graphviz-dot)))
 (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
@@ -161,7 +162,8 @@
 (provide 'ob-clojure)
 
 (setq org-src-fontify-natively t
-      org-confirm-babel-evaluate nil)
+      org-confirm-babel-evaluate nil
+      org-babel-js-cmd "mozrepl")
 
 (add-hook 'org-babel-after-execute-hook (lambda ()
                                           (condition-case nil
@@ -304,9 +306,12 @@
 
 (add-hook 'coffee-mode-hook 'coffee-custom)
 
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
 (defun js-custom ()
   "js-mode-hook"
-  (setq js-indent-level 2))
+  (setq js-indent-level 2)
+  (moz-minor-mode 1))
 
 (add-hook 'js-mode-hook 'js-custom)
 
