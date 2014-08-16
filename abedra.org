@@ -581,6 +581,13 @@
     #+begin_src emacs-lisp
       (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
     #+end_src
+*** conf-mode
+    :PROPERTIES:
+    :CUSTOM_ID: conf-mode
+    :END:
+    #+begin_src emacs-lisp
+      (add-to-list 'auto-mode-alist '("\\.gitconfig$" . conf-mode))
+    #+end_src
 *** Web Mode
     :PROPERTIES:
     :CUSTOM_ID: web-mode
