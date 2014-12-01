@@ -2,7 +2,7 @@
 (setq user-full-name "Aaron Bedra")
 (setq user-mail-address "aaron@aaronbedra.com")
 
-(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/Users/aabedra/src/opensource/cryptol-2.1.0-MacOSX-64/bin" (getenv "PATH")))
+(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin" (getenv "PATH")))
 (require 'cl)
 
 (load "package")
@@ -77,7 +77,20 @@
 (setq x-select-enable-clipboard t)
 
 (when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (set-face-attribute 'default nil
+                      :family "Inconsolata"
+                      :height 140
+                      :weight 'normal
+                      :width 'normal)
+
+  (when (functionp 'set-fontset-font)
+    (set-fontset-font "fontset-default"
+                      'unicode
+                      (font-spec :family "DejaVu Sans Mono"
+                                 :width 'normal
+                                 :size 12.4
+                                 :weight 'normal))))
 
 (setq-default indicate-empty-lines t)
 (when (not indicate-empty-lines)
@@ -387,6 +400,8 @@
 (setq-default ispell-list-command "list")
 
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+
+(add-to-list 'auto-mode-alist '("\\.gitconfig$" . conf-mode))
 
 (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))

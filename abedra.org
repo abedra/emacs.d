@@ -35,7 +35,7 @@
    and its dependencies work properly, which we get by requiring
    [[http://www.emacswiki.org/emacs/CommonLispForEmacs][Common Lisp for Emacs]].
    #+begin_src emacs-lisp
-     (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/Users/aabedra/src/opensource/cryptol-2.1.0-MacOSX-64/bin" (getenv "PATH")))
+     (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin" (getenv "PATH")))
      (require 'cl)
    #+end_src
 ** Package Management
@@ -187,7 +187,20 @@
     the left hand side.
     #+begin_src emacs-lisp
       (when window-system
-        (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+        (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+        (set-face-attribute 'default nil
+                            :family "Inconsolata"
+                            :height 140
+                            :weight 'normal
+                            :width 'normal)
+
+        (when (functionp 'set-fontset-font)
+          (set-fontset-font "fontset-default"
+                            'unicode
+                            (font-spec :family "DejaVu Sans Mono"
+                                       :width 'normal
+                                       :size 12.4
+                                       :weight 'normal))))
 
       (setq-default indicate-empty-lines t)
       (when (not indicate-empty-lines)
