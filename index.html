@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Aaron Bedra's Emacs 24 Configuration</title>
-<!-- 2015-01-01 Thu 23:50 -->
+<!-- 2015-01-02 Fri 00:03 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Aaron Bedra" />
@@ -88,6 +88,7 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
+<link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -232,8 +233,8 @@ be sure the right information is always present.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq user-full-name <span style="color: #95e454;">"Aaron Bedra"</span>)
-(setq user-mail-address <span style="color: #95e454;">"aaron@aaronbedra.com"</span>)
+<pre class="src src-emacs-lisp">(setq user-full-name <span style="color: #2aa198;">"Aaron Bedra"</span>)
+(setq user-mail-address <span style="color: #2aa198;">"aaron@aaronbedra.com"</span>)
 </pre>
 </div>
 </div>
@@ -257,8 +258,8 @@ and its dependencies work properly, which we get by requiring
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setenv <span style="color: #95e454;">"PATH"</span> (concat <span style="color: #95e454;">"/usr/local/bin:/opt/local/bin:/usr/bin:/bin"</span> (getenv <span style="color: #95e454;">"PATH"</span>)))
-(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">cl</span>)
+<pre class="src src-emacs-lisp">(setenv <span style="color: #2aa198;">"PATH"</span> (concat <span style="color: #2aa198;">"/usr/local/bin:/opt/local/bin:/usr/bin:/bin"</span> (getenv <span style="color: #2aa198;">"PATH"</span>)))
+(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">cl</span>)
 </pre>
 </div>
 </div>
@@ -276,14 +277,14 @@ added.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(load <span style="color: #95e454;">"package"</span>)
+<pre class="src src-emacs-lisp">(load <span style="color: #2aa198;">"package"</span>)
 (package-initialize)
 (add-to-list 'package-archives
-             '(<span style="color: #95e454;">"marmalade"</span> . <span style="color: #95e454;">"http://marmalade-repo.org/packages/"</span>))
+             '(<span style="color: #2aa198;">"marmalade"</span> . <span style="color: #2aa198;">"http://marmalade-repo.org/packages/"</span>))
 (add-to-list 'package-archives
-             '(<span style="color: #95e454;">"melpa"</span> . <span style="color: #95e454;">"http://melpa.milkbox.net/packages/"</span>) t)
+             '(<span style="color: #2aa198;">"melpa"</span> . <span style="color: #2aa198;">"http://melpa.milkbox.net/packages/"</span>) t)
 
-(setq package-archive-enable-alist '((<span style="color: #95e454;">"melpa"</span> deft magit)))
+(setq package-archive-enable-alist '((<span style="color: #2aa198;">"melpa"</span> deft magit)))
 </pre>
 </div>
 </div>
@@ -296,7 +297,7 @@ This is the list of packages used in this configuration.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">abedra/packages</span> '(ac-slime
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">abedra/packages</span> '(ac-slime
                           auto-complete
                           autopair
                           clojure-mode
@@ -332,7 +333,7 @@ This is the list of packages used in this configuration.
                           web-mode
                           writegood-mode
                           yaml-mode)
-  <span style="color: #95e454;">"Default packages"</span>)
+  <span style="color: #2aa198;">"Default packages"</span>)
 </pre>
 </div>
 </div>
@@ -348,16 +349,16 @@ it.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">abedra/packages-installed-p</span> ()
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">abedra/packages-installed-p</span> ()
   (loop for pkg in abedra/packages
         when (not (package-installed-p pkg)) do (return nil)
         finally (return t)))
 
-(<span style="color: #8ac6f2; font-weight: bold;">unless</span> (abedra/packages-installed-p)
-  (message <span style="color: #95e454;">"%s"</span> <span style="color: #95e454;">"Refreshing package database..."</span>)
+(<span style="color: #859900; font-weight: bold;">unless</span> (abedra/packages-installed-p)
+  (message <span style="color: #2aa198;">"%s"</span> <span style="color: #2aa198;">"Refreshing package database..."</span>)
   (package-refresh-contents)
-  (<span style="color: #8ac6f2; font-weight: bold;">dolist</span> (pkg abedra/packages)
-    (<span style="color: #8ac6f2; font-weight: bold;">when</span> (not (package-installed-p pkg))
+  (<span style="color: #859900; font-weight: bold;">dolist</span> (pkg abedra/packages)
+    (<span style="color: #859900; font-weight: bold;">when</span> (not (package-installed-p pkg))
       (package-install pkg))))
 </pre>
 </div>
@@ -443,24 +444,24 @@ the left hand side.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">when</span> window-system
-  (setq frame-title-format '(buffer-file-name <span style="color: #95e454;">"%f"</span> (<span style="color: #95e454;">"%b"</span>)))
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">when</span> window-system
+  (setq frame-title-format '(buffer-file-name <span style="color: #2aa198;">"%f"</span> (<span style="color: #2aa198;">"%b"</span>)))
   (set-face-attribute 'default nil
-                      <span style="color: #e5786d;">:family</span> <span style="color: #95e454;">"Inconsolata"</span>
-                      <span style="color: #e5786d;">:height</span> 140
-                      <span style="color: #e5786d;">:weight</span> 'normal
-                      <span style="color: #e5786d;">:width</span> 'normal)
+                      <span style="color: #657b83; font-weight: bold;">:family</span> <span style="color: #2aa198;">"Inconsolata"</span>
+                      <span style="color: #657b83; font-weight: bold;">:height</span> 140
+                      <span style="color: #657b83; font-weight: bold;">:weight</span> 'normal
+                      <span style="color: #657b83; font-weight: bold;">:width</span> 'normal)
 
-  (<span style="color: #8ac6f2; font-weight: bold;">when</span> (functionp 'set-fontset-font)
-    (set-fontset-font <span style="color: #95e454;">"fontset-default"</span>
+  (<span style="color: #859900; font-weight: bold;">when</span> (functionp 'set-fontset-font)
+    (set-fontset-font <span style="color: #2aa198;">"fontset-default"</span>
                       'unicode
-                      (font-spec <span style="color: #e5786d;">:family</span> <span style="color: #95e454;">"DejaVu Sans Mono"</span>
-                                 <span style="color: #e5786d;">:width</span> 'normal
-                                 <span style="color: #e5786d;">:size</span> 12.4
-                                 <span style="color: #e5786d;">:weight</span> 'normal))))
+                      (font-spec <span style="color: #657b83; font-weight: bold;">:family</span> <span style="color: #2aa198;">"DejaVu Sans Mono"</span>
+                                 <span style="color: #657b83; font-weight: bold;">:width</span> 'normal
+                                 <span style="color: #657b83; font-weight: bold;">:size</span> 12.4
+                                 <span style="color: #657b83; font-weight: bold;">:weight</span> 'normal))))
 
 (setq-default indicate-empty-lines t)
-(<span style="color: #8ac6f2; font-weight: bold;">when</span> (not indicate-empty-lines)
+(<span style="color: #859900; font-weight: bold;">when</span> (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
 </pre>
 </div>
@@ -507,7 +508,7 @@ asks. Which it does often. Make it one character.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defalias</span> '<span style="color: #cae682;">yes-or-no-p</span> 'y-or-n-p)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defalias</span> '<span style="color: #268bd2;">yes-or-no-p</span> 'y-or-n-p)
 </pre>
 </div>
 </div>
@@ -521,13 +522,13 @@ Miscellaneous key binding stuff that doesn't fit anywhere else.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #95e454;">"RET"</span>) 'newline-and-indent)
-(global-set-key (kbd <span style="color: #95e454;">"C-;"</span>) 'comment-or-uncomment-region)
-(global-set-key (kbd <span style="color: #95e454;">"M-/"</span>) 'hippie-expand)
-(global-set-key (kbd <span style="color: #95e454;">"C-+"</span>) 'text-scale-increase)
-(global-set-key (kbd <span style="color: #95e454;">"C--"</span>) 'text-scale-decrease)
-(global-set-key (kbd <span style="color: #95e454;">"C-c C-k"</span>) 'compile)
-(global-set-key (kbd <span style="color: #95e454;">"C-x g"</span>) 'magit-status)
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #2aa198;">"RET"</span>) 'newline-and-indent)
+(global-set-key (kbd <span style="color: #2aa198;">"C-;"</span>) 'comment-or-uncomment-region)
+(global-set-key (kbd <span style="color: #2aa198;">"M-/"</span>) 'hippie-expand)
+(global-set-key (kbd <span style="color: #2aa198;">"C-+"</span>) 'text-scale-increase)
+(global-set-key (kbd <span style="color: #2aa198;">"C--"</span>) 'text-scale-decrease)
+(global-set-key (kbd <span style="color: #2aa198;">"C-c C-k"</span>) 'compile)
+(global-set-key (kbd <span style="color: #2aa198;">"C-x g"</span>) 'magit-status)
 </pre>
 </div>
 </div>
@@ -564,11 +565,11 @@ managers. This includes the directory for use.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">abedra/vendor-dir</span> (expand-file-name <span style="color: #95e454;">"vendor"</span> user-emacs-directory))
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">abedra/vendor-dir</span> (expand-file-name <span style="color: #2aa198;">"vendor"</span> user-emacs-directory))
 (add-to-list 'load-path abedra/vendor-dir)
 
-(<span style="color: #8ac6f2; font-weight: bold;">dolist</span> (project (directory-files abedra/vendor-dir t <span style="color: #95e454;">"\\w+"</span>))
-  (<span style="color: #8ac6f2; font-weight: bold;">when</span> (file-directory-p project)
+(<span style="color: #859900; font-weight: bold;">dolist</span> (project (directory-files abedra/vendor-dir t <span style="color: #2aa198;">"\\w+"</span>))
+  (<span style="color: #859900; font-weight: bold;">when</span> (file-directory-p project)
     (add-to-list 'load-path project)))
 </pre>
 </div>
@@ -598,13 +599,13 @@ blue. Finally, enable <code>flyspell-mode</code> and <code>writegood-mode</code>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-log-done t
-      org-todo-keywords '((sequence <span style="color: #95e454;">"TODO"</span> <span style="color: #95e454;">"INPROGRESS"</span> <span style="color: #95e454;">"DONE"</span>))
-      org-todo-keyword-faces '((<span style="color: #95e454;">"INPROGRESS"</span> . (<span style="color: #e5786d;">:foreground</span> <span style="color: #95e454;">"blue"</span> <span style="color: #e5786d;">:weight</span> bold))))
+      org-todo-keywords '((sequence <span style="color: #2aa198;">"TODO"</span> <span style="color: #2aa198;">"INPROGRESS"</span> <span style="color: #2aa198;">"DONE"</span>))
+      org-todo-keyword-faces '((<span style="color: #2aa198;">"INPROGRESS"</span> . (<span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"blue"</span> <span style="color: #657b83; font-weight: bold;">:weight</span> bold))))
 (add-hook 'org-mode-hook
-          (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> ()
+          (<span style="color: #859900; font-weight: bold;">lambda</span> ()
             (flyspell-mode)))
 (add-hook 'org-mode-hook
-          (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> ()
+          (<span style="color: #859900; font-weight: bold;">lambda</span> ()
             (writegood-mode)))
 </pre>
 </div>
@@ -624,12 +625,12 @@ global todo list.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #95e454;">"C-c a"</span>) 'org-agenda)
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #2aa198;">"C-c a"</span>) 'org-agenda)
 (setq org-agenda-show-log t
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
-(setq org-agenda-files (list <span style="color: #95e454;">"~/Dropbox/org/personal.org"</span>
-                             <span style="color: #95e454;">"~/Dropbox/org/groupon.org"</span>))
+(setq org-agenda-files (list <span style="color: #2aa198;">"~/Dropbox/org/personal.org"</span>
+                             <span style="color: #2aa198;">"~/Dropbox/org/groupon.org"</span>))
 </pre>
 </div>
 </div>
@@ -648,10 +649,10 @@ lot, so I start it at 80 characters.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org</span>)
-(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-install</span>)
-(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-habit</span>)
-(add-to-list 'org-modules <span style="color: #95e454;">"org-habit"</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">org</span>)
+(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">org-install</span>)
+(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">org-habit</span>)
+(add-to-list 'org-modules <span style="color: #2aa198;">"org-habit"</span>)
 (setq org-habit-preceding-days 7
       org-habit-following-days 1
       org-habit-graph-column 80
@@ -673,7 +674,7 @@ allows you to extract and execute code. It isn't aware of
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ob</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">ob</span>)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -685,26 +686,26 @@ allows you to extract and execute code. It isn't aware of
    (js . t)
    (C . t)))
 
-(add-to-list 'org-src-lang-modes (quote (<span style="color: #95e454;">"dot"</span>. graphviz-dot)))
-(add-to-list 'org-src-lang-modes (quote (<span style="color: #95e454;">"plantuml"</span> . fundamental)))
-(add-to-list 'org-babel-tangle-lang-exts '(<span style="color: #95e454;">"clojure"</span> . <span style="color: #95e454;">"clj"</span>))
+(add-to-list 'org-src-lang-modes (quote (<span style="color: #2aa198;">"dot"</span>. graphviz-dot)))
+(add-to-list 'org-src-lang-modes (quote (<span style="color: #2aa198;">"plantuml"</span> . fundamental)))
+(add-to-list 'org-babel-tangle-lang-exts '(<span style="color: #2aa198;">"clojure"</span> . <span style="color: #2aa198;">"clj"</span>))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">org-babel-default-header-args:clojure</span>
-  '((<span style="color: #e5786d;">:results</span> . <span style="color: #95e454;">"silent"</span>) (<span style="color: #e5786d;">:tangle</span> . <span style="color: #95e454;">"yes"</span>)))
+(<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">org-babel-default-header-args:clojure</span>
+  '((<span style="color: #657b83; font-weight: bold;">:results</span> . <span style="color: #2aa198;">"silent"</span>) (<span style="color: #657b83; font-weight: bold;">:tangle</span> . <span style="color: #2aa198;">"yes"</span>)))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">org-babel-execute:clojure</span> (body params)
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">org-babel-execute:clojure</span> (body params)
   (lisp-eval-string body)
-  <span style="color: #95e454;">"Done!"</span>)
+  <span style="color: #2aa198;">"Done!"</span>)
 
-(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">ob-clojure</span>)
+(<span style="color: #859900; font-weight: bold;">provide</span> '<span style="color: #268bd2; font-weight: bold;">ob-clojure</span>)
 
 (setq org-src-fontify-natively t
       org-confirm-babel-evaluate nil)
 
-(add-hook 'org-babel-after-execute-hook (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> ()
-                                          (<span style="color: #8ac6f2; font-weight: bold;">condition-case</span> nil
+(add-hook 'org-babel-after-execute-hook (<span style="color: #859900; font-weight: bold;">lambda</span> ()
+                                          (<span style="color: #859900; font-weight: bold;">condition-case</span> nil
                                               (org-display-inline-images)
-                                            (<span style="color: #ccaa8f;">error</span> nil)))
+                                            (<span style="color: #cb4b16; font-weight: bold; text-decoration: underline;">error</span> nil)))
           'append)
 </pre>
 </div>
@@ -715,136 +716,136 @@ allows you to extract and execute code. It isn't aware of
 <div class="outline-text-4" id="text-org-abbrev">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> () (abbrev-mode 1)))
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #859900; font-weight: bold;">lambda</span> () (abbrev-mode 1)))
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-org-block-elisp</span>
-  <span style="color: #95e454;">"Insert an emacs-lisp block"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"#+begin_src emacs-lisp\n"</span>
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-org-block-elisp</span>
+  <span style="color: #2aa198;">"Insert an emacs-lisp block"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#+begin_src emacs-lisp\n"</span>
   _ - \n
-  <span style="color: #95e454;">"#+end_src\n"</span>)
+  <span style="color: #2aa198;">"#+end_src\n"</span>)
 
-(define-abbrev org-mode-abbrev-table <span style="color: #95e454;">"elsrc"</span> <span style="color: #95e454;">""</span> 'skel-org-block-elisp)
+(define-abbrev org-mode-abbrev-table <span style="color: #2aa198;">"elsrc"</span> <span style="color: #2aa198;">""</span> 'skel-org-block-elisp)
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-org-block-js</span>
-  <span style="color: #95e454;">"Insert a JavaScript block"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"#+begin_src js\n"</span>
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-org-block-js</span>
+  <span style="color: #2aa198;">"Insert a JavaScript block"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#+begin_src js\n"</span>
   _ - \n
-  <span style="color: #95e454;">"#+end_src\n"</span>)
+  <span style="color: #2aa198;">"#+end_src\n"</span>)
 
-(define-abbrev org-mode-abbrev-table <span style="color: #95e454;">"jssrc"</span> <span style="color: #95e454;">""</span> 'skel-org-block-js)
+(define-abbrev org-mode-abbrev-table <span style="color: #2aa198;">"jssrc"</span> <span style="color: #2aa198;">""</span> 'skel-org-block-js)
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-header-block</span>
-  <span style="color: #95e454;">"Creates my default header"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"#+TITLE: "</span> str <span style="color: #95e454;">"\n"</span>
-  <span style="color: #95e454;">"#+AUTHOR: Aaron Bedra\n"</span>
-  <span style="color: #95e454;">"#+EMAIL: aaron@aaronbedra.com\n"</span>
-  <span style="color: #95e454;">"#+OPTIONS: toc:3 num:nil\n"</span>
-  <span style="color: #95e454;">"#+STYLE: &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" /&gt;\n"</span>)
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-header-block</span>
+  <span style="color: #2aa198;">"Creates my default header"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#+TITLE: "</span> str <span style="color: #2aa198;">"\n"</span>
+  <span style="color: #2aa198;">"#+AUTHOR: Aaron Bedra\n"</span>
+  <span style="color: #2aa198;">"#+EMAIL: aaron@aaronbedra.com\n"</span>
+  <span style="color: #2aa198;">"#+OPTIONS: toc:3 num:nil\n"</span>
+  <span style="color: #2aa198;">"#+STYLE: &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" /&gt;\n"</span>)
 
-(define-abbrev org-mode-abbrev-table <span style="color: #95e454;">"sheader"</span> <span style="color: #95e454;">""</span> 'skel-header-block)
+(define-abbrev org-mode-abbrev-table <span style="color: #2aa198;">"sheader"</span> <span style="color: #2aa198;">""</span> 'skel-header-block)
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-org-html-file-name</span>
-  <span style="color: #95e454;">"Insert an HTML snippet to reference the file by name"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"#+HTML: &lt;strong&gt;&lt;i&gt;"</span>str<span style="color: #95e454;">"&lt;/i&gt;&lt;/strong&gt;"</span>)
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-org-html-file-name</span>
+  <span style="color: #2aa198;">"Insert an HTML snippet to reference the file by name"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#+HTML: &lt;strong&gt;&lt;i&gt;"</span>str<span style="color: #2aa198;">"&lt;/i&gt;&lt;/strong&gt;"</span>)
 
-(define-abbrev org-mode-abbrev-table <span style="color: #95e454;">"fname"</span> <span style="color: #95e454;">""</span> 'skel-org-html-file-name)
+(define-abbrev org-mode-abbrev-table <span style="color: #2aa198;">"fname"</span> <span style="color: #2aa198;">""</span> 'skel-org-html-file-name)
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-ngx-config</span>
-  <span style="color: #95e454;">"Template for NGINX module config file"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"ngx_addon_name=ngx_http_"</span> str  <span style="color: #95e454;">"_module\n"</span>
-  <span style="color: #95e454;">"HTTP_MODULES=\"$HTTP_MODULES ngx_http_"</span> str <span style="color: #95e454;">"_module\"\n"</span>
-  <span style="color: #95e454;">"NGX_ADDON_SRCS=\"$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_"</span> str <span style="color: #95e454;">"_module.c\""</span>)
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-ngx-config</span>
+  <span style="color: #2aa198;">"Template for NGINX module config file"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"ngx_addon_name=ngx_http_"</span> str  <span style="color: #2aa198;">"_module\n"</span>
+  <span style="color: #2aa198;">"HTTP_MODULES=\"$HTTP_MODULES ngx_http_"</span> str <span style="color: #2aa198;">"_module\"\n"</span>
+  <span style="color: #2aa198;">"NGX_ADDON_SRCS=\"$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_"</span> str <span style="color: #2aa198;">"_module.c\""</span>)
 
-(define-abbrev fundamental-mode-abbrev-table <span style="color: #95e454;">"ngxcnf"</span> <span style="color: #95e454;">""</span> 'skel-ngx-config)
+(define-abbrev fundamental-mode-abbrev-table <span style="color: #2aa198;">"ngxcnf"</span> <span style="color: #2aa198;">""</span> 'skel-ngx-config)
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-ngx-module</span>
-  <span style="color: #95e454;">"Template for NGINX modules"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"#include &lt;nginx.h&gt;\n"</span>
-  <span style="color: #95e454;">"#include &lt;ngx_config.h&gt;\n"</span>
-  <span style="color: #95e454;">"#include &lt;ngx_core.h&gt;\n"</span>
-  <span style="color: #95e454;">"#include &lt;ngx_http.h&gt;\n\n"</span>
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-ngx-module</span>
+  <span style="color: #2aa198;">"Template for NGINX modules"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"#include &lt;nginx.h&gt;\n"</span>
+  <span style="color: #2aa198;">"#include &lt;ngx_config.h&gt;\n"</span>
+  <span style="color: #2aa198;">"#include &lt;ngx_core.h&gt;\n"</span>
+  <span style="color: #2aa198;">"#include &lt;ngx_http.h&gt;\n\n"</span>
 
-  <span style="color: #95e454;">"ngx_module_t ngx_http_"</span> str <span style="color: #95e454;">"_module;\n\n"</span>
+  <span style="color: #2aa198;">"ngx_module_t ngx_http_"</span> str <span style="color: #2aa198;">"_module;\n\n"</span>
 
-  <span style="color: #95e454;">"static ngx_int_t\n"</span>
-  <span style="color: #95e454;">"ngx_http_"</span> str <span style="color: #95e454;">"_handler(ngx_http_request_t *r)\n"</span>
-  <span style="color: #95e454;">"{\n"</span>
-  &gt;<span style="color: #95e454;">"if (r-&gt;main-&gt;internal) {\n"</span>
-  &gt;<span style="color: #95e454;">"return NGX_DECLINED;\n"</span>
-  <span style="color: #95e454;">"}"</span> &gt; \n
+  <span style="color: #2aa198;">"static ngx_int_t\n"</span>
+  <span style="color: #2aa198;">"ngx_http_"</span> str <span style="color: #2aa198;">"_handler(ngx_http_request_t *r)\n"</span>
+  <span style="color: #2aa198;">"{\n"</span>
+  &gt;<span style="color: #2aa198;">"if (r-&gt;main-&gt;internal) {\n"</span>
+  &gt;<span style="color: #2aa198;">"return NGX_DECLINED;\n"</span>
+  <span style="color: #2aa198;">"}"</span> &gt; \n
   \n
-  &gt;<span style="color: #95e454;">"ngx_log_error(NGX_LOG_ERR, r-&gt;connection-&gt;log, 0, \"My new module\");\n\n"</span>
+  &gt;<span style="color: #2aa198;">"ngx_log_error(NGX_LOG_ERR, r-&gt;connection-&gt;log, 0, \"My new module\");\n\n"</span>
   &gt; _ \n
-  &gt;<span style="color: #95e454;">"return NGX_OK;\n"</span>
-  <span style="color: #95e454;">"}"</span> &gt; <span style="color: #95e454;">"\n\n"</span>
+  &gt;<span style="color: #2aa198;">"return NGX_OK;\n"</span>
+  <span style="color: #2aa198;">"}"</span> &gt; <span style="color: #2aa198;">"\n\n"</span>
 
-  <span style="color: #95e454;">"static ngx_int_t\n"</span>
-  <span style="color: #95e454;">"ngx_http_"</span>str<span style="color: #95e454;">"_init(ngx_conf_t *cf)\n"</span>
-  <span style="color: #95e454;">"{\n"</span>
-  &gt;<span style="color: #95e454;">"ngx_http_handler_pt *h;\n"</span>
-  &gt;<span style="color: #95e454;">"ngx_http_core_main_conf_t *cmcf;\n\n"</span>
+  <span style="color: #2aa198;">"static ngx_int_t\n"</span>
+  <span style="color: #2aa198;">"ngx_http_"</span>str<span style="color: #2aa198;">"_init(ngx_conf_t *cf)\n"</span>
+  <span style="color: #2aa198;">"{\n"</span>
+  &gt;<span style="color: #2aa198;">"ngx_http_handler_pt *h;\n"</span>
+  &gt;<span style="color: #2aa198;">"ngx_http_core_main_conf_t *cmcf;\n\n"</span>
 
-  &gt;<span style="color: #95e454;">"cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);\n"</span>
-  &gt;<span style="color: #95e454;">"h = ngx_array_push(&amp;cmcf-&gt;phases[NGX_HTTP_ACCESS_PHASE].handlers);\n\n"</span>
+  &gt;<span style="color: #2aa198;">"cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);\n"</span>
+  &gt;<span style="color: #2aa198;">"h = ngx_array_push(&amp;cmcf-&gt;phases[NGX_HTTP_ACCESS_PHASE].handlers);\n\n"</span>
 
-  &gt;<span style="color: #95e454;">"if (h == NULL) {\n"</span>
-  &gt;<span style="color: #95e454;">"return NGX_ERROR;\n"</span>
-  <span style="color: #95e454;">"}"</span> &gt; \n
+  &gt;<span style="color: #2aa198;">"if (h == NULL) {\n"</span>
+  &gt;<span style="color: #2aa198;">"return NGX_ERROR;\n"</span>
+  <span style="color: #2aa198;">"}"</span> &gt; \n
   \n
-  &gt;<span style="color: #95e454;">"*h = ngx_http_"</span>str<span style="color: #95e454;">"_handler;\n\n"</span>
+  &gt;<span style="color: #2aa198;">"*h = ngx_http_"</span>str<span style="color: #2aa198;">"_handler;\n\n"</span>
 
-  &gt;<span style="color: #95e454;">"return NGX_OK;\n"</span>
-  <span style="color: #95e454;">"}"</span> &gt; \n
+  &gt;<span style="color: #2aa198;">"return NGX_OK;\n"</span>
+  <span style="color: #2aa198;">"}"</span> &gt; \n
   \n
-  <span style="color: #95e454;">"static ngx_http_module_t ngx_http_"</span>str<span style="color: #95e454;">"_module_ctx = {\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                 /* preconfiguration */\n"</span>
-  &gt;<span style="color: #95e454;">"ngx_http_"</span>str<span style="color: #95e454;">"_init,  /* postconfiguration */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                 /* create main configuration */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                 /* init main configuration */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                 /* create server configuration */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                 /* merge server configuration */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                 /* create location configuration */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL                  /* merge location configuration */\n"</span>
-  <span style="color: #95e454;">"};"</span> &gt; \n
+  <span style="color: #2aa198;">"static ngx_http_module_t ngx_http_"</span>str<span style="color: #2aa198;">"_module_ctx = {\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                 /* preconfiguration */\n"</span>
+  &gt;<span style="color: #2aa198;">"ngx_http_"</span>str<span style="color: #2aa198;">"_init,  /* postconfiguration */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                 /* create main configuration */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                 /* init main configuration */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                 /* create server configuration */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                 /* merge server configuration */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                 /* create location configuration */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL                  /* merge location configuration */\n"</span>
+  <span style="color: #2aa198;">"};"</span> &gt; \n
   \n
 
-  <span style="color: #95e454;">"ngx_module_t ngx_http_"</span>str<span style="color: #95e454;">"_module = {\n"</span>
-  &gt;<span style="color: #95e454;">"NGX_MODULE_V1,\n"</span>
-  &gt;<span style="color: #95e454;">"&amp;ngx_http_"</span>str<span style="color: #95e454;">"_module_ctx,  /* module context */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* module directives */\n"</span>
-  &gt;<span style="color: #95e454;">"NGX_HTTP_MODULE,             /* module type */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* init master */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* init module */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* init process */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* init thread */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* exit thread */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* exit process */\n"</span>
-  &gt;<span style="color: #95e454;">"NULL,                        /* exit master */\n"</span>
-  &gt;<span style="color: #95e454;">"NGX_MODULE_V1_PADDING\n"</span>
-  <span style="color: #95e454;">"};"</span> &gt;)
+  <span style="color: #2aa198;">"ngx_module_t ngx_http_"</span>str<span style="color: #2aa198;">"_module = {\n"</span>
+  &gt;<span style="color: #2aa198;">"NGX_MODULE_V1,\n"</span>
+  &gt;<span style="color: #2aa198;">"&amp;ngx_http_"</span>str<span style="color: #2aa198;">"_module_ctx,  /* module context */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* module directives */\n"</span>
+  &gt;<span style="color: #2aa198;">"NGX_HTTP_MODULE,             /* module type */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* init master */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* init module */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* init process */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* init thread */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* exit thread */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* exit process */\n"</span>
+  &gt;<span style="color: #2aa198;">"NULL,                        /* exit master */\n"</span>
+  &gt;<span style="color: #2aa198;">"NGX_MODULE_V1_PADDING\n"</span>
+  <span style="color: #2aa198;">"};"</span> &gt;)
 
-(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">cc-mode</span>)
-(define-abbrev c-mode-abbrev-table <span style="color: #95e454;">"ngxmod"</span> <span style="color: #95e454;">""</span> 'skel-ngx-module)
+(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">cc-mode</span>)
+(define-abbrev c-mode-abbrev-table <span style="color: #2aa198;">"ngxmod"</span> <span style="color: #2aa198;">""</span> 'skel-ngx-module)
 
-(<span style="color: #8ac6f2; font-weight: bold;">define-skeleton</span> <span style="color: #cae682;">skel-ngx-append-header</span>
-  <span style="color: #95e454;">"Template for header appending function for NGINX modules"</span>
-  <span style="color: #95e454;">""</span>
-  <span style="color: #95e454;">"static void append_header(ngx_http_request_t *r)\n"</span>
-  <span style="color: #95e454;">"{\n"</span>
-  &gt; <span style="color: #95e454;">"ngx_table_elt_t *h;\n"</span>
-  &gt; <span style="color: #95e454;">"h = ngx_list_push(&amp;r-&gt;headers_out.headers);\n"</span>
-  &gt; <span style="color: #95e454;">"h-&gt;hash = 1;\n"</span>
-  &gt; <span style="color: #95e454;">"ngx_str_set(&amp;h-&gt;key, \"X-NGINX-Hello\");\n"</span>
-  &gt; <span style="color: #95e454;">"ngx_str_set(&amp;h-&gt;value, \"Hello NGINX!\");\n"</span>
-  <span style="color: #95e454;">"}\n"</span>)
+(<span style="color: #859900; font-weight: bold;">define-skeleton</span> <span style="color: #268bd2;">skel-ngx-append-header</span>
+  <span style="color: #2aa198;">"Template for header appending function for NGINX modules"</span>
+  <span style="color: #2aa198;">""</span>
+  <span style="color: #2aa198;">"static void append_header(ngx_http_request_t *r)\n"</span>
+  <span style="color: #2aa198;">"{\n"</span>
+  &gt; <span style="color: #2aa198;">"ngx_table_elt_t *h;\n"</span>
+  &gt; <span style="color: #2aa198;">"h = ngx_list_push(&amp;r-&gt;headers_out.headers);\n"</span>
+  &gt; <span style="color: #2aa198;">"h-&gt;hash = 1;\n"</span>
+  &gt; <span style="color: #2aa198;">"ngx_str_set(&amp;h-&gt;key, \"X-NGINX-Hello\");\n"</span>
+  &gt; <span style="color: #2aa198;">"ngx_str_set(&amp;h-&gt;value, \"Hello NGINX!\");\n"</span>
+  <span style="color: #2aa198;">"}\n"</span>)
 
-(define-abbrev c-mode-abbrev-table <span style="color: #95e454;">"ngxhdr"</span> <span style="color: #95e454;">""</span> 'skel-ngx-append-header)
+(define-abbrev c-mode-abbrev-table <span style="color: #2aa198;">"ngxhdr"</span> <span style="color: #2aa198;">""</span> 'skel-ngx-append-header)
 </pre>
 </div>
 </div>
@@ -864,7 +865,7 @@ block.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq org-ditaa-jar-path <span style="color: #95e454;">"~/.emacs.d/vendor/ditaa0_9.jar"</span>)
+<pre class="src src-emacs-lisp">(setq org-ditaa-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/ditaa0_9.jar"</span>)
 </pre>
 </div>
 </div>
@@ -874,7 +875,7 @@ block.
 <div class="outline-text-4" id="text-plantuml">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq org-plantuml-jar-path <span style="color: #95e454;">"~/.emacs.d/vendor/plantuml.jar"</span>)
+<pre class="src src-emacs-lisp">(setq org-plantuml-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/plantuml.jar"</span>)
 </pre>
 </div>
 </div>
@@ -890,9 +891,9 @@ on as the default mode for <code>deft</code> and put the files in Dropbox.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq deft-directory <span style="color: #95e454;">"~/Dropbox/deft"</span>)
+<pre class="src src-emacs-lisp">(setq deft-directory <span style="color: #2aa198;">"~/Dropbox/deft"</span>)
 (setq deft-use-filename-as-title t)
-(setq deft-extension <span style="color: #95e454;">"org"</span>)
+(setq deft-extension <span style="color: #2aa198;">"org"</span>)
 (setq deft-text-mode 'org-mode)
 </pre>
 </div>
@@ -906,10 +907,10 @@ on as the default mode for <code>deft</code> and put the files in Dropbox.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq smex-save-file (expand-file-name <span style="color: #95e454;">".smex-items"</span> user-emacs-directory))
+<pre class="src src-emacs-lisp">(setq smex-save-file (expand-file-name <span style="color: #2aa198;">".smex-items"</span> user-emacs-directory))
 (smex-initialize)
-(global-set-key (kbd <span style="color: #95e454;">"M-x"</span>) 'smex)
-(global-set-key (kbd <span style="color: #95e454;">"M-X"</span>) 'smex-major-mode-commands)
+(global-set-key (kbd <span style="color: #2aa198;">"M-x"</span>) 'smex)
+(global-set-key (kbd <span style="color: #2aa198;">"M-X"</span>) 'smex-major-mode-commands)
 </pre>
 </div>
 </div>
@@ -952,8 +953,8 @@ them go away.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq backup-directory-alist `((<span style="color: #95e454;">".*"</span> . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((<span style="color: #95e454;">".*"</span> ,temporary-file-directory t)))
+<pre class="src src-emacs-lisp">(setq backup-directory-alist `((<span style="color: #2aa198;">".*"</span> . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((<span style="color: #2aa198;">".*"</span> ,temporary-file-directory t)))
 </pre>
 </div>
 </div>
@@ -967,7 +968,7 @@ as soon as the opening character is typed.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">autopair</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">autopair</span>)
 </pre>
 </div>
 </div>
@@ -991,23 +992,23 @@ lisp program and <code>racket</code> as the default scheme program.
                    scheme-mode
                    clojure-mode))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">lisp-power-map</span> (make-keymap))
-(<span style="color: #8ac6f2; font-weight: bold;">define-minor-mode</span> <span style="color: #cae682;">lisp-power-mode</span> <span style="color: #95e454;">"Fix keybindings; add power."</span>
-  <span style="color: #e5786d;">:lighter</span> <span style="color: #95e454;">" (power)"</span>
-  <span style="color: #e5786d;">:keymap</span> lisp-power-map
+(<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">lisp-power-map</span> (make-keymap))
+(<span style="color: #859900; font-weight: bold;">define-minor-mode</span> <span style="color: #268bd2;">lisp-power-mode</span> <span style="color: #2aa198;">"Fix keybindings; add power."</span>
+  <span style="color: #657b83; font-weight: bold;">:lighter</span> <span style="color: #2aa198;">" (power)"</span>
+  <span style="color: #657b83; font-weight: bold;">:keymap</span> lisp-power-map
   (paredit-mode t))
 (define-key lisp-power-map [delete] 'paredit-forward-delete)
 (define-key lisp-power-map [backspace] 'paredit-backward-delete)
 
-(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">abedra/engage-lisp-power</span> ()
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">abedra/engage-lisp-power</span> ()
   (lisp-power-mode t))
 
-(<span style="color: #8ac6f2; font-weight: bold;">dolist</span> (mode lisp-modes)
-  (add-hook (intern (format <span style="color: #95e454;">"%s-hook"</span> mode))
+(<span style="color: #859900; font-weight: bold;">dolist</span> (mode lisp-modes)
+  (add-hook (intern (format <span style="color: #2aa198;">"%s-hook"</span> mode))
             #'abedra/engage-lisp-power))
 
-(setq inferior-lisp-program <span style="color: #95e454;">"clisp"</span>)
-(setq scheme-program-name <span style="color: #95e454;">"racket"</span>)
+(setq inferior-lisp-program <span style="color: #2aa198;">"clisp"</span>)
+(setq scheme-program-name <span style="color: #2aa198;">"racket"</span>)
 </pre>
 </div>
 </div>
@@ -1020,7 +1021,7 @@ Turn on auto complete.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">auto-complete-config</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">auto-complete-config</span>)
 (ac-config-default)
 </pre>
 </div>
@@ -1035,29 +1036,29 @@ directly from the emacs-starter-kit.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">untabify-buffer</span> ()
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">untabify-buffer</span> ()
   (interactive)
   (untabify (point-min) (point-max)))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">indent-buffer</span> ()
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">indent-buffer</span> ()
   (interactive)
   (indent-region (point-min) (point-max)))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">cleanup-buffer</span> ()
-  <span style="color: #95e454;">"Perform a bunch of operations on the whitespace content of a buffer."</span>
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">cleanup-buffer</span> ()
+  <span style="color: #2aa198;">"Perform a bunch of operations on the whitespace content of a buffer."</span>
   (interactive)
   (indent-buffer)
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">cleanup-region</span> (beg end)
-  <span style="color: #95e454;">"Remove tmux artifacts from region."</span>
-  (interactive <span style="color: #95e454;">"r"</span>)
-  (<span style="color: #8ac6f2; font-weight: bold;">dolist</span> (re '(<span style="color: #95e454;">"\\\\&#9474;\&#183;*\n"</span> <span style="color: #95e454;">"\W*&#9474;\&#183;*"</span>))
-    (replace-regexp re <span style="color: #95e454;">""</span> nil beg end)))
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">cleanup-region</span> (beg end)
+  <span style="color: #2aa198;">"Remove tmux artifacts from region."</span>
+  (interactive <span style="color: #2aa198;">"r"</span>)
+  (<span style="color: #859900; font-weight: bold;">dolist</span> (re '(<span style="color: #2aa198;">"\\\\&#9474;\&#183;*\n"</span> <span style="color: #2aa198;">"\W*&#9474;\&#183;*"</span>))
+    (replace-regexp re <span style="color: #2aa198;">""</span> nil beg end)))
 
-(global-set-key (kbd <span style="color: #95e454;">"C-x M-t"</span>) 'cleanup-region)
-(global-set-key (kbd <span style="color: #95e454;">"C-c n"</span>) 'cleanup-buffer)
+(global-set-key (kbd <span style="color: #2aa198;">"C-x M-t"</span>) 'cleanup-region)
+(global-set-key (kbd <span style="color: #2aa198;">"C-c n"</span>) 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
 </pre>
@@ -1075,10 +1076,10 @@ location of the spell check program so it loads properly.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq flyspell-issue-welcome-flag nil)
-(<span style="color: #8ac6f2; font-weight: bold;">if</span> (eq system-type 'darwin)
-    (setq-default ispell-program-name <span style="color: #95e454;">"/usr/local/bin/aspell"</span>)
-  (setq-default ispell-program-name <span style="color: #95e454;">"/usr/bin/aspell"</span>))
-(setq-default ispell-list-command <span style="color: #95e454;">"list"</span>)
+(<span style="color: #859900; font-weight: bold;">if</span> (eq system-type 'darwin)
+    (setq-default ispell-program-name <span style="color: #2aa198;">"/usr/local/bin/aspell"</span>)
+  (setq-default ispell-program-name <span style="color: #2aa198;">"/usr/bin/aspell"</span>))
+(setq-default ispell-list-command <span style="color: #2aa198;">"list"</span>)
 </pre>
 </div>
 </div>
@@ -1096,7 +1097,7 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.zsh$"</span> . shell-script-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.zsh$"</span> . shell-script-mode))
 </pre>
 </div>
 </div>
@@ -1106,7 +1107,7 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 <div class="outline-text-4" id="text-conf-mode">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.gitconfig$"</span> . conf-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.gitconfig$"</span> . conf-mode))
 </pre>
 </div>
 </div>
@@ -1117,8 +1118,8 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.hbs$"</span> . web-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.erb$"</span> . web-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.hbs$"</span> . web-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.erb$"</span> . web-mode))
 </pre>
 </div>
 </div>
@@ -1133,17 +1134,17 @@ names/extensions that will trigger <code>ruby-mode</code> when loaded.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-hook 'ruby-mode-hook
-          (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> ()
+          (<span style="color: #859900; font-weight: bold;">lambda</span> ()
             (autopair-mode)))
 
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.rake$"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.gemspec$"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.ru$"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"Rakefile"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"Gemfile"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"Capfile"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"Vagrantfile"</span> . ruby-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"Guardfile"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.rake$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.gemspec$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.ru$"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"Rakefile"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"Gemfile"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"Capfile"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"Vagrantfile"</span> . ruby-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"Guardfile"</span> . ruby-mode))
 </pre>
 </div>
 </div>
@@ -1169,8 +1170,8 @@ Add additional file extensions that trigger <code>yaml-mode</code>.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.yml$"</span> . yaml-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.yaml$"</span> . yaml-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.yml$"</span> . yaml-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.yaml$"</span> . yaml-mode))
 </pre>
 </div>
 </div>
@@ -1186,8 +1187,8 @@ modify a file.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">coffee-custom</span> ()
-  <span style="color: #95e454;">"coffee-mode-hook"</span>
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">coffee-custom</span> ()
+  <span style="color: #2aa198;">"coffee-mode-hook"</span>
   (make-local-variable 'tab-width)
   (set 'tab-width 2))
 
@@ -1204,8 +1205,8 @@ modify a file.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">js-custom</span> ()
-  <span style="color: #95e454;">"js-mode-hook"</span>
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">js-custom</span> ()
+  <span style="color: #2aa198;">"js-mode-hook"</span>
   (setq js-indent-level 2))
 
 (add-hook 'js-mode-hook 'js-custom)
@@ -1223,15 +1224,15 @@ custom css file to make it a little prettier.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.md$"</span> . markdown-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.mdown$"</span> . markdown-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.md$"</span> . markdown-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.mdown$"</span> . markdown-mode))
 (add-hook 'markdown-mode-hook
-          (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> ()
+          (<span style="color: #859900; font-weight: bold;">lambda</span> ()
             (visual-line-mode t)
             (writegood-mode t)
             (flyspell-mode t)))
-(setq markdown-command <span style="color: #95e454;">"pandoc --smart -f markdown -t html"</span>)
-(setq markdown-css-path (expand-file-name <span style="color: #95e454;">"markdown.css"</span> abedra/vendor-dir))
+(setq markdown-command <span style="color: #2aa198;">"pandoc --smart -f markdown -t html"</span>)
+(setq markdown-css-path (expand-file-name <span style="color: #2aa198;">"markdown.css"</span> abedra/vendor-dir))
 </pre>
 </div>
 </div>
@@ -1245,11 +1246,11 @@ a scheme-ish dialect, so it's a derived from <code>scheme-mode</code>.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">define-derived-mode</span> <span style="color: #cae682;">cpsa-mode</span> scheme-mode
-  (setq mode-name <span style="color: #95e454;">"CPSA"</span>)
-  (setq cpsa-keywords '(<span style="color: #95e454;">"defmacro"</span> <span style="color: #95e454;">"defprotocol"</span> <span style="color: #95e454;">"defrole"</span> <span style="color: #95e454;">"defskeleton"</span> <span style="color: #95e454;">"defstrand"</span>))
-  (setq cpsa-functions '(<span style="color: #95e454;">"cat"</span> <span style="color: #95e454;">"hash"</span> <span style="color: #95e454;">"enc"</span> <span style="color: #95e454;">"string"</span> <span style="color: #95e454;">"ltk"</span> <span style="color: #95e454;">"privk"</span> <span style="color: #95e454;">"pubk"</span> <span style="color: #95e454;">"invk"</span> <span style="color: #95e454;">"send"</span> <span style="color: #95e454;">"recv"</span>  <span style="color: #95e454;">"non-orig"</span> <span style="color: #95e454;">"uniq-orig"</span> <span style="color: #95e454;">"trace"</span> <span style="color: #95e454;">"vars"</span>))
-  (setq cpsa-types '(<span style="color: #95e454;">"skey"</span> <span style="color: #95e454;">"akey"</span> <span style="color: #95e454;">"name"</span> <span style="color: #95e454;">"text"</span>))
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">define-derived-mode</span> <span style="color: #268bd2;">cpsa-mode</span> scheme-mode
+  (setq mode-name <span style="color: #2aa198;">"CPSA"</span>)
+  (setq cpsa-keywords '(<span style="color: #2aa198;">"defmacro"</span> <span style="color: #2aa198;">"defprotocol"</span> <span style="color: #2aa198;">"defrole"</span> <span style="color: #2aa198;">"defskeleton"</span> <span style="color: #2aa198;">"defstrand"</span>))
+  (setq cpsa-functions '(<span style="color: #2aa198;">"cat"</span> <span style="color: #2aa198;">"hash"</span> <span style="color: #2aa198;">"enc"</span> <span style="color: #2aa198;">"string"</span> <span style="color: #2aa198;">"ltk"</span> <span style="color: #2aa198;">"privk"</span> <span style="color: #2aa198;">"pubk"</span> <span style="color: #2aa198;">"invk"</span> <span style="color: #2aa198;">"send"</span> <span style="color: #2aa198;">"recv"</span>  <span style="color: #2aa198;">"non-orig"</span> <span style="color: #2aa198;">"uniq-orig"</span> <span style="color: #2aa198;">"trace"</span> <span style="color: #2aa198;">"vars"</span>))
+  (setq cpsa-types '(<span style="color: #2aa198;">"skey"</span> <span style="color: #2aa198;">"akey"</span> <span style="color: #2aa198;">"name"</span> <span style="color: #2aa198;">"text"</span>))
   (setq cpsa-keywords-regexp (regexp-opt cpsa-keywords 'words))
   (setq cpsa-functions-regexp (regexp-opt cpsa-functions 'words))
   (setq cpsa-types-regexp (regexp-opt cpsa-types 'words))
@@ -1260,7 +1261,7 @@ a scheme-ish dialect, so it's a derived from <code>scheme-mode</code>.
           (,cpsa-types-regexp . font-lock-type-face)))
   (setq font-lock-defaults '((cpsa-font-lock-keywords))))
 
-(add-to-list 'auto-mode-alist '(<span style="color: #95e454;">"\\.cpsa$"</span> . cpsa-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.cpsa$"</span> . cpsa-mode))
 </pre>
 </div>
 </div>
@@ -1274,7 +1275,7 @@ wombat theme if in a terminal.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #8ac6f2; font-weight: bold;">if</span> window-system
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">if</span> window-system
     (load-theme 'solarized-light t)
   (load-theme 'wombat t))
 </pre>
@@ -1286,7 +1287,7 @@ wombat theme if in a terminal.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Aaron Bedra</p>
-<p class="date">Created: 2015-01-01 Thu 23:50</p>
+<p class="date">Created: 2015-01-02 Fri 00:03</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
