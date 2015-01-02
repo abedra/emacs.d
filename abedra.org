@@ -2,7 +2,7 @@
 #+AUTHOR: Aaron Bedra
 #+EMAIL: aaron@aaronbedra.com
 #+OPTIONS: toc:3 num:nil
-#+STYLE: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
 
 * Configuration
   Emacs is a special beast. Taming it takes a lot of care. In an
