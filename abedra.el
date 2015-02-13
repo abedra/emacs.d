@@ -18,7 +18,7 @@
                           auto-complete
                           autopair
                           clojure-mode
-                          clojure-test-mode
+;                          clojure-test-mode
                           coffee-mode
                           csharp-mode
                           deft
@@ -35,7 +35,7 @@
                           markdown-mode
                           marmalade
                           nodejs-repl
-                          nrepl
+;                          nrepl
                           o-blog
                           org
                           paredit
