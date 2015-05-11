@@ -36,6 +36,7 @@
    [[http://www.emacswiki.org/emacs/CommonLispForEmacs][Common Lisp for Emacs]].
    #+begin_src emacs-lisp
      (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin" (getenv "PATH")))
+     (setenv "GOPATH" (concat (getenv "HOME") "/go"))
      (require 'cl)
    #+end_src
 ** Package Management
@@ -69,7 +70,6 @@
                                 auto-complete
                                 autopair
                                 clojure-mode
-      ;                          clojure-test-mode
                                 coffee-mode
                                 csharp-mode
                                 deft
@@ -86,7 +86,6 @@
                                 markdown-mode
                                 marmalade
                                 nodejs-repl
-      ;                          nrepl
                                 o-blog
                                 org
                                 paredit
@@ -186,21 +185,7 @@
     when a file actually ends. This will put empty line markers into
     the left hand side.
     #+begin_src emacs-lisp
-      (when window-system
-        (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-        (set-face-attribute 'default nil
-                            :family "Inconsolata"
-                            :height 140
-                            :weight 'normal
-                            :width 'normal)
 
-        (when (functionp 'set-fontset-font)
-          (set-fontset-font "fontset-default"
-                            'unicode
-                            (font-spec :family "DejaVu Sans Mono"
-                                       :width 'normal
-                                       :size 12.4
-                                       :weight 'normal))))
 
       (setq-default indicate-empty-lines t)
       (when (not indicate-empty-lines)

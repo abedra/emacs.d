@@ -3,6 +3,7 @@
 (setq user-mail-address "aaron@aaronbedra.com")
 
 (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin" (getenv "PATH")))
+(setenv "GOPATH" (concat (getenv "HOME") "/go"))
 (require 'cl)
 
 (load "package")
@@ -15,42 +16,40 @@
 (setq package-archive-enable-alist '(("melpa" deft magit)))
 
 (defvar abedra/packages '(ac-slime
-                          auto-complete
-                          autopair
-                          clojure-mode
-;                          clojure-test-mode
-                          coffee-mode
-                          csharp-mode
-                          deft
-                          erlang
-                          feature-mode
-                          flycheck
-                          gist
-                          go-mode
-                          graphviz-dot-mode
-                          haml-mode
-                          haskell-mode
-                          htmlize
-                          magit
-                          markdown-mode
-                          marmalade
-                          nodejs-repl
-;                          nrepl
-                          o-blog
-                          org
-                          paredit
-                          php-mode
-                          puppet-mode
-                          restclient
-                          rvm
-                          scala-mode
-                          smex
-                          sml-mode
-                          solarized-theme
-                          web-mode
-                          writegood-mode
-                          yaml-mode)
-  "Default packages")
+                                auto-complete
+                                autopair
+                                clojure-mode
+                                coffee-mode
+                                csharp-mode
+                                deft
+                                erlang
+                                feature-mode
+                                flycheck
+                                gist
+                                go-mode
+                                graphviz-dot-mode
+                                haml-mode
+                                haskell-mode
+                                htmlize
+                                magit
+                                markdown-mode
+                                marmalade
+                                nodejs-repl
+                                o-blog
+                                org
+                                paredit
+                                php-mode
+                                puppet-mode
+                                restclient
+                                rvm
+                                scala-mode
+                                smex
+                                sml-mode
+                                solarized-theme
+                                web-mode
+                                writegood-mode
+                                yaml-mode)
+        "Default packages")
 
 (defun abedra/packages-installed-p ()
   (loop for pkg in abedra/packages
@@ -75,22 +74,6 @@
 (delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
-
-(when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (set-face-attribute 'default nil
-                      :family "Inconsolata"
-                      :height 140
-                      :weight 'normal
-                      :width 'normal)
-
-  (when (functionp 'set-fontset-font)
-    (set-fontset-font "fontset-default"
-                      'unicode
-                      (font-spec :family "DejaVu Sans Mono"
-                                 :width 'normal
-                                 :size 12.4
-                                 :weight 'normal))))
 
 (setq-default indicate-empty-lines t)
 (when (not indicate-empty-lines)
