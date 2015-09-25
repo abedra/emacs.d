@@ -31,6 +31,7 @@
                           haml-mode
                           haskell-mode
                           htmlize
+                          idris-mode
                           magit
                           markdown-mode
                           marmalade
@@ -429,6 +430,8 @@
             (flyspell-mode t)))
 (setq markdown-command "pandoc --smart -f markdown -t html")
 (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+
+(setq idris-interpreter-path "/usr/local/bin/idris")
 
 (define-derived-mode cpsa-mode scheme-mode
   (setq mode-name "CPSA")

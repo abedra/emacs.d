@@ -82,6 +82,7 @@
                                 haml-mode
                                 haskell-mode
                                 htmlize
+                                idris-mode
                                 magit
                                 markdown-mode
                                 marmalade
@@ -753,6 +754,10 @@
                   (flyspell-mode t)))
       (setq markdown-command "pandoc --smart -f markdown -t html")
       (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+    #+end_src
+*** Idris Mode
+    #+begin_src emacs-lisp
+      (setq idris-interpreter-path "/usr/local/bin/idris")
     #+end_src
 *** CPSA Mode
     Enable support for Cryptographic Protocol Shapes Analyzer. This is
