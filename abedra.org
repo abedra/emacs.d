@@ -35,7 +35,7 @@
    and its dependencies work properly, which we get by requiring
    [[http://www.emacswiki.org/emacs/CommonLispForEmacs][Common Lisp for Emacs]].
    #+begin_src emacs-lisp
-     (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin" (getenv "PATH")))
+     (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/abedra/.cabal/bin" (getenv "PATH")))
      (setenv "GOPATH" (concat (getenv "HOME") "/go"))
      (require 'cl)
    #+end_src
