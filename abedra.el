@@ -429,7 +429,7 @@
             (writegood-mode t)
             (flyspell-mode t)))
 (setq markdown-command "pandoc --smart -f markdown -t html")
-(setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+(setq markdown-css-paths (expand-file-name "markdown.css" abedra/vendor-dir))
 
 (setq idris-interpreter-path "/usr/local/bin/idris")
 
