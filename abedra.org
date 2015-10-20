@@ -36,7 +36,8 @@
    [[http://www.emacswiki.org/emacs/CommonLispForEmacs][Common Lisp for Emacs]].
    #+begin_src emacs-lisp
      (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/abedra/.cabal/bin" (getenv "PATH")))
-     (setenv "GOPATH" (concat (getenv "HOME") "/go"))
+     (setenv "GOPATH" (concat (getenv "HOME") "/src/golang"))
+     (add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
      (require 'cl)
    #+end_src
 ** Package Management
@@ -77,6 +78,8 @@
                                 feature-mode
                                 flycheck
                                 gist
+                                go-autocomplete
+                                go-eldoc
                                 go-mode
                                 graphviz-dot-mode
                                 haml-mode
@@ -780,6 +783,23 @@
 
       (add-to-list 'auto-mode-alist '("\\.cpsa$" . cpsa-mode))
     #+end_src
+*** Go Mode
+    :PROPERTIES:
+    :CUSTOM_ID: go-mode
+    :END:
+
+    #+begin_src emacs-lisp
+      (require 'go-autocomplete)
+
+      (defun go-setup ()
+        (go-eldoc-setup)
+        (setq gofmt-command "goimports")
+        (add-hook 'before-save-hook 'gofmt-before-save)
+        (local-set-key (kbd "M-.") 'godef-jump))
+
+      (add-hook 'go-mode 'go-setup)
+    #+end_src
+
 *** Themes
     Load solarized-light if in a graphical environment. Load the
     wombat theme if in a terminal.

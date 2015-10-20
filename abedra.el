@@ -3,7 +3,8 @@
 (setq user-mail-address "aaron@aaronbedra.com")
 
 (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/abedra/.cabal/bin" (getenv "PATH")))
-(setenv "GOPATH" (concat (getenv "HOME") "/go"))
+(setenv "GOPATH" (concat (getenv "HOME") "/src/golang"))
+(add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
 (require 'cl)
 
 (load "package")
@@ -26,6 +27,8 @@
                           feature-mode
                           flycheck
                           gist
+                          go-autocomplete
+                          go-eldoc
                           go-mode
                           graphviz-dot-mode
                           haml-mode
@@ -449,6 +452,16 @@
   (setq font-lock-defaults '((cpsa-font-lock-keywords))))
 
 (add-to-list 'auto-mode-alist '("\\.cpsa$" . cpsa-mode))
+
+(require 'go-autocomplete)
+
+(defun go-setup ()
+  (go-eldoc-setup)
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (local-set-key (kbd "M-.") 'godef-jump))
+
+(add-hook 'go-mode 'go-setup)
 
 (if window-system
     (load-theme 'solarized-light t)
