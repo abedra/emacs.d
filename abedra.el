@@ -455,13 +455,11 @@
 
 (require 'go-autocomplete)
 
-(defun go-setup ()
-  (go-eldoc-setup)
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (local-set-key (kbd "M-.") 'godef-jump))
-
-(add-hook 'go-mode 'go-setup)
+(add-hook 'go-mode-hook
+          (lambda ()
+            (go-eldoc-setup)
+;            (setq gofmt-command "goimports")
+            (add-hook 'before-save-hook 'gofmt-before-save)))
 
 (if window-system
     (load-theme 'solarized-light t)
