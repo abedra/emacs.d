@@ -756,7 +756,7 @@
                   (writegood-mode t)
                   (flyspell-mode t)))
       (setq markdown-command "pandoc --smart -f markdown -t html")
-      (setq markdown-css-paths (expand-file-name "markdown.css" abedra/vendor-dir))
+      (setq markdown-css-paths `(,(expand-file-name "markdown.css" abedra/vendor-dir)))
     #+end_src
 *** Idris Mode
     #+begin_src emacs-lisp
