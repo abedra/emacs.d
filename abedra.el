@@ -458,7 +458,6 @@
 (add-hook 'go-mode-hook
           (lambda ()
             (go-eldoc-setup)
-;            (setq gofmt-command "goimports")
             (add-hook 'before-save-hook 'gofmt-before-save)))
 
 (if window-system

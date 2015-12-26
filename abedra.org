@@ -787,18 +787,14 @@
     :PROPERTIES:
     :CUSTOM_ID: go-mode
     :END:
-
     #+begin_src emacs-lisp
       (require 'go-autocomplete)
 
       (add-hook 'go-mode-hook
                 (lambda ()
                   (go-eldoc-setup)
-      ;            (setq gofmt-command "goimports")
                   (add-hook 'before-save-hook 'gofmt-before-save)))
-
     #+end_src
-
 *** Themes
     Load solarized-light if in a graphical environment. Load the
     wombat theme if in a terminal.
@@ -808,11 +804,15 @@
         (load-theme 'wombat t))
     #+end_src
 *** Color Codes
-#+begin_src emacs-lisp
-  (require 'ansi-color)
-  (defun colorize-compilation-buffer ()
-    (toggle-read-only)
-    (ansi-color-apply-on-region (point-min) (point-max))
-    (toggle-read-only))
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+    Running things like RSpec in compilation mode produces ansi color
+    codes that aren't properly dealt with by default. This takes care
+    of that and makes sure that the colors that are trying to be
+    presented are rendered correctly.
+    #+begin_src emacs-lisp
+      (require 'ansi-color)
+      (defun colorize-compilation-buffer ()
+        (toggle-read-only)
+        (ansi-color-apply-on-region (point-min) (point-max))
+        (toggle-read-only))
+      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 #+end_src
