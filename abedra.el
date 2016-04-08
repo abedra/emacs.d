@@ -24,6 +24,7 @@
                           csharp-mode
                           deft
                           erlang
+                          ess
                           feature-mode
                           flycheck
                           gist
