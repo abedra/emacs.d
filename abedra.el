@@ -14,13 +14,15 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-(setq package-archive-enable-alist '(("melpa" deft magit)))
+(setq package-archive-enable-alist '(("melpa" magit f)))
 
 (defvar abedra/packages '(ac-slime
                           auto-complete
                           autopair
                           ess
+                          f
                           feature-mode
+                          flycheck
                           go-autocomplete
                           go-eldoc
                           go-mode
@@ -31,6 +33,7 @@
                           markdown-mode
                           marmalade
                           org
+                          powerline
                           rvm
                           smex
                           solarized-theme
@@ -369,6 +372,47 @@
     (setq-default ispell-program-name "/usr/local/bin/aspell")
   (setq-default ispell-program-name "/usr/bin/aspell"))
 (setq-default ispell-list-command "list")
+
+(require 'f)
+
+(setq eshell-visual-commands
+      '("less" "tmux" "htop" "top" "bash" "zsh" "fish"))
+
+(setq eshell-visual-subcommands
+      '(("git" "log" "l" "diff" "show")))
+
+;; Prompt with a bit of help from http://www.emacswiki.org/emacs/EshellPrompt
+(defmacro with-face (str &rest properties)
+  `(propertize ,str 'face (list ,@properties)))
+
+(defun eshell/abbr-pwd ()
+  (let ((home (getenv "HOME"))
+        (path (eshell/pwd)))
+    (cond
+     ((string-equal home path) "~")
+     ((f-ancestor-of? home path) (concat "~/" (f-relative path home)))
+     (path))))
+
+(defun eshell/my-prompt ()
+  (let ((header-bg "#161616"))
+    (concat
+;     (with-face user-login-name :foreground "#dc322f")
+;     (with-face (concat "@" hostname) :foreground "#268bd2")
+;     " "
+     (with-face (eshell/abbr-pwd) :foreground "#008700")
+     (if (= (user-uid) 0)
+         (with-face "#" :foreground "red")
+       (with-face "$" :foreground "#2345ba"))
+     " ")))
+
+(setq eshell-prompt-function 'eshell/my-prompt)
+(setq eshell-highlight-prompt nil)
+(setq eshell-prompt-regexp "^[^#$\n]+[#$] ")
+
+(setq eshell-cmpl-cycle-completions nil)
+
+(require 'powerline)
+(powerline-default-theme)
 
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
