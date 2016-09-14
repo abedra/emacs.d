@@ -19,37 +19,20 @@
 (defvar abedra/packages '(ac-slime
                           auto-complete
                           autopair
-                          clojure-mode
-                          coffee-mode
-                          csharp-mode
-                          deft
-                          erlang
                           ess
                           feature-mode
-                          flycheck
-                          gist
                           go-autocomplete
                           go-eldoc
                           go-mode
                           graphviz-dot-mode
                           haml-mode
-                          haskell-mode
                           htmlize
-                          idris-mode
                           magit
                           markdown-mode
                           marmalade
-                          nodejs-repl
-                          o-blog
                           org
-                          paredit
-                          php-mode
-                          puppet-mode
-                          restclient
                           rvm
-                          scala-mode
                           smex
-                          sml-mode
                           solarized-theme
                           web-mode
                           writegood-mode
@@ -407,7 +390,7 @@
 (add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 
-(rvm-use-default)
+;; (rvm-use-default) ;; This is causing a 1.5 second slow down to startup, disabling for now
 
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
