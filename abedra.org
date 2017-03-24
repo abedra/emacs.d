@@ -294,18 +294,16 @@
    :END:
    First, create the global binding for =org-agenda=. This allows it
    to be quickly accessed. The agenda view requires that org files be
-   added to it. The =personal.org= and =groupon.org= files are my
-   daily files for review. I have a habit to plan the next day. I do
-   this by assessing my calendar and my list of todo items. If a todo
-   item is already scheduled or has a deadline, don't show it in the
-   global todo list.
+   added to it. The =personal.org= file is my daily file for review. I
+   have a habit to plan the next day. I do this by assessing my
+   calendar and my list of todo items. If a todo item is already
+   scheduled or has a deadline, don't show it in the global todo list.
    #+begin_src emacs-lisp
      (global-set-key (kbd "C-c a") 'org-agenda)
      (setq org-agenda-show-log t
            org-agenda-todo-ignore-scheduled t
            org-agenda-todo-ignore-deadlines t)
-     (setq org-agenda-files (list "~/Dropbox/org/personal.org"
-                                  "~/Dropbox/org/groupon.org"))
+     (setq org-agenda-files (list "~/Dropbox/org/personal.org"))
    #+end_src
 *** org-habit
    :PROPERTIES:
@@ -724,8 +722,15 @@
     :END:
 
     #+begin_src emacs-lisp
+      (setq web-mode-style-padding 2)
+      (setq web-mode-script-padding 2)
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)
+      (setq web-mode-code-indent-offset 2)
+
       (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
       (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+      (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
     #+end_src
 *** Ruby
     Turn on =autopair= for Ruby. Identify additional file
