@@ -4,6 +4,7 @@
 
 (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/abedra/.cabal/bin" (getenv "PATH")))
 (setenv "GOPATH" (concat (getenv "HOME") "/src/golang"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
 (add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
 (require 'cl)
 
@@ -19,6 +20,8 @@
 (defvar abedra/packages '(ac-slime
                           auto-complete
                           autopair
+                          cider
+                          clojure-mode
                           ess
                           f
                           feature-mode
@@ -33,6 +36,7 @@
                           markdown-mode
                           marmalade
                           org
+                          paredit
                           powerline
                           rvm
                           smex
