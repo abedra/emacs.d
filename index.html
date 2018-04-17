@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Aaron Bedra's Emacs 24 Configuration</title>
-<!-- 2015-12-25 Fri 21:28 -->
+<!-- 2018-04-17 Tue 10:12 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Aaron Bedra" />
@@ -190,6 +190,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-6-10">auto-complete</a></li>
 <li><a href="#sec-1-6-11">Indentation and buffer cleanup</a></li>
 <li><a href="#sec-1-6-12">flyspell</a></li>
+<li><a href="#sec-1-6-13">eshell</a></li>
+<li><a href="#sec-1-6-14">powerline</a></li>
 </ul>
 </li>
 <li><a href="#languages">Language Hooks</a>
@@ -236,8 +238,8 @@ be sure the right information is always present.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq user-full-name <span style="color: #2aa198;">"Aaron Bedra"</span>)
-(setq user-mail-address <span style="color: #2aa198;">"aaron@aaronbedra.com"</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> user-full-name <span style="color: #2aa198;">"Aaron Bedra"</span>)
+(<span style="color: #859900; font-weight: bold;">setq</span> user-mail-address <span style="color: #2aa198;">"aaron@aaronbedra.com"</span>)
 </pre>
 </div>
 </div>
@@ -263,6 +265,7 @@ and its dependencies work properly, which we get by requiring
 
 <pre class="src src-emacs-lisp">(setenv <span style="color: #2aa198;">"PATH"</span> (concat <span style="color: #2aa198;">"/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/abedra/.cabal/bin"</span> (getenv <span style="color: #2aa198;">"PATH"</span>)))
 (setenv <span style="color: #2aa198;">"GOPATH"</span> (concat (getenv <span style="color: #2aa198;">"HOME"</span>) <span style="color: #2aa198;">"/src/golang"</span>))
+(<span style="color: #859900; font-weight: bold;">setq</span> exec-path (append exec-path '(<span style="color: #2aa198;">"/usr/local/bin"</span>)))
 (add-to-list 'exec-path (concat (getenv <span style="color: #2aa198;">"GOPATH"</span>) <span style="color: #2aa198;">"/bin"</span>))
 (<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">cl</span>)
 </pre>
@@ -289,7 +292,7 @@ added.
 (add-to-list 'package-archives
              '(<span style="color: #2aa198;">"melpa"</span> . <span style="color: #2aa198;">"http://melpa.milkbox.net/packages/"</span>) t)
 
-(setq package-archive-enable-alist '((<span style="color: #2aa198;">"melpa"</span> deft magit)))
+(<span style="color: #859900; font-weight: bold;">setq</span> package-archive-enable-alist '((<span style="color: #2aa198;">"melpa"</span> magit f)))
 </pre>
 </div>
 </div>
@@ -305,36 +308,26 @@ This is the list of packages used in this configuration.
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">abedra/packages</span> '(ac-slime
                           auto-complete
                           autopair
+                          cider
                           clojure-mode
-                          coffee-mode
-                          csharp-mode
-                          deft
-                          erlang
+                          ess
+                          f
                           feature-mode
                           flycheck
-                          gist
                           go-autocomplete
                           go-eldoc
                           go-mode
                           graphviz-dot-mode
                           haml-mode
-                          haskell-mode
                           htmlize
-                          idris-mode
                           magit
                           markdown-mode
                           marmalade
-                          nodejs-repl
-                          o-blog
                           org
                           paredit
-                          php-mode
-                          puppet-mode
-                          restclient
+                          powerline
                           rvm
-                          scala-mode
                           smex
-                          sml-mode
                           solarized-theme
                           web-mode
                           writegood-mode
@@ -356,9 +349,9 @@ it.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">abedra/packages-installed-p</span> ()
-  (loop for pkg in abedra/packages
-        when (not (package-installed-p pkg)) do (return nil)
-        finally (return t)))
+  (<span style="color: #859900; font-weight: bold;">loop</span> for pkg in abedra/packages
+        when (not (package-installed-p pkg)) do (<span style="color: #859900; font-weight: bold;">return</span> nil)
+        finally (<span style="color: #859900; font-weight: bold;">return</span> t)))
 
 (<span style="color: #859900; font-weight: bold;">unless</span> (abedra/packages-installed-p)
   (message <span style="color: #2aa198;">"%s"</span> <span style="color: #2aa198;">"Refreshing package database..."</span>)
@@ -389,7 +382,7 @@ most of the time, set the default mode accordingly.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq inhibit-splash-screen t
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> inhibit-splash-screen t
       initial-scratch-message nil
       initial-major-mode 'org-mode)
 </pre>
@@ -433,7 +426,7 @@ we're all friends and can get along.
 
 <pre class="src src-emacs-lisp">(delete-selection-mode t)
 (transient-mark-mode t)
-(setq x-select-enable-clipboard t)
+(<span style="color: #859900; font-weight: bold;">setq</span> x-select-enable-clipboard t)
 </pre>
 </div>
 </div>
@@ -450,7 +443,7 @@ the left hand side.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq-default indicate-empty-lines t)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq-default</span> indicate-empty-lines t)
 (<span style="color: #859900; font-weight: bold;">when</span> (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
 </pre>
@@ -467,7 +460,7 @@ don't share that discomfort with others.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq tab-width 2
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> tab-width 2
       indent-tabs-mode nil)
 </pre>
 </div>
@@ -483,7 +476,7 @@ to a folder, never to be used, just turn the whole thing off.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq make-backup-files nil)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> make-backup-files nil)
 </pre>
 </div>
 </div>
@@ -537,7 +530,7 @@ person could go insane without that.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq echo-keystrokes 0.1
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> echo-keystrokes 0.1
       use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
@@ -588,7 +581,7 @@ blue. Finally, enable <code>flyspell-mode</code> and <code>writegood-mode</code>
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq org-log-done t
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> org-log-done t
       org-todo-keywords '((sequence <span style="color: #2aa198;">"TODO"</span> <span style="color: #2aa198;">"INPROGRESS"</span> <span style="color: #2aa198;">"DONE"</span>))
       org-todo-keyword-faces '((<span style="color: #2aa198;">"INPROGRESS"</span> . (<span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"blue"</span> <span style="color: #657b83; font-weight: bold;">:weight</span> bold))))
 (add-hook 'org-mode-hook
@@ -607,20 +600,18 @@ blue. Finally, enable <code>flyspell-mode</code> and <code>writegood-mode</code>
 <p>
 First, create the global binding for <code>org-agenda</code>. This allows it
 to be quickly accessed. The agenda view requires that org files be
-added to it. The <code>personal.org</code> and <code>groupon.org</code> files are my
-daily files for review. I have a habit to plan the next day. I do
-this by assessing my calendar and my list of todo items. If a todo
-item is already scheduled or has a deadline, don't show it in the
-global todo list.
+added to it. The <code>personal.org</code> file is my daily file for review. I
+have a habit to plan the next day. I do this by assessing my
+calendar and my list of todo items. If a todo item is already
+scheduled or has a deadline, don't show it in the global todo list.
 </p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #2aa198;">"C-c a"</span>) 'org-agenda)
-(setq org-agenda-show-log t
+(<span style="color: #859900; font-weight: bold;">setq</span> org-agenda-show-log t
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
-(setq org-agenda-files (list <span style="color: #2aa198;">"~/Dropbox/org/personal.org"</span>
-                             <span style="color: #2aa198;">"~/Dropbox/org/groupon.org"</span>))
+(<span style="color: #859900; font-weight: bold;">setq</span> org-agenda-files (list <span style="color: #2aa198;">"~/Dropbox/org/personal.org"</span>))
 </pre>
 </div>
 </div>
@@ -643,7 +634,7 @@ lot, so I start it at 80 characters.
 (<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">org-install</span>)
 (<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">org-habit</span>)
 (add-to-list 'org-modules <span style="color: #2aa198;">"org-habit"</span>)
-(setq org-habit-preceding-days 7
+(<span style="color: #859900; font-weight: bold;">setq</span> org-habit-preceding-days 7
       org-habit-following-days 1
       org-habit-graph-column 80
       org-habit-show-habits-only-for-today t
@@ -676,8 +667,8 @@ allows you to extract and execute code. It isn't aware of
    (js . t)
    (C . t)))
 
-(add-to-list 'org-src-lang-modes (quote (<span style="color: #2aa198;">"dot"</span>. graphviz-dot)))
-(add-to-list 'org-src-lang-modes (quote (<span style="color: #2aa198;">"plantuml"</span> . fundamental)))
+(add-to-list 'org-src-lang-modes (<span style="color: #859900; font-weight: bold;">quote</span> (<span style="color: #2aa198;">"dot"</span>. graphviz-dot)))
+(add-to-list 'org-src-lang-modes (<span style="color: #859900; font-weight: bold;">quote</span> (<span style="color: #2aa198;">"plantuml"</span> . fundamental)))
 (add-to-list 'org-babel-tangle-lang-exts '(<span style="color: #2aa198;">"clojure"</span> . <span style="color: #2aa198;">"clj"</span>))
 
 (<span style="color: #859900; font-weight: bold;">defvar</span> <span style="color: #268bd2;">org-babel-default-header-args:clojure</span>
@@ -689,7 +680,7 @@ allows you to extract and execute code. It isn't aware of
 
 (<span style="color: #859900; font-weight: bold;">provide</span> '<span style="color: #268bd2; font-weight: bold;">ob-clojure</span>)
 
-(setq org-src-fontify-natively t
+(<span style="color: #859900; font-weight: bold;">setq</span> org-src-fontify-natively t
       org-confirm-babel-evaluate nil)
 
 (add-hook 'org-babel-after-execute-hook (<span style="color: #859900; font-weight: bold;">lambda</span> ()
@@ -855,7 +846,7 @@ block.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq org-ditaa-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/ditaa0_9.jar"</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> org-ditaa-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/ditaa0_9.jar"</span>)
 </pre>
 </div>
 </div>
@@ -865,7 +856,7 @@ block.
 <div class="outline-text-4" id="text-plantuml">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq org-plantuml-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/plantuml.jar"</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> org-plantuml-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/plantuml.jar"</span>)
 </pre>
 </div>
 </div>
@@ -881,10 +872,10 @@ on as the default mode for <code>deft</code> and put the files in Dropbox.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq deft-directory <span style="color: #2aa198;">"~/Dropbox/deft"</span>)
-(setq deft-use-filename-as-title t)
-(setq deft-extension <span style="color: #2aa198;">"org"</span>)
-(setq deft-text-mode 'org-mode)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> deft-directory <span style="color: #2aa198;">"~/Dropbox/deft"</span>)
+(<span style="color: #859900; font-weight: bold;">setq</span> deft-use-filename-as-title t)
+(<span style="color: #859900; font-weight: bold;">setq</span> deft-extension <span style="color: #2aa198;">"org"</span>)
+(<span style="color: #859900; font-weight: bold;">setq</span> deft-text-mode 'org-mode)
 </pre>
 </div>
 </div>
@@ -897,7 +888,7 @@ on as the default mode for <code>deft</code> and put the files in Dropbox.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq smex-save-file (expand-file-name <span style="color: #2aa198;">".smex-items"</span> user-emacs-directory))
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> smex-save-file (expand-file-name <span style="color: #2aa198;">".smex-items"</span> user-emacs-directory))
 (smex-initialize)
 (global-set-key (kbd <span style="color: #2aa198;">"M-x"</span>) 'smex)
 (global-set-key (kbd <span style="color: #2aa198;">"M-X"</span>) 'smex-major-mode-commands)
@@ -915,7 +906,7 @@ mostly just turning it on.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(ido-mode t)
-(setq ido-enable-flex-matching t
+(<span style="color: #859900; font-weight: bold;">setq</span> ido-enable-flex-matching t
       ido-use-virtual-buffers t)
 </pre>
 </div>
@@ -929,7 +920,7 @@ Turn on column numbers.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq column-number-mode t)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> column-number-mode t)
 </pre>
 </div>
 </div>
@@ -943,8 +934,8 @@ them go away.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq backup-directory-alist `((<span style="color: #2aa198;">".*"</span> . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((<span style="color: #2aa198;">".*"</span> ,temporary-file-directory t)))
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> backup-directory-alist `((<span style="color: #2aa198;">".*"</span> . ,temporary-file-directory)))
+(<span style="color: #859900; font-weight: bold;">setq</span> auto-save-file-name-transforms `((<span style="color: #2aa198;">".*"</span> ,temporary-file-directory t)))
 </pre>
 </div>
 </div>
@@ -976,7 +967,7 @@ lisp program and <code>racket</code> as the default scheme program.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq lisp-modes '(lisp-mode
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> lisp-modes '(lisp-mode
                    emacs-lisp-mode
                    common-lisp-mode
                    scheme-mode
@@ -997,8 +988,8 @@ lisp program and <code>racket</code> as the default scheme program.
   (add-hook (intern (format <span style="color: #2aa198;">"%s-hook"</span> mode))
             #'abedra/engage-lisp-power))
 
-(setq inferior-lisp-program <span style="color: #2aa198;">"clisp"</span>)
-(setq scheme-program-name <span style="color: #2aa198;">"racket"</span>)
+(<span style="color: #859900; font-weight: bold;">setq</span> inferior-lisp-program <span style="color: #2aa198;">"clisp"</span>)
+(<span style="color: #859900; font-weight: bold;">setq</span> scheme-program-name <span style="color: #2aa198;">"racket"</span>)
 </pre>
 </div>
 </div>
@@ -1027,30 +1018,30 @@ directly from the emacs-starter-kit.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">untabify-buffer</span> ()
-  (interactive)
+  (<span style="color: #859900; font-weight: bold;">interactive</span>)
   (untabify (point-min) (point-max)))
 
 (<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">indent-buffer</span> ()
-  (interactive)
+  (<span style="color: #859900; font-weight: bold;">interactive</span>)
   (indent-region (point-min) (point-max)))
 
 (<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">cleanup-buffer</span> ()
   <span style="color: #2aa198;">"Perform a bunch of operations on the whitespace content of a buffer."</span>
-  (interactive)
+  (<span style="color: #859900; font-weight: bold;">interactive</span>)
   (indent-buffer)
   (untabify-buffer)
   (delete-trailing-whitespace))
 
 (<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">cleanup-region</span> (beg end)
   <span style="color: #2aa198;">"Remove tmux artifacts from region."</span>
-  (interactive <span style="color: #2aa198;">"r"</span>)
+  (<span style="color: #859900; font-weight: bold;">interactive</span> <span style="color: #2aa198;">"r"</span>)
   (<span style="color: #859900; font-weight: bold;">dolist</span> (re '(<span style="color: #2aa198;">"\\\\&#9474;\&#183;*\n"</span> <span style="color: #2aa198;">"\W*&#9474;\&#183;*"</span>))
     (replace-regexp re <span style="color: #2aa198;">""</span> nil beg end)))
 
 (global-set-key (kbd <span style="color: #2aa198;">"C-x M-t"</span>) 'cleanup-region)
 (global-set-key (kbd <span style="color: #2aa198;">"C-c n"</span>) 'cleanup-buffer)
 
-(setq-default show-trailing-whitespace t)
+(<span style="color: #859900; font-weight: bold;">setq-default</span> show-trailing-whitespace t)
 </pre>
 </div>
 </div>
@@ -1065,16 +1056,77 @@ location of the spell check program so it loads properly.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq flyspell-issue-welcome-flag nil)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> flyspell-issue-welcome-flag nil)
 (<span style="color: #859900; font-weight: bold;">if</span> (eq system-type 'darwin)
-    (setq-default ispell-program-name <span style="color: #2aa198;">"/usr/local/bin/aspell"</span>)
-  (setq-default ispell-program-name <span style="color: #2aa198;">"/usr/bin/aspell"</span>))
-(setq-default ispell-list-command <span style="color: #2aa198;">"list"</span>)
+    (<span style="color: #859900; font-weight: bold;">setq-default</span> ispell-program-name <span style="color: #2aa198;">"/usr/local/bin/aspell"</span>)
+  (<span style="color: #859900; font-weight: bold;">setq-default</span> ispell-program-name <span style="color: #2aa198;">"/usr/bin/aspell"</span>))
+(<span style="color: #859900; font-weight: bold;">setq-default</span> ispell-list-command <span style="color: #2aa198;">"list"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-13" class="outline-4">
+<h4 id="sec-1-6-13">eshell</h4>
+<div class="outline-text-4" id="text-1-6-13">
+<p>
+Customize eshell
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">f</span>)
+
+(<span style="color: #859900; font-weight: bold;">setq</span> eshell-visual-commands
+      '(<span style="color: #2aa198;">"less"</span> <span style="color: #2aa198;">"tmux"</span> <span style="color: #2aa198;">"htop"</span> <span style="color: #2aa198;">"top"</span> <span style="color: #2aa198;">"bash"</span> <span style="color: #2aa198;">"zsh"</span> <span style="color: #2aa198;">"fish"</span>))
+
+(<span style="color: #859900; font-weight: bold;">setq</span> eshell-visual-subcommands
+      '((<span style="color: #2aa198;">"git"</span> <span style="color: #2aa198;">"log"</span> <span style="color: #2aa198;">"l"</span> <span style="color: #2aa198;">"diff"</span> <span style="color: #2aa198;">"show"</span>)))
+
+<span style="color: #93a1a1;">;; </span><span style="color: #93a1a1;">Prompt with a bit of help from http://www.emacswiki.org/emacs/EshellPrompt</span>
+(<span style="color: #859900; font-weight: bold;">defmacro</span> <span style="color: #268bd2;">with-face</span> (str <span style="color: #b58900;">&amp;rest</span> properties)
+  `(propertize ,str 'face (list ,@properties)))
+
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">eshell/abbr-pwd</span> ()
+  (<span style="color: #859900; font-weight: bold;">let</span> ((home (getenv <span style="color: #2aa198;">"HOME"</span>))
+        (path (eshell/pwd)))
+    (<span style="color: #859900; font-weight: bold;">cond</span>
+     ((string-equal home path) <span style="color: #2aa198;">"~"</span>)
+     ((f-ancestor-of? home path) (concat <span style="color: #2aa198;">"~/"</span> (f-relative path home)))
+     (path))))
+
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">eshell/my-prompt</span> ()
+  (<span style="color: #859900; font-weight: bold;">let</span> ((header-bg <span style="color: #2aa198;">"#161616"</span>))
+    (concat
+<span style="color: #93a1a1;">;     </span><span style="color: #93a1a1;">(with-face user-login-name :foreground "#dc322f")</span>
+<span style="color: #93a1a1;">;     </span><span style="color: #93a1a1;">(with-face (concat "@" hostname) :foreground "#268bd2")</span>
+<span style="color: #93a1a1;">;     </span><span style="color: #93a1a1;">" "</span>
+     (<span style="color: #859900; font-weight: bold;">with-face</span> (eshell/abbr-pwd) <span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"#008700"</span>)
+     (<span style="color: #859900; font-weight: bold;">if</span> (= (user-uid) 0)
+         (<span style="color: #859900; font-weight: bold;">with-face</span> <span style="color: #2aa198;">"#"</span> <span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"red"</span>)
+       (<span style="color: #859900; font-weight: bold;">with-face</span> <span style="color: #2aa198;">"$"</span> <span style="color: #657b83; font-weight: bold;">:foreground</span> <span style="color: #2aa198;">"#2345ba"</span>))
+     <span style="color: #2aa198;">" "</span>)))
+
+(<span style="color: #859900; font-weight: bold;">setq</span> eshell-prompt-function 'eshell/my-prompt)
+(<span style="color: #859900; font-weight: bold;">setq</span> eshell-highlight-prompt nil)
+(<span style="color: #859900; font-weight: bold;">setq</span> eshell-prompt-regexp <span style="color: #2aa198;">"^[</span><span style="color: #b58900; font-weight: bold;">^</span><span style="color: #2aa198;">#$\n]+[#$] "</span>)
+
+(<span style="color: #859900; font-weight: bold;">setq</span> eshell-cmpl-cycle-completions nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-14" class="outline-4">
+<h4 id="sec-1-6-14">powerline</h4>
+<div class="outline-text-4" id="text-1-6-14">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">powerline</span>)
+(powerline-default-theme)
 </pre>
 </div>
 </div>
 </div>
 </div>
+
 <div id="outline-container-languages" class="outline-3">
 <h3 id="languages"><a id="sec-1-7" name="sec-1-7"></a>Language Hooks</h3>
 <div class="outline-text-3" id="text-languages">
@@ -1108,8 +1160,15 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.hbs$"</span> . web-mode))
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> web-mode-style-padding 2)
+(<span style="color: #859900; font-weight: bold;">setq</span> web-mode-script-padding 2)
+(<span style="color: #859900; font-weight: bold;">setq</span> web-mode-markup-indent-offset 2)
+(<span style="color: #859900; font-weight: bold;">setq</span> web-mode-css-indent-offset 2)
+(<span style="color: #859900; font-weight: bold;">setq</span> web-mode-code-indent-offset 2)
+
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.hbs$"</span> . web-mode))
 (add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.erb$"</span> . web-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.html$"</span> . web-mode))
 </pre>
 </div>
 </div>
@@ -1147,7 +1206,7 @@ Enable Ruby Version Manager mode and tell it to use the default Ruby.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(rvm-use-default)
+<pre class="src src-emacs-lisp"><span style="color: #93a1a1;">;; </span><span style="color: #93a1a1;">(rvm-use-default) ;; This is causing a 1.5 second slow down to startup, disabling for now</span>
 </pre>
 </div>
 </div>
@@ -1197,7 +1256,7 @@ modify a file.
 
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">js-custom</span> ()
   <span style="color: #2aa198;">"js-mode-hook"</span>
-  (setq js-indent-level 2))
+  (<span style="color: #859900; font-weight: bold;">setq</span> js-indent-level 2))
 
 (add-hook 'js-mode-hook 'js-custom)
 </pre>
@@ -1221,8 +1280,8 @@ custom css file to make it a little prettier.
             (visual-line-mode t)
             (writegood-mode t)
             (flyspell-mode t)))
-(setq markdown-command <span style="color: #2aa198;">"pandoc --smart -f markdown -t html"</span>)
-(setq markdown-css-paths `(,(expand-file-name <span style="color: #2aa198;">"markdown.css"</span> abedra/vendor-dir)))
+(<span style="color: #859900; font-weight: bold;">setq</span> markdown-command <span style="color: #2aa198;">"pandoc --smart -f markdown -t html"</span>)
+(<span style="color: #859900; font-weight: bold;">setq</span> markdown-css-paths `(,(expand-file-name <span style="color: #2aa198;">"markdown.css"</span> abedra/vendor-dir)))
 </pre>
 </div>
 </div>
@@ -1232,7 +1291,7 @@ custom css file to make it a little prettier.
 <div class="outline-text-4" id="text-1-7-10">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq idris-interpreter-path <span style="color: #2aa198;">"/usr/local/bin/idris"</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> idris-interpreter-path <span style="color: #2aa198;">"/usr/local/bin/idris"</span>)
 </pre>
 </div>
 </div>
@@ -1247,19 +1306,19 @@ a scheme-ish dialect, so it's a derived from <code>scheme-mode</code>.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">define-derived-mode</span> <span style="color: #268bd2;">cpsa-mode</span> scheme-mode
-  (setq mode-name <span style="color: #2aa198;">"CPSA"</span>)
-  (setq cpsa-keywords '(<span style="color: #2aa198;">"defmacro"</span> <span style="color: #2aa198;">"defprotocol"</span> <span style="color: #2aa198;">"defrole"</span> <span style="color: #2aa198;">"defskeleton"</span> <span style="color: #2aa198;">"defstrand"</span>))
-  (setq cpsa-functions '(<span style="color: #2aa198;">"cat"</span> <span style="color: #2aa198;">"hash"</span> <span style="color: #2aa198;">"enc"</span> <span style="color: #2aa198;">"string"</span> <span style="color: #2aa198;">"ltk"</span> <span style="color: #2aa198;">"privk"</span> <span style="color: #2aa198;">"pubk"</span> <span style="color: #2aa198;">"invk"</span> <span style="color: #2aa198;">"send"</span> <span style="color: #2aa198;">"recv"</span>  <span style="color: #2aa198;">"non-orig"</span> <span style="color: #2aa198;">"uniq-orig"</span> <span style="color: #2aa198;">"trace"</span> <span style="color: #2aa198;">"vars"</span>))
-  (setq cpsa-types '(<span style="color: #2aa198;">"skey"</span> <span style="color: #2aa198;">"akey"</span> <span style="color: #2aa198;">"name"</span> <span style="color: #2aa198;">"text"</span>))
-  (setq cpsa-keywords-regexp (regexp-opt cpsa-keywords 'words))
-  (setq cpsa-functions-regexp (regexp-opt cpsa-functions 'words))
-  (setq cpsa-types-regexp (regexp-opt cpsa-types 'words))
-  (setq cpsa-font-lock-keywords
+  (<span style="color: #859900; font-weight: bold;">setq</span> mode-name <span style="color: #2aa198;">"CPSA"</span>)
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-keywords '(<span style="color: #2aa198;">"defmacro"</span> <span style="color: #2aa198;">"defprotocol"</span> <span style="color: #2aa198;">"defrole"</span> <span style="color: #2aa198;">"defskeleton"</span> <span style="color: #2aa198;">"defstrand"</span>))
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-functions '(<span style="color: #2aa198;">"cat"</span> <span style="color: #2aa198;">"hash"</span> <span style="color: #2aa198;">"enc"</span> <span style="color: #2aa198;">"string"</span> <span style="color: #2aa198;">"ltk"</span> <span style="color: #2aa198;">"privk"</span> <span style="color: #2aa198;">"pubk"</span> <span style="color: #2aa198;">"invk"</span> <span style="color: #2aa198;">"send"</span> <span style="color: #2aa198;">"recv"</span>  <span style="color: #2aa198;">"non-orig"</span> <span style="color: #2aa198;">"uniq-orig"</span> <span style="color: #2aa198;">"trace"</span> <span style="color: #2aa198;">"vars"</span>))
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-types '(<span style="color: #2aa198;">"skey"</span> <span style="color: #2aa198;">"akey"</span> <span style="color: #2aa198;">"name"</span> <span style="color: #2aa198;">"text"</span>))
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-keywords-regexp (regexp-opt cpsa-keywords 'words))
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-functions-regexp (regexp-opt cpsa-functions 'words))
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-types-regexp (regexp-opt cpsa-types 'words))
+  (<span style="color: #859900; font-weight: bold;">setq</span> cpsa-font-lock-keywords
         `(
           (,cpsa-keywords-regexp . font-lock-keyword-face)
           (,cpsa-functions-regexp . font-lock-function-name-face)
           (,cpsa-types-regexp . font-lock-type-face)))
-  (setq font-lock-defaults '((cpsa-font-lock-keywords))))
+  (<span style="color: #859900; font-weight: bold;">setq</span> font-lock-defaults '((cpsa-font-lock-keywords))))
 
 (add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.cpsa$"</span> . cpsa-mode))
 </pre>
@@ -1323,8 +1382,8 @@ presented are rendered correctly.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Aaron Bedra</p>
-<p class="date">Created: 2015-12-25 Fri 21:28</p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="date">Created: 2018-04-17 Tue 10:12</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
