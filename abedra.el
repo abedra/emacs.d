@@ -115,8 +115,7 @@
 (setq org-agenda-show-log t
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
-(setq org-agenda-files (list "~/Dropbox/org/personal.org"
-                             "~/Dropbox/org/groupon.org"))
+(setq org-agenda-files (list "~/Dropbox/org/personal.org"))
 
 (require 'org)
 (require 'org-install)
@@ -422,8 +421,15 @@
 
 (add-to-list 'auto-mode-alist '("\\.gitconfig$" . conf-mode))
 
+(setq web-mode-style-padding 2)
+(setq web-mode-script-padding 2)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+
 (add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
 
 (add-hook 'ruby-mode-hook
           (lambda ()
