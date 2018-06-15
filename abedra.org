@@ -1,4 +1,4 @@
-#+TITLE: Aaron Bedra's Emacs 24 Configuration
+#+TITLE: Aaron Bedra's Emacs 26 Configuration
 #+AUTHOR: Aaron Bedra
 #+EMAIL: aaron@aaronbedra.com
 #+OPTIONS: toc:3 num:nil
