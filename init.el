@@ -15,7 +15,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode writegood-mode web-mode solarized-theme smex rvm powerline marmalade markdown-mode magit htmlize haml-mode graphviz-dot-mode go-eldoc go-autocomplete flycheck feature-mode f ess autopair ac-slime))))
+    (dockerfile-mode docker terraform-mode yaml-mode writegood-mode web-mode solarized-theme smex rvm powerline marmalade markdown-mode magit htmlize haml-mode graphviz-dot-mode go-eldoc go-autocomplete flycheck feature-mode f ess autopair ac-slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

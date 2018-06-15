@@ -1,4 +1,3 @@
-
 (setq user-full-name "Aaron Bedra")
 (setq user-mail-address "aaron@aaronbedra.com")
 
@@ -131,7 +130,7 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((sh . t)
+ '((shell . t)
    (ditaa . t)
    (plantuml . t)
    (dot . t)
