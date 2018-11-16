@@ -1,48 +1,37 @@
 (setq user-full-name "Aaron Bedra")
 (setq user-mail-address "aaron@aaronbedra.com")
 
-(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/abedra/.cabal/bin" (getenv "PATH")))
-(setenv "GOPATH" (concat (getenv "HOME") "/src/golang"))
+(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin" (getenv "PATH")))
 (setq exec-path (append exec-path '("/usr/local/bin")))
-(add-to-list 'exec-path (concat (getenv "GOPATH") "/bin"))
 (require 'cl)
 
 (load "package")
 (package-initialize)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-(setq package-archive-enable-alist '(("melpa" magit f)))
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (defvar abedra/packages '(ac-slime
-                          auto-complete
-                          autopair
-                          cider
-                          clojure-mode
-                          ess
-                          f
-                          feature-mode
-                          flycheck
-                          go-autocomplete
-                          go-eldoc
-                          go-mode
-                          graphviz-dot-mode
-                          haml-mode
-                          htmlize
-                          magit
-                          markdown-mode
-                          marmalade
-                          org
-                          paredit
-                          powerline
-                          rvm
-                          smex
-                          solarized-theme
-                          web-mode
-                          writegood-mode
-                          yaml-mode)
+			  auto-complete
+			  autopair
+			  cider
+			  clojure-mode
+			  elpy
+			  f
+			  feature-mode
+			  flycheck
+			  graphviz-dot-mode
+			  htmlize
+			  magit
+			  markdown-mode
+			  org
+			  paredit
+			  powerline
+			  rvm
+			  smex
+			  solarized-theme
+			  web-mode
+			  writegood-mode
+			  yaml-mode)
   "Default packages")
 
 (defun abedra/packages-installed-p ()
@@ -104,11 +93,11 @@
       org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE"))
       org-todo-keyword-faces '(("INPROGRESS" . (:foreground "blue" :weight bold))))
 (add-hook 'org-mode-hook
-          (lambda ()
-            (flyspell-mode)))
+	  (lambda ()
+	    (flyspell-mode)))
 (add-hook 'org-mode-hook
-          (lambda ()
-            (writegood-mode)))
+	  (lambda ()
+	    (writegood-mode)))
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-show-log t
@@ -162,143 +151,7 @@
 
 (add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
 
-(define-skeleton skel-org-block-elisp
-  "Insert an emacs-lisp block"
-  ""
-  "#+begin_src emacs-lisp\n"
-  _ - \n
-  "#+end_src\n")
-
-(define-abbrev org-mode-abbrev-table "elsrc" "" 'skel-org-block-elisp)
-
-(define-skeleton skel-org-block-js
-  "Insert a JavaScript block"
-  ""
-  "#+begin_src js\n"
-  _ - \n
-  "#+end_src\n")
-
-(define-abbrev org-mode-abbrev-table "jssrc" "" 'skel-org-block-js)
-
-(define-skeleton skel-header-block
-  "Creates my default header"
-  ""
-  "#+TITLE: " str "\n"
-  "#+AUTHOR: Aaron Bedra\n"
-  "#+EMAIL: aaron@aaronbedra.com\n"
-  "#+OPTIONS: toc:3 num:nil\n"
-  "#+STYLE: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" />\n")
-
-(define-abbrev org-mode-abbrev-table "sheader" "" 'skel-header-block)
-
-(define-skeleton skel-org-html-file-name
-  "Insert an HTML snippet to reference the file by name"
-  ""
-  "#+HTML: <strong><i>"str"</i></strong>")
-
-(define-abbrev org-mode-abbrev-table "fname" "" 'skel-org-html-file-name)
-
-(define-skeleton skel-ngx-config
-  "Template for NGINX module config file"
-  ""
-  "ngx_addon_name=ngx_http_" str  "_module\n"
-  "HTTP_MODULES=\"$HTTP_MODULES ngx_http_" str "_module\"\n"
-  "NGX_ADDON_SRCS=\"$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_" str "_module.c\"")
-
-(define-abbrev fundamental-mode-abbrev-table "ngxcnf" "" 'skel-ngx-config)
-
-(define-skeleton skel-ngx-module
-  "Template for NGINX modules"
-  ""
-  "#include <nginx.h>\n"
-  "#include <ngx_config.h>\n"
-  "#include <ngx_core.h>\n"
-  "#include <ngx_http.h>\n\n"
-
-  "ngx_module_t ngx_http_" str "_module;\n\n"
-
-  "static ngx_int_t\n"
-  "ngx_http_" str "_handler(ngx_http_request_t *r)\n"
-  "{\n"
-  >"if (r->main->internal) {\n"
-  >"return NGX_DECLINED;\n"
-  "}" > \n
-  \n
-  >"ngx_log_error(NGX_LOG_ERR, r->connection->log, 0, \"My new module\");\n\n"
-  > _ \n
-  >"return NGX_OK;\n"
-  "}" > "\n\n"
-
-  "static ngx_int_t\n"
-  "ngx_http_"str"_init(ngx_conf_t *cf)\n"
-  "{\n"
-  >"ngx_http_handler_pt *h;\n"
-  >"ngx_http_core_main_conf_t *cmcf;\n\n"
-
-  >"cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);\n"
-  >"h = ngx_array_push(&cmcf->phases[NGX_HTTP_ACCESS_PHASE].handlers);\n\n"
-
-  >"if (h == NULL) {\n"
-  >"return NGX_ERROR;\n"
-  "}" > \n
-  \n
-  >"*h = ngx_http_"str"_handler;\n\n"
-
-  >"return NGX_OK;\n"
-  "}" > \n
-  \n
-  "static ngx_http_module_t ngx_http_"str"_module_ctx = {\n"
-  >"NULL,                 /* preconfiguration */\n"
-  >"ngx_http_"str"_init,  /* postconfiguration */\n"
-  >"NULL,                 /* create main configuration */\n"
-  >"NULL,                 /* init main configuration */\n"
-  >"NULL,                 /* create server configuration */\n"
-  >"NULL,                 /* merge server configuration */\n"
-  >"NULL,                 /* create location configuration */\n"
-  >"NULL                  /* merge location configuration */\n"
-  "};" > \n
-  \n
-
-  "ngx_module_t ngx_http_"str"_module = {\n"
-  >"NGX_MODULE_V1,\n"
-  >"&ngx_http_"str"_module_ctx,  /* module context */\n"
-  >"NULL,                        /* module directives */\n"
-  >"NGX_HTTP_MODULE,             /* module type */\n"
-  >"NULL,                        /* init master */\n"
-  >"NULL,                        /* init module */\n"
-  >"NULL,                        /* init process */\n"
-  >"NULL,                        /* init thread */\n"
-  >"NULL,                        /* exit thread */\n"
-  >"NULL,                        /* exit process */\n"
-  >"NULL,                        /* exit master */\n"
-  >"NGX_MODULE_V1_PADDING\n"
-  "};" >)
-
-(require 'cc-mode)
-(define-abbrev c-mode-abbrev-table "ngxmod" "" 'skel-ngx-module)
-
-(define-skeleton skel-ngx-append-header
-  "Template for header appending function for NGINX modules"
-  ""
-  "static void append_header(ngx_http_request_t *r)\n"
-  "{\n"
-  > "ngx_table_elt_t *h;\n"
-  > "h = ngx_list_push(&r->headers_out.headers);\n"
-  > "h->hash = 1;\n"
-  > "ngx_str_set(&h->key, \"X-NGINX-Hello\");\n"
-  > "ngx_str_set(&h->value, \"Hello NGINX!\");\n"
-  "}\n")
-
-(define-abbrev c-mode-abbrev-table "ngxhdr" "" 'skel-ngx-append-header)
-
-(setq org-ditaa-jar-path "~/.emacs.d/vendor/ditaa0_9.jar")
-
 (setq org-plantuml-jar-path "~/.emacs.d/vendor/plantuml.jar")
-
-(setq deft-directory "~/Dropbox/deft")
-(setq deft-use-filename-as-title t)
-(setq deft-extension "org")
-(setq deft-text-mode 'org-mode)
 
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
 (smex-initialize)
@@ -389,7 +242,7 @@
 
 (defun eshell/abbr-pwd ()
   (let ((home (getenv "HOME"))
-        (path (eshell/pwd)))
+	(path (eshell/pwd)))
     (cond
      ((string-equal home path) "~")
      ((f-ancestor-of? home path) (concat "~/" (f-relative path home)))
@@ -398,12 +251,9 @@
 (defun eshell/my-prompt ()
   (let ((header-bg "#161616"))
     (concat
-;     (with-face user-login-name :foreground "#dc322f")
-;     (with-face (concat "@" hostname) :foreground "#268bd2")
-;     " "
      (with-face (eshell/abbr-pwd) :foreground "#008700")
      (if (= (user-uid) 0)
-         (with-face "#" :foreground "red")
+	 (with-face "#" :foreground "red")
        (with-face "$" :foreground "#2345ba"))
      " ")))
 
@@ -415,6 +265,8 @@
 
 (require 'powerline)
 (powerline-default-theme)
+
+(elpy-enable)
 
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
@@ -443,17 +295,8 @@
 (add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 
-;; (rvm-use-default) ;; This is causing a 1.5 second slow down to startup, disabling for now
-
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-
-(defun coffee-custom ()
-  "coffee-mode-hook"
-  (make-local-variable 'tab-width)
-  (set 'tab-width 2))
-
-(add-hook 'coffee-mode-hook 'coffee-custom)
 
 (defun js-custom ()
   "js-mode-hook"
@@ -470,32 +313,6 @@
             (flyspell-mode t)))
 (setq markdown-command "pandoc --smart -f markdown -t html")
 (setq markdown-css-paths `(,(expand-file-name "markdown.css" abedra/vendor-dir)))
-
-(setq idris-interpreter-path "/usr/local/bin/idris")
-
-(define-derived-mode cpsa-mode scheme-mode
-  (setq mode-name "CPSA")
-  (setq cpsa-keywords '("defmacro" "defprotocol" "defrole" "defskeleton" "defstrand"))
-  (setq cpsa-functions '("cat" "hash" "enc" "string" "ltk" "privk" "pubk" "invk" "send" "recv"  "non-orig" "uniq-orig" "trace" "vars"))
-  (setq cpsa-types '("skey" "akey" "name" "text"))
-  (setq cpsa-keywords-regexp (regexp-opt cpsa-keywords 'words))
-  (setq cpsa-functions-regexp (regexp-opt cpsa-functions 'words))
-  (setq cpsa-types-regexp (regexp-opt cpsa-types 'words))
-  (setq cpsa-font-lock-keywords
-        `(
-          (,cpsa-keywords-regexp . font-lock-keyword-face)
-          (,cpsa-functions-regexp . font-lock-function-name-face)
-          (,cpsa-types-regexp . font-lock-type-face)))
-  (setq font-lock-defaults '((cpsa-font-lock-keywords))))
-
-(add-to-list 'auto-mode-alist '("\\.cpsa$" . cpsa-mode))
-
-(require 'go-autocomplete)
-
-(add-hook 'go-mode-hook
-          (lambda ()
-            (go-eldoc-setup)
-            (add-hook 'before-save-hook 'gofmt-before-save)))
 
 (if window-system
     (load-theme 'solarized-light t)
