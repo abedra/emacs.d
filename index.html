@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-11-15 Thu 21:42 -->
+<!-- 2018-11-15 Thu 22:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Aaron Bedra's Emacs 26 Configuration</title>
@@ -235,7 +235,7 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org21551b0">Configuration</a>
+<li><a href="#org29f8f0d">Configuration</a>
 <ul>
 <li><a href="#user-info">User details</a></li>
 <li><a href="#environment">Environment</a></li>
@@ -268,20 +268,21 @@ for the JavaScript code in this tag.
 <li><a href="#org-abbrev">org-abbrev</a></li>
 </ul>
 </li>
-<li><a href="#org358ba29">Utilities</a>
+<li><a href="#org5e848bb">Utilities</a>
 <ul>
 <li><a href="#plantuml">plantuml</a></li>
-<li><a href="#orgdd38d23">Smex</a></li>
-<li><a href="#org791288d">Ido</a></li>
-<li><a href="#orgf3b81ad">Column number mode</a></li>
-<li><a href="#orgf493844">Temporary file management</a></li>
-<li><a href="#orgd447876">autopair-mode</a></li>
-<li><a href="#org3855acc">Power lisp</a></li>
-<li><a href="#orgb4a436d">auto-complete</a></li>
-<li><a href="#org5daff0a">Indentation and buffer cleanup</a></li>
-<li><a href="#org6d168ce">flyspell</a></li>
-<li><a href="#orgd987d88">eshell</a></li>
-<li><a href="#org06af748">powerline</a></li>
+<li><a href="#org4c00717">Smex</a></li>
+<li><a href="#org060d4c2">Ido</a></li>
+<li><a href="#orgffe7e7a">Column number mode</a></li>
+<li><a href="#orga91cfd8">Temporary file management</a></li>
+<li><a href="#orgeae5349">autopair-mode</a></li>
+<li><a href="#org12d3bdc">Power lisp</a></li>
+<li><a href="#orge1f8361">auto-complete</a></li>
+<li><a href="#orgc4733b3">Indentation and buffer cleanup</a></li>
+<li><a href="#org9f19895">flyspell</a></li>
+<li><a href="#org00b4ddf">eshell</a></li>
+<li><a href="#org979cce7">powerline</a></li>
+<li><a href="#gnus">gnus</a></li>
 </ul>
 </li>
 <li><a href="#languages">Language Hooks</a>
@@ -290,12 +291,12 @@ for the JavaScript code in this tag.
 <li><a href="#shell-script-mode">shell-script-mode</a></li>
 <li><a href="#conf-mode">conf-mode</a></li>
 <li><a href="#web-mode">Web Mode</a></li>
-<li><a href="#org22c2971">Ruby</a></li>
-<li><a href="#orgb102a1c">YAML</a></li>
-<li><a href="#orgf13228e">JavaScript Mode</a></li>
-<li><a href="#orgde9f3ac">Markdown Mode</a></li>
-<li><a href="#org316113e">Themes</a></li>
-<li><a href="#orgd90e220">Color Codes</a></li>
+<li><a href="#orgbaa61e5">Ruby</a></li>
+<li><a href="#org682bbf7">YAML</a></li>
+<li><a href="#orgd7a7166">JavaScript Mode</a></li>
+<li><a href="#orgf26f003">Markdown Mode</a></li>
+<li><a href="#orgb21d2ca">Themes</a></li>
+<li><a href="#orga5df090">Color Codes</a></li>
 </ul>
 </li>
 </ul>
@@ -304,9 +305,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org21551b0" class="outline-2">
-<h2 id="org21551b0">Configuration</h2>
-<div class="outline-text-2" id="text-org21551b0">
+<div id="outline-container-org29f8f0d" class="outline-2">
+<h2 id="org29f8f0d">Configuration</h2>
+<div class="outline-text-2" id="text-org29f8f0d">
 <p>
 Emacs is a special beast. Taming it takes a lot of care. In an
 attempt to document/explain/share with the rest of the world, this
@@ -314,8 +315,8 @@ is my attempt at configuration as a literate program. It also shows
 off the awesome power of org-mode, which makes all of this possible.
 </p>
 </div>
-<div id="outline-container-orgb4fbb0a" class="outline-3">
-<h3 id="user-info"><a id="orgb4fbb0a"></a>User details</h3>
+<div id="outline-container-org300cd3b" class="outline-3">
+<h3 id="user-info"><a id="org300cd3b"></a>User details</h3>
 <div class="outline-text-3" id="text-user-info">
 <p>
 Emacs will normally pick this up automatically, but this way I can
@@ -328,8 +329,8 @@ be sure the right information is always present.
 </div>
 </div>
 </div>
-<div id="outline-container-orgda3641e" class="outline-3">
-<h3 id="environment"><a id="orgda3641e"></a>Environment</h3>
+<div id="outline-container-orgd7a981e" class="outline-3">
+<h3 id="environment"><a id="orgd7a981e"></a>Environment</h3>
 <div class="outline-text-3" id="text-environment">
 <p>
 There are plenty of things installed outside of the default
@@ -352,8 +353,8 @@ and its dependencies work properly, which we get by requiring
 </div>
 </div>
 </div>
-<div id="outline-container-org851ffd5" class="outline-3">
-<h3 id="package-management"><a id="org851ffd5"></a>Package Management</h3>
+<div id="outline-container-org85c8737" class="outline-3">
+<h3 id="package-management"><a id="org85c8737"></a>Package Management</h3>
 <div class="outline-text-3" id="text-package-management">
 <p>
 Since Emacs 24, Emacs includes the Emacs Lisp Package Archive
@@ -371,8 +372,8 @@ added.
 </div>
 </div>
 
-<div id="outline-container-org50df775" class="outline-4">
-<h4 id="default-packages"><a id="org50df775"></a>Define default packages</h4>
+<div id="outline-container-org94bc0e9" class="outline-4">
+<h4 id="default-packages"><a id="org94bc0e9"></a>Define default packages</h4>
 <div class="outline-text-4" id="text-default-packages">
 <p>
 This is the list of packages used in this configuration.
@@ -405,8 +406,8 @@ This is the list of packages used in this configuration.
 </div>
 </div>
 </div>
-<div id="outline-container-org1f6fe25" class="outline-4">
-<h4 id="package-install"><a id="org1f6fe25"></a>Install default packages</h4>
+<div id="outline-container-orge142627" class="outline-4">
+<h4 id="package-install"><a id="orge142627"></a>Install default packages</h4>
 <div class="outline-text-4" id="text-package-install">
 <p>
 When Emacs boots, check to make sure all of the packages defined
@@ -430,13 +431,13 @@ it.
 </div>
 </div>
 </div>
-<div id="outline-container-org8390d7c" class="outline-3">
-<h3 id="start-up-options"><a id="org8390d7c"></a>Start-up options</h3>
+<div id="outline-container-org300efb9" class="outline-3">
+<h3 id="start-up-options"><a id="org300efb9"></a>Start-up options</h3>
 <div class="outline-text-3" id="text-start-up-options">
 </div>
 
-<div id="outline-container-org5559630" class="outline-4">
-<h4 id="splash-screen"><a id="org5559630"></a>Splash Screen</h4>
+<div id="outline-container-org09c7e67" class="outline-4">
+<h4 id="splash-screen"><a id="org09c7e67"></a>Splash Screen</h4>
 <div class="outline-text-4" id="text-splash-screen">
 <p>
 I want to skip straight to the scratch buffer. This turns off the
@@ -453,8 +454,8 @@ most of the time, set the default mode accordingly.
 </div>
 </div>
 </div>
-<div id="outline-container-orgcbf410c" class="outline-4">
-<h4 id="menu-bars"><a id="orgcbf410c"></a>Scroll bar, Tool bar, Menu bar</h4>
+<div id="outline-container-orgeb92e5a" class="outline-4">
+<h4 id="menu-bars"><a id="orgeb92e5a"></a>Scroll bar, Tool bar, Menu bar</h4>
 <div class="outline-text-4" id="text-menu-bars">
 <p>
 Emacs starts up with way too much enabled. Turn off the scroll bar,
@@ -469,8 +470,8 @@ on.
 </div>
 </div>
 </div>
-<div id="outline-container-org42a69d8" class="outline-4">
-<h4 id="regions"><a id="org42a69d8"></a>Marking text</h4>
+<div id="outline-container-org337616a" class="outline-4">
+<h4 id="regions"><a id="org337616a"></a>Marking text</h4>
 <div class="outline-text-4" id="text-regions">
 <p>
 There are some behaviors in Emacs that aren't intuitive. Since I
@@ -491,8 +492,8 @@ we're all friends and can get along.
 </div>
 </div>
 </div>
-<div id="outline-container-org458e1cf" class="outline-4">
-<h4 id="buffers"><a id="org458e1cf"></a>Display Settings</h4>
+<div id="outline-container-org1fcbca7" class="outline-4">
+<h4 id="buffers"><a id="org1fcbca7"></a>Display Settings</h4>
 <div class="outline-text-4" id="text-buffers">
 <p>
 I have some modifications to the default display. First, a
@@ -508,8 +509,8 @@ the left hand side.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb1b6417" class="outline-4">
-<h4 id="indentation"><a id="orgb1b6417"></a>Indentation</h4>
+<div id="outline-container-org3cf2343" class="outline-4">
+<h4 id="indentation"><a id="org3cf2343"></a>Indentation</h4>
 <div class="outline-text-4" id="text-indentation">
 <p>
 There's nothing I dislike more than tabs in my files. Make sure I
@@ -522,8 +523,8 @@ don't share that discomfort with others.
 </div>
 </div>
 </div>
-<div id="outline-container-org4d257ac" class="outline-4">
-<h4 id="backup-files"><a id="org4d257ac"></a>Backup files</h4>
+<div id="outline-container-orga87ac20" class="outline-4">
+<h4 id="backup-files"><a id="orga87ac20"></a>Backup files</h4>
 <div class="outline-text-4" id="text-backup-files">
 <p>
 Some people like to have them. I don't. Rather than pushing them
@@ -535,8 +536,8 @@ to a folder, never to be used, just turn the whole thing off.
 </div>
 </div>
 </div>
-<div id="outline-container-org71e05c6" class="outline-4">
-<h4 id="yes-and-no"><a id="org71e05c6"></a>Yes and No</h4>
+<div id="outline-container-orgc6b42ae" class="outline-4">
+<h4 id="yes-and-no"><a id="orgc6b42ae"></a>Yes and No</h4>
 <div class="outline-text-4" id="text-yes-and-no">
 <p>
 Nobody likes to have to type out the full yes or no when Emacs
@@ -548,8 +549,8 @@ asks. Which it does often. Make it one character.
 </div>
 </div>
 </div>
-<div id="outline-container-orgcdf1b97" class="outline-4">
-<h4 id="key-bindings"><a id="orgcdf1b97"></a>Key bindings</h4>
+<div id="outline-container-orga378639" class="outline-4">
+<h4 id="key-bindings"><a id="orga378639"></a>Key bindings</h4>
 <div class="outline-text-4" id="text-key-bindings">
 <p>
 Miscellaneous key binding stuff that doesn't fit anywhere else.
@@ -566,8 +567,8 @@ Miscellaneous key binding stuff that doesn't fit anywhere else.
 </div>
 </div>
 </div>
-<div id="outline-container-org52a6866" class="outline-4">
-<h4 id="misc"><a id="org52a6866"></a>Misc</h4>
+<div id="outline-container-org173310a" class="outline-4">
+<h4 id="misc"><a id="org173310a"></a>Misc</h4>
 <div class="outline-text-4" id="text-misc">
 <p>
 Turn down the time to echo keystrokes so I don't have to wait
@@ -586,8 +587,8 @@ person could go insane without that.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd7a4d92" class="outline-4">
-<h4 id="vendor-directory"><a id="orgd7a4d92"></a>Vendor directory</h4>
+<div id="outline-container-orgf236000" class="outline-4">
+<h4 id="vendor-directory"><a id="orgf236000"></a>Vendor directory</h4>
 <div class="outline-text-4" id="text-vendor-directory">
 <p>
 I have a couple of things that don't come from package
@@ -605,8 +606,8 @@ managers. This includes the directory for use.
 </div>
 </div>
 </div>
-<div id="outline-container-orgfce38c6" class="outline-3">
-<h3 id="org-mode"><a id="orgfce38c6"></a>Org</h3>
+<div id="outline-container-org99e4c12" class="outline-3">
+<h3 id="org-mode"><a id="org99e4c12"></a>Org</h3>
 <div class="outline-text-3" id="text-org-mode">
 <p>
 <code>org-mode</code> is one of the most powerful and amazing features of
@@ -615,8 +616,8 @@ code snippets in HTML. Just a few tweaks here to make the
 experience better.
 </p>
 </div>
-<div id="outline-container-org57b16eb" class="outline-4">
-<h4 id="org-mode-settings"><a id="org57b16eb"></a>Settings</h4>
+<div id="outline-container-orgd94aae4" class="outline-4">
+<h4 id="org-mode-settings"><a id="orgd94aae4"></a>Settings</h4>
 <div class="outline-text-4" id="text-org-mode-settings">
 <p>
 Enable logging when tasks are complete. This puts a time-stamp on
@@ -639,8 +640,8 @@ blue. Finally, enable <code>flyspell-mode</code> and <code>writegood-mode</code>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb6ae2f4" class="outline-4">
-<h4 id="org-agenda"><a id="orgb6ae2f4"></a>org-agenda</h4>
+<div id="outline-container-org7bf74e5" class="outline-4">
+<h4 id="org-agenda"><a id="org7bf74e5"></a>org-agenda</h4>
 <div class="outline-text-4" id="text-org-agenda">
 <p>
 First, create the global binding for <code>org-agenda</code>. This allows it
@@ -660,8 +661,8 @@ scheduled or has a deadline, don't show it in the global todo list.
 </div>
 </div>
 </div>
-<div id="outline-container-org296a2ab" class="outline-4">
-<h4 id="org-habit"><a id="org296a2ab"></a>org-habit</h4>
+<div id="outline-container-orgd7f1af4" class="outline-4">
+<h4 id="org-habit"><a id="orgd7f1af4"></a>org-habit</h4>
 <div class="outline-text-4" id="text-org-habit">
 <p>
 I have several habits that I also track. In order to take
@@ -686,8 +687,8 @@ lot, so I start it at 80 characters.
 </div>
 </div>
 </div>
-<div id="outline-container-org2aba276" class="outline-4">
-<h4 id="org-babel"><a id="org2aba276"></a>org-babel</h4>
+<div id="outline-container-orgc97260d" class="outline-4">
+<h4 id="org-babel"><a id="orgc97260d"></a>org-babel</h4>
 <div class="outline-text-4" id="text-org-babel">
 <p>
 <code>org-babel</code> is a feature inside of <code>org-mode</code> that makes this
@@ -734,8 +735,8 @@ allows you to extract and execute code. It isn't aware of
 </div>
 </div>
 </div>
-<div id="outline-container-org1feb54b" class="outline-4">
-<h4 id="org-abbrev"><a id="org1feb54b"></a>org-abbrev</h4>
+<div id="outline-container-org77ea620" class="outline-4">
+<h4 id="org-abbrev"><a id="org77ea620"></a>org-abbrev</h4>
 <div class="outline-text-4" id="text-org-abbrev">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #859900; font-weight: bold;">lambda</span> () (abbrev-mode 1)))
@@ -744,12 +745,12 @@ allows you to extract and execute code. It isn't aware of
 </div>
 </div>
 </div>
-<div id="outline-container-org358ba29" class="outline-3">
-<h3 id="org358ba29">Utilities</h3>
-<div class="outline-text-3" id="text-org358ba29">
+<div id="outline-container-org5e848bb" class="outline-3">
+<h3 id="org5e848bb">Utilities</h3>
+<div class="outline-text-3" id="text-org5e848bb">
 </div>
-<div id="outline-container-org7e5c544" class="outline-4">
-<h4 id="plantuml"><a id="org7e5c544"></a>plantuml</h4>
+<div id="outline-container-org19a1755" class="outline-4">
+<h4 id="plantuml"><a id="org19a1755"></a>plantuml</h4>
 <div class="outline-text-4" id="text-plantuml">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> org-plantuml-jar-path <span style="color: #2aa198;">"~/.emacs.d/vendor/plantuml.jar"</span>)
@@ -757,9 +758,9 @@ allows you to extract and execute code. It isn't aware of
 </div>
 </div>
 </div>
-<div id="outline-container-orgdd38d23" class="outline-4">
-<h4 id="orgdd38d23">Smex</h4>
-<div class="outline-text-4" id="text-orgdd38d23">
+<div id="outline-container-org4c00717" class="outline-4">
+<h4 id="org4c00717">Smex</h4>
+<div class="outline-text-4" id="text-org4c00717">
 <p>
 <code>smex</code> is a necessity. It provides history and searching on top of <code>M-x</code>.
 </p>
@@ -772,9 +773,9 @@ allows you to extract and execute code. It isn't aware of
 </div>
 </div>
 </div>
-<div id="outline-container-org791288d" class="outline-4">
-<h4 id="org791288d">Ido</h4>
-<div class="outline-text-4" id="text-org791288d">
+<div id="outline-container-org060d4c2" class="outline-4">
+<h4 id="org060d4c2">Ido</h4>
+<div class="outline-text-4" id="text-org060d4c2">
 <p>
 <code>Ido</code> mode provides a nice way to navigate the filesystem. This is
 mostly just turning it on.
@@ -787,9 +788,9 @@ mostly just turning it on.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf3b81ad" class="outline-4">
-<h4 id="orgf3b81ad">Column number mode</h4>
-<div class="outline-text-4" id="text-orgf3b81ad">
+<div id="outline-container-orgffe7e7a" class="outline-4">
+<h4 id="orgffe7e7a">Column number mode</h4>
+<div class="outline-text-4" id="text-orgffe7e7a">
 <p>
 Turn on column numbers.
 </p>
@@ -799,9 +800,9 @@ Turn on column numbers.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf493844" class="outline-4">
-<h4 id="orgf493844">Temporary file management</h4>
-<div class="outline-text-4" id="text-orgf493844">
+<div id="outline-container-orga91cfd8" class="outline-4">
+<h4 id="orga91cfd8">Temporary file management</h4>
+<div class="outline-text-4" id="text-orga91cfd8">
 <p>
 Deal with temporary files. I don't care about them and this makes
 them go away.
@@ -813,9 +814,9 @@ them go away.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd447876" class="outline-4">
-<h4 id="orgd447876">autopair-mode</h4>
-<div class="outline-text-4" id="text-orgd447876">
+<div id="outline-container-orgeae5349" class="outline-4">
+<h4 id="orgeae5349">autopair-mode</h4>
+<div class="outline-text-4" id="text-orgeae5349">
 <p>
 This makes sure that brace structures <code>(), [], {}</code>, etc. are closed
 as soon as the opening character is typed.
@@ -826,9 +827,9 @@ as soon as the opening character is typed.
 </div>
 </div>
 </div>
-<div id="outline-container-org3855acc" class="outline-4">
-<h4 id="org3855acc">Power lisp</h4>
-<div class="outline-text-4" id="text-org3855acc">
+<div id="outline-container-org12d3bdc" class="outline-4">
+<h4 id="org12d3bdc">Power lisp</h4>
+<div class="outline-text-4" id="text-org12d3bdc">
 <p>
 A bunch of tweaks for programming in LISP dialects. It defines the
 modes that I want to apply these hooks to. To add more just add
@@ -865,9 +866,9 @@ lisp program and <code>racket</code> as the default scheme program.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb4a436d" class="outline-4">
-<h4 id="orgb4a436d">auto-complete</h4>
-<div class="outline-text-4" id="text-orgb4a436d">
+<div id="outline-container-orge1f8361" class="outline-4">
+<h4 id="orge1f8361">auto-complete</h4>
+<div class="outline-text-4" id="text-orge1f8361">
 <p>
 Turn on auto complete.
 </p>
@@ -878,9 +879,9 @@ Turn on auto complete.
 </div>
 </div>
 </div>
-<div id="outline-container-org5daff0a" class="outline-4">
-<h4 id="org5daff0a">Indentation and buffer cleanup</h4>
-<div class="outline-text-4" id="text-org5daff0a">
+<div id="outline-container-orgc4733b3" class="outline-4">
+<h4 id="orgc4733b3">Indentation and buffer cleanup</h4>
+<div class="outline-text-4" id="text-orgc4733b3">
 <p>
 This re-indents, untabifies, and cleans up whitespace. It is stolen
 directly from the emacs-starter-kit.
@@ -915,9 +916,9 @@ directly from the emacs-starter-kit.
 </div>
 </div>
 </div>
-<div id="outline-container-org6d168ce" class="outline-4">
-<h4 id="org6d168ce">flyspell</h4>
-<div class="outline-text-4" id="text-org6d168ce">
+<div id="outline-container-org9f19895" class="outline-4">
+<h4 id="org9f19895">flyspell</h4>
+<div class="outline-text-4" id="text-org9f19895">
 <p>
 The built-in Emacs spell checker. Turn off the welcome flag because
 it is annoying and breaks on quite a few systems. Specify the
@@ -933,9 +934,9 @@ location of the spell check program so it loads properly.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd987d88" class="outline-4">
-<h4 id="orgd987d88">eshell</h4>
-<div class="outline-text-4" id="text-orgd987d88">
+<div id="outline-container-org00b4ddf" class="outline-4">
+<h4 id="org00b4ddf">eshell</h4>
+<div class="outline-text-4" id="text-org00b4ddf">
 <p>
 Customize eshell
 </p>
@@ -978,9 +979,9 @@ Customize eshell
 </div>
 </div>
 </div>
-<div id="outline-container-org06af748" class="outline-4">
-<h4 id="org06af748">powerline</h4>
-<div class="outline-text-4" id="text-org06af748">
+<div id="outline-container-org979cce7" class="outline-4">
+<h4 id="org979cce7">powerline</h4>
+<div class="outline-text-4" id="text-org979cce7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">require</span> '<span style="color: #268bd2; font-weight: bold;">powerline</span>)
 (powerline-default-theme)
@@ -988,15 +989,53 @@ Customize eshell
 </div>
 </div>
 </div>
-</div>
+<div id="outline-container-org3baf263" class="outline-4">
+<h4 id="gnus"><a id="org3baf263"></a>gnus</h4>
+<div class="outline-text-4" id="text-gnus">
+<p>
+TODO: grumpy rant about the state of GPG email
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> user-email-address <span style="color: #2aa198;">"aaron@aaronbedra.com"</span>
+      gnus-select-method
+      '(nnimap <span style="color: #2aa198;">"personal"</span>
+               (nnimap-address <span style="color: #2aa198;">"imap.gmail.com"</span>)
+               (nnimap-server-port 993)
+               (nnimap-stream ssl))
+      smtpmail-smtp-server <span style="color: #2aa198;">"smtp.gmail.com"</span>
+      smtpmail-smtp-service 587
+      message-send-mail-function 'smtpmail-send-it
+      nntp-authinfo-file <span style="color: #2aa198;">"~/.authinfo.gpg"</span>
+      gnus-ignored-newsgroups <span style="color: #2aa198;">"^to\\.</span><span style="color: #859900; font-weight: bold;">\\</span><span style="color: #b58900; font-weight: bold;">|</span><span style="color: #2aa198;">^[0-9. ]+</span><span style="color: #859900; font-weight: bold;">\\</span><span style="color: #b58900; font-weight: bold;">(</span><span style="color: #2aa198;"> </span><span style="color: #859900; font-weight: bold;">\\</span><span style="color: #b58900; font-weight: bold;">|</span><span style="color: #2aa198;">$</span><span style="color: #859900; font-weight: bold;">\\</span><span style="color: #b58900; font-weight: bold;">)</span><span style="color: #859900; font-weight: bold;">\\</span><span style="color: #b58900; font-weight: bold;">|</span><span style="color: #2aa198;">^[\"]\"[#'()]"</span>
+      gnus-agent nil
+      gnus-message-archive-group nil
+      gnus-fetch-old-headers 'some)
 
-<div id="outline-container-orgca5313d" class="outline-3">
-<h3 id="languages"><a id="orgca5313d"></a>Language Hooks</h3>
+(add-hook 'gnus-summary-mode-hook 'my-gnus-summary-keys)
+
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">my-gnus-summary-keys</span> ()
+  (local-set-key <span style="color: #2aa198;">"y"</span> 'gmail-archive)
+  (local-set-key <span style="color: #2aa198;">"$"</span> 'gmail-report-spam))
+
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">gmail-archive</span> ()
+  (<span style="color: #859900; font-weight: bold;">interactive</span>)
+  (gnus-summary-move-article nil <span style="color: #2aa198;">"nnimap+imap.gmail.com:[Gmail]/All Mail"</span>))
+
+(<span style="color: #859900; font-weight: bold;">defun</span> <span style="color: #268bd2;">gmail-report-spam</span> ()
+  (<span style="color: #859900; font-weight: bold;">interactive</span>)
+  (gnus-summary-move-article nil <span style="color: #2aa198;">"nnimap+imap.gmail.com:[Gmail]/Spam"</span>))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org29a3348" class="outline-3">
+<h3 id="languages"><a id="org29a3348"></a>Language Hooks</h3>
 <div class="outline-text-3" id="text-languages">
 </div>
 
-<div id="outline-container-orgcda83cb" class="outline-4">
-<h4 id="python"><a id="orgcda83cb"></a>Python</h4>
+<div id="outline-container-orgea05315" class="outline-4">
+<h4 id="python"><a id="orgea05315"></a>Python</h4>
 <div class="outline-text-4" id="text-python">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(elpy-enable)
@@ -1004,8 +1043,8 @@ Customize eshell
 </div>
 </div>
 </div>
-<div id="outline-container-org240d4e5" class="outline-4">
-<h4 id="shell-script-mode"><a id="org240d4e5"></a>shell-script-mode</h4>
+<div id="outline-container-org500f205" class="outline-4">
+<h4 id="shell-script-mode"><a id="org500f205"></a>shell-script-mode</h4>
 <div class="outline-text-4" id="text-shell-script-mode">
 <p>
 Use <code>shell-script-mode</code> for <code>.zsh</code> files.
@@ -1016,8 +1055,8 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 </div>
 </div>
 </div>
-<div id="outline-container-org7ec12ce" class="outline-4">
-<h4 id="conf-mode"><a id="org7ec12ce"></a>conf-mode</h4>
+<div id="outline-container-orge57facf" class="outline-4">
+<h4 id="conf-mode"><a id="orge57facf"></a>conf-mode</h4>
 <div class="outline-text-4" id="text-conf-mode">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #2aa198;">"\\.gitconfig$"</span> . conf-mode))
@@ -1025,8 +1064,8 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 </div>
 </div>
 </div>
-<div id="outline-container-org0f4f91c" class="outline-4">
-<h4 id="web-mode"><a id="org0f4f91c"></a>Web Mode</h4>
+<div id="outline-container-org87bb394" class="outline-4">
+<h4 id="web-mode"><a id="org87bb394"></a>Web Mode</h4>
 <div class="outline-text-4" id="text-web-mode">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #859900; font-weight: bold;">setq</span> web-mode-style-padding 2)
@@ -1042,9 +1081,9 @@ Use <code>shell-script-mode</code> for <code>.zsh</code> files.
 </div>
 </div>
 </div>
-<div id="outline-container-org22c2971" class="outline-4">
-<h4 id="org22c2971">Ruby</h4>
-<div class="outline-text-4" id="text-org22c2971">
+<div id="outline-container-orgbaa61e5" class="outline-4">
+<h4 id="orgbaa61e5">Ruby</h4>
+<div class="outline-text-4" id="text-orgbaa61e5">
 <p>
 Turn on <code>autopair</code> for Ruby. Identify additional file
 names/extensions that will trigger <code>ruby-mode</code> when loaded.
@@ -1066,9 +1105,9 @@ names/extensions that will trigger <code>ruby-mode</code> when loaded.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb102a1c" class="outline-4">
-<h4 id="orgb102a1c">YAML</h4>
-<div class="outline-text-4" id="text-orgb102a1c">
+<div id="outline-container-org682bbf7" class="outline-4">
+<h4 id="org682bbf7">YAML</h4>
+<div class="outline-text-4" id="text-org682bbf7">
 <p>
 Add additional file extensions that trigger <code>yaml-mode</code>.
 </p>
@@ -1079,9 +1118,9 @@ Add additional file extensions that trigger <code>yaml-mode</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf13228e" class="outline-4">
-<h4 id="orgf13228e">JavaScript Mode</h4>
-<div class="outline-text-4" id="text-orgf13228e">
+<div id="outline-container-orgd7a7166" class="outline-4">
+<h4 id="orgd7a7166">JavaScript Mode</h4>
+<div class="outline-text-4" id="text-orgd7a7166">
 <p>
 <code>js-mode</code> defaults to using 4 spaces for indentation. Change it to 2
 </p>
@@ -1095,9 +1134,9 @@ Add additional file extensions that trigger <code>yaml-mode</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-orgde9f3ac" class="outline-4">
-<h4 id="orgde9f3ac">Markdown Mode</h4>
-<div class="outline-text-4" id="text-orgde9f3ac">
+<div id="outline-container-orgf26f003" class="outline-4">
+<h4 id="orgf26f003">Markdown Mode</h4>
+<div class="outline-text-4" id="text-orgf26f003">
 <p>
 Enable Markdown mode and setup additional file extensions. Use
 pandoc to generate HTML previews from within the mode, and use a
@@ -1117,9 +1156,9 @@ custom css file to make it a little prettier.
 </div>
 </div>
 </div>
-<div id="outline-container-org316113e" class="outline-4">
-<h4 id="org316113e">Themes</h4>
-<div class="outline-text-4" id="text-org316113e">
+<div id="outline-container-orgb21d2ca" class="outline-4">
+<h4 id="orgb21d2ca">Themes</h4>
+<div class="outline-text-4" id="text-orgb21d2ca">
 <p>
 Load solarized-light if in a graphical environment. Load the
 wombat theme if in a terminal.
@@ -1132,9 +1171,9 @@ wombat theme if in a terminal.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd90e220" class="outline-4">
-<h4 id="orgd90e220">Color Codes</h4>
-<div class="outline-text-4" id="text-orgd90e220">
+<div id="outline-container-orga5df090" class="outline-4">
+<h4 id="orga5df090">Color Codes</h4>
+<div class="outline-text-4" id="text-orga5df090">
 <p>
 Running things like RSpec in compilation mode produces ansi color
 codes that aren't properly dealt with by default. This takes care
@@ -1157,7 +1196,7 @@ presented are rendered correctly.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Aaron Bedra</p>
-<p class="date">Created: 2018-11-15 Thu 21:42</p>
+<p class="date">Created: 2018-11-15 Thu 22:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
