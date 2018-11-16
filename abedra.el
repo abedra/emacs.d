@@ -266,6 +266,35 @@
 (require 'powerline)
 (powerline-default-theme)
 
+(setq user-email-address "aaron@aaronbedra.com"
+      gnus-select-method
+      '(nnimap "personal"
+	       (nnimap-address "imap.gmail.com")
+	       (nnimap-server-port 993)
+	       (nnimap-stream ssl))
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      message-send-mail-function 'smtpmail-send-it
+      nntp-authinfo-file "~/.authinfo.gpg"
+      gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
+      gnus-agent nil
+      gnus-message-archive-group nil
+      gnus-fetch-old-headers 'some)
+
+(add-hook 'gnus-summary-mode-hook 'my-gnus-summary-keys)
+
+(defun my-gnus-summary-keys ()
+  (local-set-key "y" 'gmail-archive)
+  (local-set-key "$" 'gmail-report-spam))
+
+(defun gmail-archive ()
+  (interactive)
+  (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/All Mail"))
+
+(defun gmail-report-spam ()
+  (interactive)
+  (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
+
 (elpy-enable)
 
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
