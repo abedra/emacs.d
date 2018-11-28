@@ -15,6 +15,9 @@
 			  autopair
 			  cider
 			  clojure-mode
+			  company-terraform
+			  docker
+			  dockerfile-mode
 			  elpy
 			  f
 			  feature-mode
@@ -29,6 +32,7 @@
 			  rvm
 			  smex
 			  solarized-theme
+			  terraform-mode
 			  web-mode
 			  writegood-mode
 			  yaml-mode)
@@ -294,6 +298,14 @@
 (defun gmail-report-spam ()
   (interactive)
   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
+
+(global-company-mode)
+
+(add-hook 'terraform-mode-hook
+	  (lambda ()
+	    (company-terraform-init)
+	    (autopair-mode)
+	    (auto-complete-mode)))
 
 (elpy-enable)
 

@@ -68,6 +68,9 @@
 				autopair
 				cider
 				clojure-mode
+				company-terraform
+				docker
+				dockerfile-mode
 				elpy
 				f
 				feature-mode
@@ -82,6 +85,7 @@
 				rvm
 				smex
 				solarized-theme
+				terraform-mode
 				web-mode
 				writegood-mode
 				yaml-mode)
@@ -570,10 +574,31 @@ TODO: grumpy rant about the state of GPG email
     (interactive)
     (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
 #+end_src
+*** company-mode
+    :PROPERTIES:
+    :CUSTOM_ID: company
+    :END:
+
+#+begin_src emacs-lisp
+  (global-company-mode)
+#+end_src
 ** Language Hooks
    :PROPERTIES:
    :CUSTOM_ID: languages
    :END:
+
+*** Terraform
+    :PROPERTIES:
+    :CUSTOM_ID: terraform
+    :END:
+
+#+begin_src emacs-lisp
+  (add-hook 'terraform-mode-hook
+	    (lambda ()
+	      (company-terraform-init)
+	      (autopair-mode)
+	      (auto-complete-mode)))
+#+end_src
 
 *** Python
     :PROPERTIES:
