@@ -68,6 +68,7 @@
 				autopair
 				cider
 				clojure-mode
+				company-irony
 				company-terraform
 				docker
 				dockerfile-mode
@@ -586,6 +587,22 @@ TODO: grumpy rant about the state of GPG email
    :PROPERTIES:
    :CUSTOM_ID: languages
    :END:
+*** C
+   :PROPERTIES:
+   :CUSTOM_ID: c
+   :END:
+
+#+begin_src emacs-lisp
+  (add-hook 'c-mode-hook
+	    (lambda ()
+	      (irony-mode)
+	      (company-mode)
+	      (add-to-list 'company-backends 'company-irony)))
+
+  (add-hook 'c-mode-common-hook
+	    (lambda ()
+	      (define-key c-mode-base-map (kbd "C-c C-k") 'compile)))
+#+end_src
 
 *** Terraform
     :PROPERTIES:

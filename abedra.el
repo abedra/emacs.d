@@ -15,6 +15,7 @@
 			  autopair
 			  cider
 			  clojure-mode
+			  company-irony
 			  company-terraform
 			  docker
 			  dockerfile-mode
@@ -300,6 +301,16 @@
   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
 
 (global-company-mode)
+
+(add-hook 'c-mode-hook
+	  (lambda ()
+	    (irony-mode)
+	    (company-mode)
+	    (add-to-list 'company-backends 'company-irony)))
+
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (define-key c-mode-base-map (kbd "C-c C-k") 'compile)))
 
 (add-hook 'terraform-mode-hook
 	  (lambda ()
