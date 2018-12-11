@@ -597,6 +597,7 @@ TODO: grumpy rant about the state of GPG email
 	    (lambda ()
 	      (irony-mode)
 	      (company-mode)
+	      (autopair-mode)
 	      (add-to-list 'company-backends 'company-irony)))
 
   (add-hook 'c-mode-common-hook
@@ -707,9 +708,10 @@ TODO: grumpy rant about the state of GPG email
     Load solarized-light if in a graphical environment. Load the
     wombat theme if in a terminal.
     #+begin_src emacs-lisp
-      (if window-system
-          (load-theme 'solarized-light t)
-        (load-theme 'wombat t))
+      (load-theme 'wombat t)
+      (when window-system
+	(set-default-font "Inconsolata")
+	(set-face-attribute 'default nil :height 160))
     #+end_src
 *** Color Codes
     Running things like RSpec in compilation mode produces ansi color

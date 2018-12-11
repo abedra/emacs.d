@@ -306,6 +306,7 @@
 	  (lambda ()
 	    (irony-mode)
 	    (company-mode)
+	    (autopair-mode)
 	    (add-to-list 'company-backends 'company-irony)))
 
 (add-hook 'c-mode-common-hook
@@ -366,9 +367,10 @@
 (setq markdown-command "pandoc --smart -f markdown -t html")
 (setq markdown-css-paths `(,(expand-file-name "markdown.css" abedra/vendor-dir)))
 
-(if window-system
-    (load-theme 'solarized-light t)
-  (load-theme 'wombat t))
+(load-theme 'wombat t)
+(when window-system
+  (set-default-font "Inconsolata")
+  (set-face-attribute 'default nil :height 160))
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
