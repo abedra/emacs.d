@@ -8,9 +8,10 @@
 (load "package")
 (package-initialize)
 (add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+	     '("melpa" . "https://melpa.org/packages/") t)
 
-(defvar abedra/packages '(ac-slime
+(defvar abedra/packages '(ansible
+			  ac-slime
 			  auto-complete
 			  autopair
 			  cider
@@ -369,8 +370,8 @@
 
 (load-theme 'wombat t)
 (when window-system
-  (set-default-font "Inconsolata")
-  (set-face-attribute 'default nil :height 160))
+  (set-default-font "JetBrains Mono")
+  (set-face-attribute 'default nil :height 130))
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
